@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import uk.co.senab.actionbarpulltorefresh.extras.actionbarsherlock.PullToRefreshAttacher;
@@ -11,13 +12,19 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.AdapterView.OnItemClickListener;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.czzz.base.DrawerBaseActivity;
@@ -27,6 +34,7 @@ import com.czzz.bookcircle.BookUtils;
 import com.czzz.bookcircle.task.AlarmTask;
 import com.czzz.data.UserBooksHelper;
 import com.czzz.demo.listadapter.NearbyBooksAdapter;
+import com.czzz.douban.DoubanBook;
 import com.czzz.utils.HttpListener;
 import com.manuelpeinado.fadingactionbar.FadingActionBarHelper;
 
@@ -55,14 +63,27 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
         
         initLayoutActionBar();
 	    
-	    /**
-         * Here we create a PullToRefreshAttacher manually without an Options instance.
-         * PullToRefreshAttacher will manually create one using default values.
-         */
         mPullToRefreshAttacher = PullToRefreshAttacher.get(this);
 
-        // Set the Refreshable View to be the ListView and the refresh listener to be this.
         mPullToRefreshAttacher.addRefreshableView(listView, this);
+        
+        listView.setOnItemClickListener(new OnItemClickListener(){
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int pos,
+					long id) {
+				// TODO Auto-generated method stub
+				BookCollection book = nearbyBooks.get(pos - 1);
+				Intent goIntent = new Intent(HomeActivity.this, BookInfoActivity.class);
+				goIntent.putExtra("collection", (Serializable)book);
+				goIntent.putExtra("from_explore", true);
+				goIntent.putExtra("full", true);
+				startActivity(goIntent);
+			}
+			
+        });
+        
+        obtainNearbyBooks();
 	}
 	
 	/* 初始化fadingActionbar，设置自定义view */
@@ -87,10 +108,6 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
 	    
 	    // fill the listview
 	    listView = (ListView) findViewById(android.R.id.list);
-//	    ArrayList<String> items = loadItems(R.raw.nyc_sites);
-//	    ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, items);
-//	    listView.setAdapter(adapter);
-	    obtainNearbyBooks();
 	}
 	
 	private void preCheck(){
@@ -148,7 +165,7 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
 			break;
 		}
 	}
-
+	
 	/**
 	 * fetch nearby Books
 	 */
@@ -213,51 +230,44 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
 		
 	}
 	
-	/**
-     * @return A list of Strings read from the specified resource
-     */
-    private ArrayList<String> loadItems(int rawResourceId) {
-        try {
-            ArrayList<String> countries = new ArrayList<String>();
-            InputStream inputStream = getResources().openRawResource(rawResourceId);
-            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-            String line;
-            while ((line = reader.readLine()) != null) {
-                countries.add(line);
-            }
-            reader.close();
-            return countries;
-        } catch (IOException e) {
-            return null;
-        }
-    }
-
+	private void refreshNewNearbyBooks(String respone){
+		Log.d("DEBUG", "" + respone);
+		ArrayList<BookCollection> newbooks = BookUtils.parseNearybyBooks(respone);
+		
+		if(newbooks != null){
+			nearbyBooks.addAll(0, newbooks);
+			
+			if(nearbyBooksAdapter == null)
+				nearbyBooksAdapter = new NearbyBooksAdapter(this, nearbyBooks);
+			
+			if(school_id == User.getInstance().school_id && statusId == 2){
+				UserBooksHelper cachehelper = UserBooksHelper.getInstance(this);
+				cachehelper.cacheNearbyCollections(newbooks);
+			}
+			
+			if(mPullToRefreshAttacher.isRefreshing()){
+				if(newbooks.size() > 0) 
+					Crouton.makeText(this, "加载了" + newbooks.size() + "本新藏书", Style.CONFIRM).show();
+				nearbyBooksAdapter.notifyDataSetChanged();
+//				listView.invalidate();
+//				listView.setAdapter(nearbyBooksAdapter);
+			}else{
+				listView.setAdapter(nearbyBooksAdapter);
+			}
+			
+		}
+		
+		if(mPullToRefreshAttacher.isRefreshing()){
+			mPullToRefreshAttacher.setRefreshComplete();
+		}
+	}
+	
+	
+	
 	@Override
 	public void onRefreshStarted(View view) {
 		// TODO Auto-generated method stub
-		/**
-         * Simulate Refresh with 4 seconds sleep
-         */
-        new AsyncTask<Void, Void, Void>() {
-
-            @Override
-            protected Void doInBackground(Void... params) {
-                try {
-                    Thread.sleep(5000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(Void result) {
-                super.onPostExecute(result);
-
-                // Notify PullToRefreshAttacher that the refresh has finished
-                mPullToRefreshAttacher.setRefreshComplete();
-            }
-        }.execute();
+		fetchNeabyNewBooks(nearbyBooks.get(0).cid, statusId);
 	}
 
 	/**
@@ -282,6 +292,9 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
 				nearbyBooks.clear();
 				updateNearbyBooks(response);
 				break;
+			case HttpListener.FETCH_NEARBY_BOOKS_NEW:
+				refreshNewNearbyBooks(response);
+				break;
 			}
 		}
 		
@@ -303,6 +316,6 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
 			super.onStart();
 		}
 		
-	};
+	}
 	
 }

@@ -68,19 +68,6 @@ public class BookUtils {
 		params.put("type", "" + status);
 		
 		NetHttpClient.get(url, params, responseHandler);
-		
-//		List<NameValuePair> params = new LinkedList<NameValuePair>();
-//		params.add(new BasicNameValuePair("school_id", "" + school_id));
-//		params.add(new BasicNameValuePair("start", "" + start));
-//		params.add(new BasicNameValuePair("type", "" + status));
-//		
-//		String paramString = URLEncodedUtils.format(params, "utf-8");
-//		
-//		url += paramString;
-//		
-//		Log.d("DEBUG", "url: " + url);
-//		
-//		new HttpDownloadAsyncTask(con, listener).execute(url);
 	}
 	
 	public static void fetchDoubanRecomm(String date, AsyncHttpResponseHandler responseHandler){
