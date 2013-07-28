@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="80dip"
+    android:orientation="vertical" >
+    
+     <EditText
+        android:id="@+id/edt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/image_header"
+        android:layout_gravity="bottom"
+        android:ems="10"
+        android:focusable="true"
+		android:focusableInTouchMode="true"
+        android:background="#ccffffff"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:paddingLeft="8dip"
+        android:paddingRight="8dip"
+        android:paddingTop="8dip"
+        android:paddingBottom="8dip"
+        android:layout_marginBottom="30dip"
+        android:hint="书名/关键字/ISBN" >
+    </EditText>
+
+</FrameLayout>
