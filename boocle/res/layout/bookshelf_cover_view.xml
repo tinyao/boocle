@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:whatever="http://schemas.android.com/apk/res/com.czzz.demo"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/book_cover_bg_selector"
+    android:paddingTop="13dip"
+    android:paddingLeft="4.5dip"
+    android:paddingBottom="1.5dip"
+    android:paddingRight="4dip"
+    android:gravity="center_horizontal" >
+
+        <com.czzz.view.RoundImageView
+            android:id="@+id/item_book_cover"
+            android:layout_width="70dip"
+            android:layout_height="95dip"
+            android:background="#00000000"
+            whatever:corner="4"
+            android:focusable="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/default_bookcover0" />
+
+        <ImageView
+            android:id="@+id/item_book_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/item_book_cover"
+            android:layout_alignRight="@id/item_book_cover"
+            android:layout_marginBottom="-12dip"
+            android:layout_marginRight="-6.5dip"
+            android:src="@drawable/bookcase_book_onsale" />
+        
+        <ProgressBar
+            android:visibility="gone"
+            android:id="@+id/item_book_loading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:paddingRight="4.5dip"
+            android:paddingBottom="4.5dip"
+            android:maxHeight="30dip"
+            android:maxWidth="30dip"
+            android:minHeight="30dip"
+            android:minWidth="30dip" />
+
+</RelativeLayout>

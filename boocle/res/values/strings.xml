@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">书圈</string>
+    <string name="app_title">书圈</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">设置</string>
+    <string name="title_activity_main">书巴士</string>
+    
+    <string name="notification_title">通知</string>
+    <string name="bookinfo_lable">书籍详情</string>
+    <string name="bookowners_lable">谁有这本书</string>
+    <string name="book_owners_fetching">正在认真查询...</string>
+    <string name="places_nearby">附近地点</string>
+    
+    <string name="books_nearby_label">附近书籍</string>
+    <string name="douban_recomm_label">豆瓣推荐</string>
+    <string name="nearby_users_label">同校书友</string>
+    <string name="nearby_books_label">同校藏书</string>
+    <string name="library_books_label">图书馆藏</string>
+    
+    <string name="book_collection_detail_lable">藏书信息</string>
+    <string name="user_following_label">关注的书友</string>
+    <string name="book_likes_label">喜欢的书</string>
+    
+    <string name="register_school_choose_label">选择你所在的高校</string>
+    
+    <string name="books_search_result">搜索结果</string>
+    <string name="scan_please_note">请将条码置于取景框内扫描</string>
+    
+    <string name="locating_place">正在获取当前位置...</string>
+    <string name="scan_book_isbn">扫描条形码</string>
+    
+    <string name="preferences_setting">偏好设置</string>
+    <string name="setting_about">关于书圈</string>
+    <string name="setting_about_feedback">意见反馈</string>
+    <string name="add_book">添加书籍</string>
+    <string name="change_passwd">修改密码</string>
+    <string name="major_textbook">专业教材</string>
+    <string name="major_textbook_spinner">选择教材范围</string>
+    <string name="douban_import">豆瓣导入</string>
+    <string name="detail_douban_reviews">查看豆瓣评论</string>
+    <string name="book_reviews_lable">书籍评论</string>
+    <string name="book_introduction">内容简介</string>
+    <string name="book_review_from">来自: %s</string>
+    
+    <string name="bind_socail">绑定社交帐号</string>
+    <string name="about_us_label">关于我们</string>
+    <string name="invite_friends_msg">书圈，让分享藏书成为一种乐趣！ 查看详情 http://bookcircle.us</string>
+        
+    <string name="open_source_license"><a href="#">开放源代码许可</a></string>
+    <string name="support_pay_us"><a href="#">捐助我们</a></string>
+    <string name="app_about_dev"><a href="#">关于我们</a></string>
+    <string name="app_about_web_page"><a href="http://bookcircle.us">应用主页</a></string>
+    <string name="app_about_dev_label">关于我们</string>
+    <string name="no_school_support"><a href="#">呃，没有找到？</a></string>
+    <string name="app_copyright">"书圈团队 版权所有\nCopyright © 2012-2013. All Rights Reserved."</string>
+
+    <string name="app_introduction">通过书圈，你可以\n
+管理自己的藏书，并分享给周边同学\n
+了解周边同学的读书喜好\n
+不再为寻觅旧书和处理旧书而发愁
+</string>
+    
+    <string name="not_support_gps">GPS provider not supported</string>
+    <string name="not_support_network">Network provider not supported</string>
+    <string name="use_fine_provider">Fine-grain provider</string>
+    <string name="use_both_providers">Both providers</string>
+    <string name="account_logout">注 销</string>
+    
+    <string name="pull_to_refresh_pull_label">下拉刷新</string>
+    <string name="pull_to_refresh_release_label">释放开始刷新</string>
+    <string name="pull_to_refresh_refreshing_label">加载中...</string>
+    <string name="pull_to_refresh_tap_label">点击刷新</string>
+    
+    <string name="email">电子邮箱</string>
+    <string name="password">密码</string>
+    <string name="password_again">确认密码</string>
+    <string name="login">登 录</string>
+    <string name="menu_register">注册</string>
+    <string name="register">注 册</string>
+    <string name="register_account">注册一下</string>
+    <string name="forget_passwd">呃，忘记密码了</string>
+    <string name="login_with_social">或者用其他帐号登录</string>
+    <string name="login_douban">用豆瓣帐号登录</string>
+    <string name="login_renren">用人人帐号登录</string>
+    <string name="login_weibo">用新浪微博帐号登录</string>
+    <string name="username">用户名</string>
+    <string name="next_step">下一步</string>
+    
+    <string name="tab_explore">探索</string>
+    <string name="tab_personal">个人</string>
+    <string name="tab_message">私信</string>
+    
+    <string name="key_search_lable">搜索书名/关键词</string>
+    <string name="add_book_hint">可以填写书评/心得/二手价格等信息...</string>
+    <string name="book_status_second">二手</string>
+    <string name="book_status_nonsecond">非二手</string>
+    <string name="book_status_all">全部</string>
+    <string name="book_filter_new">最新藏书</string>
+    <string name="book_filter_random">随便看看</string>
+    <string name="book_filter_label">筛选</string>
+    <string name="user_filter_most">藏书最多</string>
+    <string name="user_filter_random">随便看看</string>
+    <string name="user_filter_new">最新用户</string>
+    
+    <string name="fetching_reviews_loading">努力收集评论...</string>
+    <string name="ta_home_page">Ta的主页</string>
+    <string name="direct_msg_ta">私信Ta</string>
+    <string name="follow_ta">关注Ta</string>
+    
+    <string name="loading">加载中...</string>
+    <string name="loading_wait">请稍等...</string>
+    <string name="loading_ta_books">加载Ta的藏书...</string>
+    <string name="load_more">更多</string>
+    <string name="recognizing">识别中...</string>
+    <string name="refresh">刷新</string>
+    <string name="notification">通知</string>
+    <string name="ok">确定</string>
+    <string name="cancel">取消</string>
+    <string name="uh_no_school">呃，没找到 ?</string>
+    <string name="no_more">没有了...</string>
+    <string name="you_have_no_books">你还没有藏书-.-..</string>
+    <string name="ta_has_no_books">Ta还没有藏书..</string>
+    <string name="complete">完成</string>
+    <string name="share">分享</string>
+    <string name="edit">编辑</string>
+    <string name="search">搜索</string>
+    <string name="scan">扫描</string>
+    
+    <string name="book_reviews">书评</string>
+    
+    <string name="input_book_isbn">输入书名/关键词/ISBN</string>
+    <string name="submit_scaned_books">提交已扫描书籍</string>
+    <string name="back_to_my_school">回到我的学校...</string>
+    <string name="add_books">添加藏书</string>
+    <string name="followings">关注的人</string>
+    <string name="have_the_book">我读过这本书</string>
+    <string name="add_to_bookshelf">添加到书架</string>
+    <string name="edit_the_book">修改藏书信息</string>
+    <string name="delete_the_book">删除藏书</string>
+    <string name="delete_the_book_confirm">确定要删除这本藏书么？</string>
+    <string name="back_one_more">再按一次退出</string>
+    <string name="edit_success">修改成功</string>
+    <string name="send_msg_failed">发送失败</string>
+    <string name="register_ok">注册成功</string>
+    
+    <string name="change_avatar">修改头像</string>
+    <string name="origin_passwd">原密码</string>
+    <string name="new_passwd">新密码</string>
+    <string name="new_passwd_again">新密码确认</string>
+    
+    <string name="setting_dm_update">私信更新</string>
+    <string name="setting_dm_detect">检测新私信</string>
+    <string name="setting_dm_interval">间隔时间</string>
+    <string name="setting_search_">搜索相关</string>
+    <string name="setting_display">显示相关</string>
+    <string name="setting_display_tab">隐藏首页顶部标签</string>
+    <string name="setting_search_cover_display">搜索结果列表显示封面</string>
+    <string name="setting_search_cache_delete">清空搜索记录</string>
+    <string name="setting_pic_">图片相关</string>
+    <string name="setting_pic_high">获取高质量封面</string>
+    <string name="setting_pic_cache_delete">清除图片缓存</string>
+    <string name="setting_app_">应用相关</string>
+    <string name="setting_app_bc">关于书圈</string>
+    <string name="setting_app_feedback">意见反馈</string>
+    <string name="setting_app_version">版本更新</string>
+    <string name="setting_app_donate">捐助我们</string>
+    <string name="setting_app_recommand">推荐给好友</string>
+    
+    <string name="book_sub_title">副标</string>
+    <string name="book_author">作者</string>
+    <string name="book_trans">译者</string>
+    <string name="book_publisher">出版社</string>
+    <string name="book_pubdate">时间</string>
+    <string name="book_isbn">ISBN</string>
+    <string name="book_rating_label">人评价</string>
+    <string name="book_not_found">亲，木有找到这本书的相关介绍-.-#</string>
+    <string name="book_owner_not_found">还没有人有这本书...</string>
+    
+    <string name="hint_network_error">哎呀，网络连接好像有问题</string>
+    <string name="hint_feedback_ok">反馈提交成功</string>
+    <string name="hint_login_account_error">帐号或密码错误</string>
+    <string name="hint_logining">正在登录...</string>
+    <string name="hint_login_error">登录错误...</string>
+    <string name="hint_login_ok">登录成功</string>
+    <string name="hint_no_msg">木有新消息</string>
+    <string name="hint_passwd_not_same">密码不一致</string>
+    <string name="removing_images_cache">正在清除图片缓存...</string>
+    <string name="no_new_version">还没有新版本</string>
+    <string name="new_version">检测到新版本</string>
+    <string name="update_version_now">立即升级</string>
+    <string name="update_version_later">以后再说</string>
+    
+    <string name="profile_nick">昵称 :</string>
+    <string name="profile_school">学校 :</string>
+    <string name="profile_major">专业 :</string>
+    <string name="profile_gender">性别 :</string>
+    <string name="profile_desc">签名 :</string>
+    <string name="profile_web">网址 :</string>
+    <string name="profile_email">邮箱 :</string>
+    <string name="profile_empty">未填写</string>
+    <string name="profile_no_desc">这家伙，什么都没写</string>
+    <string name="profile_gender_girl">女</string>
+    <string name="profile_gender_boy">男</string>
+    
+    <string name="feedback_hint">真诚地感谢您，悉心体验我们的产品。请在这里留下您的问题或意见 !</string>
+    
+    <string name="isbn_not_match">呃，ISBN输入好像不对</string>
+    
+</resources>

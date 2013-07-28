@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_weight="1.0"
+    android:orientation="horizontal"
+    android:paddingBottom="8dip"
+    android:paddingLeft="5dip"
+    android:paddingTop="8dip" >
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dip"
+        android:layout_marginRight="4dip" >
+
+        <!-- android:src="@drawable/avatar_default" -->
+
+        <com.czzz.view.RoundImageView
+            android:id="@+id/book_owner_avatar"
+            android:layout_width="40dip"
+            android:layout_height="40dip"
+            android:layout_gravity="center_vertical" />
+
+        <TextView
+            android:id="@+id/book_owner_avatar_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:singleLine="true"
+            android:textColor="#fff"
+            android:textSize="20sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="-4dip"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/book_owner_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:text="name"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/book_owner_note"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:singleLine="true"
+            android:text="去年买的，九成新..."
+            android:textSize="13sp" />
+    </RelativeLayout>
+
+</LinearLayout>

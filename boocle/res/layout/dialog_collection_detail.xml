@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:animateLayoutChanges="true"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/post_book_bg"
+        android:orientation="horizontal"
+        android:paddingBottom="30dip"
+        android:paddingTop="15dip" >
+
+        <com.czzz.view.RoundImageView
+            android:id="@+id/collection_dialog_avatar"
+            android:layout_width="40dip"
+            android:layout_height="40dip"
+            android:layout_marginLeft="4dip"
+            android:layout_marginRight="8dip"
+            android:src="@drawable/avatar_default" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/dialog_collection_detail_bg"
+            android:orientation="vertical"
+            android:layout_marginRight="5dip" >
+            
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="bottom"
+                android:paddingLeft="8dip"
+                android:layout_marginTop="8dip"
+                android:orientation="horizontal" >
+
+                <RatingBar
+                    android:id="@+id/collection_dialog_rating"
+                    style="@style/bookRatingBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:isIndicator="true"
+                    android:numStars="5" />
+
+                <TextView
+                    android:id="@+id/collection_dialog_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dip"
+                    android:singleLine="true"
+                    android:text="\@tinyao"
+                    android:textColor="@color/general__shared__color_999999"
+                    android:textSize="12sp" />
+                
+                <TextView
+                    android:id="@+id/collection_dialog_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dip"
+                    android:singleLine="true"
+                    android:text="\@tinyao"
+                    android:textColor="@color/general__shared__color_999999"
+                    android:textSize="12sp" />
+            </LinearLayout>
+            
+            <TextView
+                android:id="@+id/collection_dialog_info"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="top"
+                android:maxLength="140"
+                android:text="以前听周杰伦的，是不看歌词不知他在唱啥，现在听萨顶顶，是你看着歌词也不知她在唱啥。"
+                android:minLines="2"
+                android:paddingBottom="10dip"
+                android:paddingLeft="8dip"
+                android:paddingRight="5dip"
+                android:textColor="#ff3d3d3b"
+                android:paddingTop="8dip"
+                android:textSize="16sp" />
+            
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="5dip"
+                android:layout_marginRight="5dip"
+                android:background="#ffded1cb" />
+
+            <LinearLayout
+                android:id="@+id/dialog_btn_lay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/collection_dialog_info"
+                android:orientation="horizontal" >
+
+                <Button
+                    android:id="@+id/collection_dialog_to_userpage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="42dip"
+                    android:layout_weight="1.0"
+                    android:background="@drawable/dialog_collection_btn_bg_left"
+                    android:text="@string/ta_home_page"
+                    android:textColor="#ff3d3d3b"
+                    android:textSize="15sp" />
+
+                <View
+                    android:layout_width="1px"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="5dip"
+                    android:layout_marginTop="5dip"
+                    android:background="#ffded1cb" />
+
+                <Button
+                    android:id="@+id/collection_dialog_to_msg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="42dip"
+                    android:layout_weight="1.0"
+                    android:background="@drawable/dialog_collection_btn_bg_right"
+                    android:text="@string/direct_msg_ta"
+                    android:textColor="#ff3d3d3b"
+                    android:textSize="15sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

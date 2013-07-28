@@ -1,0 +1,1 @@
+07-11 15:26:40.299: E/AndroidRuntime(13061): 	at com.czzz.demo.SlideFragment.onCreateView(SlideFragment.java:38)

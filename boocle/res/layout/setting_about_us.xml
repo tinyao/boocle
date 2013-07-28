@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginBottom="40dip"
+        android:scrollbars="none" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:layout_width="80dip"
+                android:layout_height="80dip"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="45dip"
+                android:background="@drawable/ic_launcher" />
+
+            <TextView
+                android:id="@+id/app_version"
+                style="@style/MMBriefText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dip"
+                android:text="书圈 v0.9.5 beta"
+                android:textSize="20sp" />
+
+            <View
+                style="@style/title_divider"
+                android:layout_width="fill_parent"
+                android:layout_marginBottom="25dip"
+                android:layout_marginLeft="20dip"
+                android:layout_marginRight="20dip"
+                android:layout_marginTop="60dip" />
+
+            <TextView
+                style="@style/MMBriefText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/app_introduction" />
+
+            <TextView
+                android:id="@+id/about_about_dev"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dip"
+                android:padding="10dip"
+                android:autoLink="all"
+                android:text="@string/app_about_dev"
+                android:background="@color/link_text_bg"
+                android:textSize="15sp" />
+            
+        </LinearLayout>
+    </ScrollView>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dip"
+            android:layout_marginTop="20dip"
+            android:text="读书之旅从身边开始"
+            android:textColor="#ff999999"
+            android:textSize="15.0dip"
+            android:visibility="gone" />
+
+        <TextView
+            style="@style/MMBriefText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:paddingBottom="5dip"
+            android:gravity="center"
+            android:text="@string/app_copyright"
+            android:textSize="12.0sp" />
+    </RelativeLayout>
+
+</RelativeLayout>

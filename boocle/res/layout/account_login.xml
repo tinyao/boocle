@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/welcome_wrapper"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    
+    <LinearLayout 
+    android:id="@+id/welcome_wrapper"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        style="@style/list_container"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="19dip"
+        android:layout_marginRight="19dip"
+        android:layout_marginTop="15.0dip"
+        android:orientation="vertical" >
+
+        <com.czzz.view.BEditText
+            android:id="@+id/user_account"
+            style="@style/login_input_item_top"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/email"
+            android:minHeight="45dip"
+            android:drawableRight="@drawable/searchbox_empty_icon"
+            android:imeOptions="actionNext"
+            android:inputType="textEmailAddress" />
+
+        <com.czzz.view.BEditText
+            android:id="@+id/user_account_password"
+            style="@style/login_input_item_bottom"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/password"
+            android:minHeight="45dip"
+            android:drawableRight="@drawable/searchbox_empty_icon"
+            android:password="true"
+            android:imeOptions="actionGo"
+            android:inputType="textEmailAddress" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/welcome_login"
+        style="@style/IgGreenButtonStyleLarge"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dip"
+        android:layout_marginRight="20dip"
+        android:layout_marginTop="15.0dip"
+        android:text="@string/login" />
+    
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dip"
+        android:layout_marginRight="20dip"
+        android:layout_marginTop="20dip"
+        android:gravity="right"
+        android:text="@string/forget_passwd"
+        android:textColor="@color/blue"
+        android:visibility="gone"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:textSize="15.0sp" />
+    
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dip"
+        android:layout_marginRight="20dip"
+        android:layout_marginTop="20dip"
+        android:gravity="center"
+        android:text="(为获得较好的体验，建议使用测试帐号登录)"
+        android:textColor="@color/low_dark"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:visibility="gone"
+        android:textSize="11.0sp" />
+    
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dip"
+        android:layout_marginRight="20dip"
+        android:layout_marginTop="20dip"
+        android:gravity="right"
+        android:text="呃，忘记密码了"
+        android:textColor="@color/blue"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:textSize="15.0sp" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dip"
+        android:layout_marginRight="20dip"
+        android:layout_marginTop="20.0dip"
+        android:text="@string/login_with_social"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:textSize="18.0sp" />
+
+    <LinearLayout
+        style="@style/list_container"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dip"
+        android:layout_marginRight="20dip"
+        android:layout_marginTop="15.0dip"
+        android:orientation="vertical" >
+
+        <LinearLayout 
+            android:id="@+id/login_douban"
+            android:layout_width="fill_parent"
+            android:layout_height="45.0dip"
+            android:orientation="horizontal"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="@drawable/background_view_rounded_top"
+            android:gravity="center_vertical">
+            
+            <ImageView 
+                android:layout_width="30dip"
+                android:layout_height="30dip"
+                android:src="@drawable/douban_icon"
+                android:layout_marginTop="5dip"
+                android:layout_marginBottom="5dip"
+                android:layout_marginLeft="10dip"/>
+            
+            <TextView 
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/login_douban"
+                android:layout_marginLeft="10dip"
+                android:focusable="false"
+                android:textAppearance="?android:textAppearanceMedium" 
+                android:ellipsize="end"
+                android:textColor="@color/text_color_selector"
+                android:singleLine="true"/>
+            
+        </LinearLayout>
+        
+        <LinearLayout 
+            android:id="@+id/login_renren"
+            android:layout_width="fill_parent"
+            android:layout_height="45.0dip"
+            android:orientation="horizontal"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="@drawable/background_view_rounded_middle"
+            android:gravity="center_vertical">
+            
+            <ImageView 
+                android:layout_width="27dip"
+                android:layout_height="28dip"
+                android:src="@drawable/renren_icon"
+                android:layout_marginTop="5dip"
+                android:layout_marginBottom="5dip"
+                android:layout_marginLeft="11dip"/>
+            
+            <TextView 
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/login_renren"
+                android:layout_marginLeft="12dip"
+                android:focusable="false"
+                android:textAppearance="?android:textAppearanceMedium" 
+                android:ellipsize="end"
+                android:textColor="@color/text_color_selector"
+                android:singleLine="true"/>
+            
+        </LinearLayout>
+        
+        <LinearLayout 
+            android:id="@+id/login_sina"
+            android:layout_width="fill_parent"
+            android:layout_height="45.0dip"
+            android:orientation="horizontal"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="@drawable/background_view_rounded_bottom"
+            android:gravity="center_vertical">
+            
+            <ImageView 
+                android:layout_width="30dip"
+                android:layout_height="30dip"
+                android:src="@drawable/sina_weibo"
+                android:layout_marginTop="5dip"
+                android:layout_marginBottom="5dip"
+                android:layout_marginLeft="10dip"/>
+            
+            <TextView 
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/login_weibo"
+                android:layout_marginLeft="10dip"
+                android:focusable="false"
+                android:textAppearance="?android:textAppearanceMedium" 
+                android:ellipsize="end"
+                android:textColor="@color/text_color_selector"
+                android:singleLine="true"/>
+            
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
+    
+</ScrollView>

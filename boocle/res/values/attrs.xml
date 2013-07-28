@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+
+    <declare-styleable name="UIButton">
+        <attr name="title_item" format="string" />
+        <attr name="subtitle_item" format="string" />
+        <attr name="image_item" format="integer" />
+    </declare-styleable>
+    
+    <declare-styleable name="RoundImageView">
+        <attr name="corner" format="integer"/>
+    </declare-styleable>
+
+</resources>

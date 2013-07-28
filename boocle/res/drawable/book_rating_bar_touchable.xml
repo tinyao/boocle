@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@android:id/background" android:drawable="@drawable/store_comment__shared__gray_star" />
+    <item android:id="@android:id/secondaryProgress" android:drawable="@drawable/store_comment__shared__gray_star" />
+    <item android:id="@android:id/progress" android:drawable="@drawable/store_comment__shared__blue_star" />
+</layer-list>

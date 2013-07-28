@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:paddingLeft="3dip"
+    android:paddingRight="3dip"
+    android:paddingBottom="3dip"
+    android:orientation="horizontal" >
+
+    <com.czzz.view.RoundImageView
+        android:id="@+id/home_books_nearby"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.0"
+        android:layout_marginRight="25dip"
+        android:adjustViewBounds="true"/>
+    
+    <com.czzz.view.RoundImageView
+        android:id="@+id/home_nearby_users"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.0"
+        android:layout_marginRight="25dip"
+        android:adjustViewBounds="true"/>
+    
+    <com.czzz.view.RoundImageView
+        android:id="@+id/home_douban_recomm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.0"
+        android:adjustViewBounds="true"/>
+    
+    
+    
+<!--     <LinearLayout -->
+<!--         android:layout_width="fill_parent" -->
+<!--         android:layout_height="wrap_content" -->
+<!--         android:orientation="horizontal" > -->
+
+<!--         <ImageView -->
+<!--             android:id="@+id/home_books_nearby" -->
+<!--             android:layout_width="0.0dip" -->
+<!--             android:layout_height="match_parent" -->
+<!--             android:layout_weight="1.0" -->
+<!--             android:adjustViewBounds="true" -->
+<!--             android:scaleType="centerCrop" -->
+<!--             android:contentDescription="附近藏书" -->
+<!--             android:src="@drawable/aa_all_app_banner" /> -->
+
+<!--         <ImageView -->
+<!--             android:id="@+id/home_textbooks_nearby" -->
+<!--             android:layout_width="0.0dip" -->
+<!--             android:layout_height="match_parent" -->
+<!--             android:layout_weight="1.0" -->
+<!--             android:adjustViewBounds="true" -->
+<!--             android:scaleType="centerCrop" -->
+<!--             android:contentDescription="教材课本" -->
+<!--             android:src="@drawable/aa_all_game_banner" /> -->
+<!--     </LinearLayout> -->
+
+<!--     <LinearLayout -->
+<!--         android:layout_width="fill_parent" -->
+<!--         android:layout_height="wrap_content" -->
+<!--         android:layout_marginTop="4dip" -->
+<!--         android:orientation="horizontal" > -->
+
+<!--         <ImageView -->
+<!--             android:id="@+id/home_nearby_users" -->
+<!--             android:layout_width="0.0dip" -->
+<!--             android:layout_height="wrap_content" -->
+<!--             android:layout_weight="1.0" -->
+<!--             android:adjustViewBounds="true" -->
+<!--             android:scaleType="centerCrop" -->
+<!--             android:contentDescription="附近用户" -->
+<!--             android:src="@drawable/aa_ranking_list" /> -->
+
+<!--         <ImageView -->
+<!--             android:id="@+id/home_douban_recomm" -->
+<!--             android:layout_width="0.0dip" -->
+<!--             android:layout_height="wrap_content" -->
+<!--             android:layout_weight="1.0" -->
+<!--             android:adjustViewBounds="true" -->
+<!--             android:scaleType="centerCrop" -->
+<!--             android:contentDescription="豆瓣推荐" -->
+<!--             android:src="@drawable/aa_app_must" /> -->
+<!--     </LinearLayout> -->
+
+</LinearLayout>

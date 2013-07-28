@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:animateLayoutChanges="true"
+    android:background="#60000000"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/post_book_bg"
+        android:orientation="horizontal"
+        android:paddingBottom="30dip"
+        android:paddingTop="8dip" >
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="2dip"
+            android:layout_marginRight="5dip" >
+
+            <!-- android:src="@drawable/avatar_default" -->
+
+            <com.czzz.view.RoundImageView
+                android:id="@+id/add_book_avatar"
+                android:layout_width="50dip"
+                android:layout_height="50dip"
+                android:layout_gravity="center_vertical" />
+
+            <TextView
+                android:id="@+id/add_book_avatar_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:singleLine="true"
+                android:textColor="#fff"
+                android:textSize="20sp" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dip"
+            android:background="@drawable/all_input"
+            android:orientation="vertical" >
+
+            <EditText
+                android:id="@+id/add_book_note"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:ellipsize="end"
+                android:gravity="top"
+                android:hint="@string/add_book_hint"
+                android:lines="5"
+                android:maxLength="140"
+                android:paddingBottom="10dip"
+                android:paddingLeft="8dip"
+                android:paddingRight="5dip"
+                android:paddingTop="8dip"
+                android:textSize="16sp" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1.0dip"
+                android:layout_marginLeft="5dip"
+                android:layout_marginRight="5dip"
+                android:background="#ffded1cb" />
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="14dip"
+                android:layout_marginTop="10dip" >
+
+                <RatingBar
+                    android:id="@+id/add_book_rating"
+                    style="@style/bookRatingBarEdt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dip"
+                    android:numStars="5"
+                    android:stepSize="0.5" />
+
+                <CheckBox
+                    android:id="@+id/add_book_status_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="8dip"
+                    android:button="@drawable/checkbox"
+                    android:text="@string/book_status_second" />
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/add_book_post_bottom"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="#00000000" />
+
+</LinearLayout>

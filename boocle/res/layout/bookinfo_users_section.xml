@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/details_section_bg"
+    android:orientation="vertical"
+    android:paddingTop="5.0dip" >
+
+    <TextView
+        android:id="@+id/detail_owners_title"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="6.0dip"
+        android:drawableRight="@drawable/right_arrow"
+        android:paddingLeft="10dip"
+        android:paddingRight="10dip"
+        android:text="@string/bookowners_lable"
+        android:textColor="#669900"
+        android:textSize="18.0sp"
+        android:textStyle="bold" />
+
+    <View
+        android:id="@+id/details_pack_separator"
+        android:layout_width="fill_parent"
+        android:layout_height="1.0px"
+        android:background="@color/details_panel_separator" />
+
+    <TextView
+        android:id="@+id/query_owner_hint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingRight="20dip"
+        android:paddingLeft="10dip"
+        android:paddingTop="10dip"
+        android:paddingBottom="10dip"
+        android:text="@string/book_owners_fetching"
+        android:textColor="#ff3d3d3b"
+        android:textSize="14.0sp" />
+
+    <com.czzz.view.MyGridView
+        android:id="@+id/owners_grid"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:listSelector="@drawable/abs__list_selector_holo_light"
+        android:gravity="center"
+        android:numColumns="2"
+        android:paddingLeft="5dip"
+        android:paddingRight="10dip"
+        android:stretchMode="columnWidth" />
+
+    <!-- <TextView -->
+    <!-- android:id="@+id/book_users_result" -->
+    <!-- android:layout_width="wrap_content" -->
+    <!-- android:layout_height="wrap_content" -->
+    <!-- android:paddingRight="20dip" -->
+    <!-- android:paddingTop="10dip" -->
+    <!-- android:paddingBottom="10dip" -->
+    <!-- android:text="\@tinyao、\@晨照、\@ibird" -->
+    <!-- android:textColor="#ff3d3d3b" -->
+    <!-- android:textSize="16.0sp" /> -->
+
+
+    <!-- <GridView -->
+    <!-- android:layout_width="fill_parent" -->
+    <!-- android:layout_height="wrap_content" -->
+    <!-- android:numColumns="2"></GridView> -->
+
+
+    <!-- <LinearLayout -->
+    <!-- android:layout_width="fill_parent" -->
+    <!-- android:layout_height="wrap_content" -->
+    <!-- android:orientation="horizontal" -->
+    <!-- android:paddingLeft="10dip" > -->
+
+
+    <!-- <LinearLayout -->
+    <!-- android:layout_width="0.0dip" -->
+    <!-- android:layout_height="wrap_content" -->
+    <!-- android:layout_weight="1.0" -->
+    <!-- android:orientation="horizontal" -->
+    <!-- android:paddingBottom="4dip" -->
+    <!-- android:paddingTop="4dip" > -->
+
+
+    <!-- <ImageView -->
+    <!-- android:id="@+id/book_user_avatar_1" -->
+    <!-- android:layout_width="40dip" -->
+    <!-- android:layout_height="40dip" -->
+    <!-- android:layout_gravity="center_vertical" -->
+    <!-- android:layout_marginLeft="4dip" -->
+    <!-- android:layout_marginRight="4dip" -->
+    <!-- android:src="@drawable/avatar_1" /> -->
+
+
+    <!-- <RelativeLayout -->
+    <!-- android:layout_width="fill_parent" -->
+    <!-- android:layout_height="match_parent" -->
+    <!-- android:layout_marginTop="-4dip" -->
+    <!-- android:orientation="vertical" > -->
+
+
+    <!-- <TextView -->
+    <!-- android:id="@+id/book_user_name_1" -->
+    <!-- android:layout_width="wrap_content" -->
+    <!-- android:layout_height="wrap_content" -->
+    <!-- android:singleLine="true" -->
+    <!-- android:text="name" -->
+    <!-- android:textSize="16sp" /> -->
+
+
+    <!-- <TextView -->
+    <!-- android:id="@+id/book_user_note_1" -->
+    <!-- android:layout_width="wrap_content" -->
+    <!-- android:layout_height="wrap_content" -->
+    <!-- android:layout_alignParentBottom="true" -->
+    <!-- android:singleLine="true" -->
+    <!-- android:text="去年买的，九成新..." -->
+    <!-- android:textSize="13sp" /> -->
+    <!-- </RelativeLayout> -->
+    <!-- </LinearLayout> -->
+
+
+    <!-- <View -->
+    <!-- android:layout_width="1.0dip" -->
+    <!-- android:layout_height="match_parent" -->
+    <!-- android:background="#ffded1cb" /> -->
+
+
+    <!-- <LinearLayout -->
+    <!-- android:layout_width="0.0dip" -->
+    <!-- android:layout_height="match_parent" -->
+    <!-- android:layout_weight="1.0" -->
+    <!-- android:orientation="horizontal" -->
+    <!-- android:paddingBottom="4dip" -->
+    <!-- android:paddingTop="4dip" > -->
+
+
+    <!-- <ImageView -->
+    <!-- android:id="@+id/book_user_avatar_2" -->
+    <!-- android:layout_width="40dip" -->
+    <!-- android:layout_height="40dip" -->
+    <!-- android:layout_gravity="center_vertical" -->
+    <!-- android:layout_marginLeft="4dip" -->
+    <!-- android:layout_marginRight="4dip" -->
+    <!-- android:src="@drawable/avatar_1" /> -->
+
+
+    <!-- <RelativeLayout -->
+    <!-- android:layout_width="fill_parent" -->
+    <!-- android:layout_height="match_parent" -->
+    <!-- android:layout_marginTop="-4dip" -->
+    <!-- android:orientation="vertical" > -->
+
+
+    <!-- <TextView -->
+    <!-- android:id="@+id/book_user_name_2" -->
+    <!-- android:layout_width="wrap_content" -->
+    <!-- android:layout_height="wrap_content" -->
+    <!-- android:singleLine="true" -->
+    <!-- android:text="name" -->
+    <!-- android:textSize="16sp" /> -->
+
+
+    <!-- <TextView -->
+    <!-- android:id="@+id/book_user_note_2" -->
+    <!-- android:layout_width="wrap_content" -->
+    <!-- android:layout_height="wrap_content" -->
+    <!-- android:layout_alignParentBottom="true" -->
+    <!-- android:singleLine="true" -->
+    <!-- android:text="去年买的，九成新..." -->
+    <!-- android:textSize="13sp" /> -->
+    <!-- </RelativeLayout> -->
+    <!-- </LinearLayout> -->
+    <!-- </LinearLayout> -->
+
+
+    <!-- <View -->
+    <!-- android:layout_width="fill_parent" -->
+    <!-- android:layout_height="1.0dip" -->
+    <!-- android:layout_marginLeft="10dip" -->
+    <!-- android:background="#ffded1cb" /> -->
+
+
+    <!-- <LinearLayout -->
+    <!-- android:layout_width="fill_parent" -->
+    <!-- android:layout_height="wrap_content" -->
+    <!-- android:orientation="horizontal" -->
+    <!-- android:paddingLeft="10dip" > -->
+
+
+    <!-- <LinearLayout -->
+    <!-- android:layout_width="0.0dip" -->
+    <!-- android:layout_height="wrap_content" -->
+    <!-- android:layout_weight="1.0" -->
+    <!-- android:orientation="horizontal" -->
+    <!-- android:paddingBottom="4dip" -->
+    <!-- android:paddingTop="4dip" > -->
+
+
+    <!-- <ImageView -->
+    <!-- android:id="@+id/book_user_avatar_3" -->
+    <!-- android:layout_width="40dip" -->
+    <!-- android:layout_height="40dip" -->
+    <!-- android:layout_gravity="center_vertical" -->
+    <!-- android:layout_marginLeft="4dip" -->
+    <!-- android:layout_marginRight="4dip" -->
+    <!-- android:src="@drawable/avatar_1" /> -->
+
+
+    <!-- <RelativeLayout -->
+    <!-- android:layout_width="fill_parent" -->
+    <!-- android:layout_height="match_parent" -->
+    <!-- android:layout_marginTop="-4dip" -->
+    <!-- android:orientation="vertical" > -->
+
+
+    <!-- <TextView -->
+    <!-- android:id="@+id/book_user_name_3" -->
+    <!-- android:layout_width="wrap_content" -->
+    <!-- android:layout_height="wrap_content" -->
+    <!-- android:singleLine="true" -->
+    <!-- android:text="name" -->
+    <!-- android:textSize="16sp" /> -->
+
+
+    <!-- <TextView -->
+    <!-- android:id="@+id/book_user_note_3" -->
+    <!-- android:layout_width="wrap_content" -->
+    <!-- android:layout_height="wrap_content" -->
+    <!-- android:layout_alignParentBottom="true" -->
+    <!-- android:singleLine="true" -->
+    <!-- android:text="去年买的，九成新..." -->
+    <!-- android:textSize="13sp" /> -->
+    <!-- </RelativeLayout> -->
+    <!-- </LinearLayout> -->
+
+
+    <!-- <View -->
+    <!-- android:layout_width="1.0dip" -->
+    <!-- android:layout_height="match_parent" -->
+    <!-- android:background="#ffded1cb" /> -->
+
+
+    <!-- <LinearLayout -->
+    <!-- android:layout_width="0.0dip" -->
+    <!-- android:layout_height="wrap_content" -->
+    <!-- android:layout_weight="1.0" -->
+    <!-- android:orientation="horizontal" -->
+    <!-- android:paddingBottom="4dip" -->
+    <!-- android:paddingTop="4dip" > -->
+
+
+    <!-- <ImageView -->
+    <!-- android:id="@+id/book_user_avatar_4" -->
+    <!-- android:layout_width="40dip" -->
+    <!-- android:layout_height="40dip" -->
+    <!-- android:layout_gravity="center_vertical" -->
+    <!-- android:layout_marginLeft="4dip" -->
+    <!-- android:layout_marginRight="4dip" -->
+    <!-- android:src="@drawable/avatar_1" /> -->
+
+
+    <!-- <RelativeLayout -->
+    <!-- android:layout_width="fill_parent" -->
+    <!-- android:layout_height="match_parent" -->
+    <!-- android:layout_marginTop="-4dip" -->
+    <!-- android:orientation="vertical" > -->
+
+
+    <!-- <TextView -->
+    <!-- android:id="@+id/book_user_name_4" -->
+    <!-- android:layout_width="wrap_content" -->
+    <!-- android:layout_height="wrap_content" -->
+    <!-- android:singleLine="true" -->
+    <!-- android:text="name" -->
+    <!-- android:textSize="16sp" /> -->
+
+
+    <!-- <TextView -->
+    <!-- android:id="@+id/book_user_note_4" -->
+    <!-- android:layout_width="wrap_content" -->
+    <!-- android:layout_height="wrap_content" -->
+    <!-- android:layout_alignParentBottom="true" -->
+    <!-- android:singleLine="true" -->
+    <!-- android:text="去年买的，九成新..." -->
+    <!-- android:textSize="13sp" /> -->
+    <!-- </RelativeLayout> -->
+    <!-- </LinearLayout> -->
+    <!-- </LinearLayout> -->
+
+</LinearLayout>

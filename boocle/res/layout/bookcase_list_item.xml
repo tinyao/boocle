@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bookcase_bg"
+    android:orientation="horizontal" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:baselineAligned="false"
+        android:gravity="bottom"
+        android:paddingBottom="1dip" >
+
+
+        <com.czzz.view.ShelfCoverView
+            android:id="@+id/item_book_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_weight="1.0"/>
+        
+        <com.czzz.view.ShelfCoverView
+            android:id="@+id/item_book_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_weight="1.0"/>
+        
+        <com.czzz.view.ShelfCoverView
+            android:id="@+id/item_book_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_weight="1.0"/>
+        
+        <!-- <RelativeLayout
+            android:id="@+id/book_1_bg"
+            android:layout_width="0.0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal" >
+
+            <ImageButton
+                android:id="@+id/book_1"
+                android:layout_width="70dip"
+                android:layout_height="95dip"
+                android:background="#00000000"
+                android:scaleType="fitXY"
+                android:src="@drawable/book_3" />
+
+            <ImageView
+                android:id="@+id/online_flag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/book_1"
+                android:layout_alignRight="@id/book_1"
+                android:layout_marginBottom="-12dip"
+                android:layout_marginRight="-6.5dip"
+                android:src="@drawable/bookcase_book_online" />
+        </RelativeLayout> -->
+
+        <!-- <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal" >
+
+            <RelativeLayout
+                android:id="@+id/book_2_bg"
+                android:layout_width="0.0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal" >
+
+                <ImageButton
+                    android:id="@+id/book_2"
+                    android:layout_width="70dip"
+                    android:layout_height="95dip"
+                    android:background="#00000000"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/book_3" />
+
+                <ImageView
+                    android:id="@+id/online_flag"
+                    android:layout_width="48.0dip"
+                    android:layout_height="48.0dip"
+                    android:layout_alignBottom="@id/book_2"
+                    android:layout_alignRight="@id/book_2"
+                    android:layout_marginBottom="-12dip"
+                    android:layout_marginRight="-6.5dip"
+                    android:src="@drawable/bookcase_book_online" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0.0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal" >
+
+            <RelativeLayout
+                android:id="@+id/book_3_bg"
+                android:layout_width="0.0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal" >
+
+                <ImageButton
+                    android:id="@+id/book_3"
+                    android:layout_width="70dip"
+                    android:layout_height="95dip"
+                    android:background="#00000000"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/book_3" />
+
+                <ImageView
+                    android:id="@+id/online_flag"
+                    android:layout_width="48.0dip"
+                    android:layout_height="48.0dip"
+                    android:layout_alignBottom="@id/book_3"
+                    android:layout_alignRight="@id/book_3"
+                    android:layout_marginBottom="-12dip"
+                    android:layout_marginRight="-6.5dip"
+                    android:src="@drawable/bookcase_book_online" />
+            </RelativeLayout>
+        </LinearLayout> -->
+    </LinearLayout>
+
+</LinearLayout>

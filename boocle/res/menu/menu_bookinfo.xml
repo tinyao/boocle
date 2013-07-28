@@ -1,0 +1,41 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/menu_item_share_action_provider_action_bar"
+        android:icon="@drawable/social_share"
+        android:showAsAction="always"
+        android:title="@string/share"/>
+    
+    <item
+        android:id="@+id/menu_add_book"
+        android:icon="@drawable/ic_action_adding_book"
+        android:showAsAction="always"
+        android:title="@string/have_the_book"/>
+    <item
+        android:id="@+id/menu_edit_book"
+        android:icon="@drawable/ic_action_edit"
+        android:showAsAction="always"
+        android:title="@string/edit"
+        android:visible="false"/>
+    
+    <item
+        android:id="@+id/menu_item_bookinfo_submenu"
+        android:icon="@drawable/abs__ic_menu_moreoverflow_normal_holo_dark"
+        android:showAsAction="always"
+        android:visible="false"
+        android:title="subMenu">
+        <menu>
+            <item
+                android:id="@id/menu_item_share_action_provider_action_bar"
+                android:icon="@drawable/social_share"
+                android:showAsAction="always"
+                android:title="@string/share"/>
+            <item
+                android:id="@+id/menu_add_delete"
+                android:icon="@drawable/ic_action_delete"
+                android:showAsAction="always"
+                android:title="@string/delete_the_book"/>
+        </menu>
+    </item>
+
+</menu>

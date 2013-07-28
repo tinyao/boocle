@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#fff3f3f3"
+    android:orientation="vertical"
+    android:scrollbars="none" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="10dip" >
+
+        <LinearLayout
+            android:id="@+id/settings_account_haslogin"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                style="@style/text_black_small"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12.0dip"
+                android:text="搜索设置" />
+
+            <View
+                style="@style/title_divider"
+                android:layout_width="fill_parent" />
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="45.0dip" >
+
+                <TextView
+                    android:id="@+id/bind_social"
+                    style="@style/settings_item"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/abs__list_selector_holo_light"
+                    android:clickable="true"
+                    android:gravity="left|center"
+                    android:paddingLeft="15.0dip"
+                    android:paddingRight="10.0dip"
+                    android:text="书籍缓存时间" />
+                
+                <CheckBox 
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"/>
+            </RelativeLayout>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/divider" />
+
+            <TextView
+                android:id="@+id/collects_deals"
+                style="@style/settings_item"
+                android:layout_width="fill_parent"
+                android:layout_height="45.0dip"
+                android:background="@drawable/abs__list_selector_holo_light"
+                android:clickable="true"
+                android:gravity="left|center"
+                android:paddingLeft="15.0dip"
+                android:paddingRight="10.0dip"
+                android:text="清空书籍缓存" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/divider" />
+
+            <TextView
+                android:id="@+id/collects_deals"
+                style="@style/settings_item"
+                android:layout_width="fill_parent"
+                android:layout_height="45.0dip"
+                android:background="@drawable/abs__list_selector_holo_light"
+                android:clickable="true"
+                android:gravity="left|center"
+                android:paddingLeft="15.0dip"
+                android:paddingRight="10.0dip"
+                android:text="清空搜索记录" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/divider" />
+        </LinearLayout>
+    </LinearLayout>
+
+</ScrollView>

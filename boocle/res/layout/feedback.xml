@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="5dip"
+    android:background="#10000000"
+    android:orientation="vertical" >
+
+    <EditText
+        android:id="@+id/feedback_edit"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/all_input"
+        android:focusable="true"
+        android:gravity="top"
+        android:hint="@string/feedback_hint"
+        android:imeOptions="actionSearch"
+        android:paddingBottom="8dip"
+        android:paddingLeft="15dip"
+        android:paddingRight="15dip"
+        android:textSize="16sp"
+        android:lines="10"
+        android:paddingTop="10dip" />
+    
+    <Button 
+        android:id="@+id/feedback_list_btn"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:text="反馈列表"/>
+    
+</LinearLayout>

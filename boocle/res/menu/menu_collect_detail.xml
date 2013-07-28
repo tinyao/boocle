@@ -1,0 +1,23 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/menu_collect_msg"
+        android:showAsAction="always"
+        android:icon="@drawable/ic_action_msg_send"
+        android:title="@string/direct_msg_ta"/>
+    
+<!--     <item -->
+<!--         android:id="@+id/menu_collect_submenu" -->
+<!--         android:icon="@drawable/abs__ic_menu_moreoverflow_normal_holo_dark" -->
+<!--         android:showAsAction="always" -->
+<!--         android:title="subMenu"> -->
+<!--         <menu> -->
+            <item
+                android:id="@+id/menu_collect_delete"
+                android:showAsAction="always"
+                android:icon="@drawable/ic_action_delete"
+                android:title="@string/delete_the_book"/>
+<!--         </menu> -->
+<!--     </item> -->
+
+</menu>

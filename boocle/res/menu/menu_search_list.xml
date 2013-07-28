@@ -1,0 +1,25 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/menu_search"
+        android:actionProviderClass="org.czzz.utils.MySuggestionProvider"
+        android:actionViewClass="com.actionbarsherlock.widget.SearchView"
+        android:icon="@drawable/ic_search"
+        android:showAsAction="ifRoom|collapseActionView"
+        android:title="@string/search"/>
+    <item
+        android:id="@+id/submenu"
+        android:showAsAction="always"
+        android:title="subMenu"
+        android:icon="@drawable/abs__ic_menu_moreoverflow_normal_holo_dark">
+        <menu>
+            <item
+                android:id="@+id/menu_scan"
+                android:title="@string/scan"/>
+            <item
+                android:id="@+id/menu_refresh"
+                android:title="@string/refresh"/>
+        </menu>
+    </item>
+
+</menu>

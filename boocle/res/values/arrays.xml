@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <string-array name="majors">
+        <item>基础课程</item>
+        <item>通信工程</item>
+        <item>计算机</item>
+        <item>电子信息工程</item>
+        <item>软件工程</item>
+        <item>电子科学与技术</item>
+        <item>微电子</item>
+        <item>应用数学</item>
+    </string-array>
+    
+	<string-array name="engineer_base">
+	    <item>高等数学（上）</item>
+	    <item>高等数学（下）</item>
+	    <item>线性代数</item>
+	    <item>概率论与数理统计</item>
+	    <item>复变函数</item>
+	    <item>场论</item>
+	    <item>工程制图</item>
+	    <item>C语言</item>
+	    <item>电路分析基础</item>
+	    <item>大学英语</item>
+	    <item>思想道德修养</item>
+	    <item>中国近代史纲要</item>
+	</string-array>
+	
+	<string-array name="gender_choose">
+	    <item>女</item>
+	    <item>男</item>
+	</string-array>
+	
+	<string-array name="msg_check_interval">
+	    <item>3分钟</item>
+	    <item>5分钟</item>
+	    <item>10分钟</item>
+	    <item>30分钟</item>
+	    <item>1小时</item>
+	    <item>2小时</item>
+	</string-array>
+	
+	<integer-array name="msg_check_interval_value">
+	    <item>3</item>
+	    <item>5</item>
+	    <item>10</item>
+	    <item>30</item>
+	    <item>60</item>
+	    <item>120</item>
+	</integer-array>
+	
+	<string-array name="entry_state">
+	    <item>非二手</item>
+	    <item>二手</item>
+	</string-array>
+	
+	<string-array name="nirvana">
+		<item>Kurt Donald Cobain</item>
+		<item>Krist Anthony Novoselic</item>
+		<item>David Eric Grohl</item>
+		<item>Aaron Burckhard</item>
+		<item>Chad Channing</item>
+		<item>Daniel Joe Peters</item>
+		<item>Dave Foster</item>
+	</string-array>
+	<string-array name="skillet">
+		<item>John Landrum Cooper</item>
+		<item>Korene Marie Pingitore</item>
+		<item>Jennifer Carole Ledger</item>
+		<item>Jacob Seth Morrison</item>
+	</string-array>
+	<string-array name="countries">
+		<item>Belgium</item>
+		<item>Russia</item>
+		<item>France</item>
+		<item>Italy</item>
+		<item>Germany</item>
+		<item>Spain</item>
+	</string-array>
+	
+</resources>

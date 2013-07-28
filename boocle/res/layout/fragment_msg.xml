@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <com.czzz.view.RefreshListView
+        android:id="@+id/direct_msg_list"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:cacheColorHint="#00000000"
+        android:listSelector="@drawable/abs__list_selector_holo_light"
+        android:descendantFocusability="blocksDescendants"
+        android:state_selected="true"/>
+    
+    <com.czzz.view.LoadingView
+        android:id="@+id/thread_loading_view"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"/>
+    
+    <ImageView 
+        android:id="@+id/thread_no_msg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        android:src="@drawable/msg_no_thread"/>
+    
+</FrameLayout>

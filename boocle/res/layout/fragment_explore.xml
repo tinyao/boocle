@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:visibility="gone"
+            android:id="@+id/relay_search"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dip"
+            android:layout_marginLeft="2dip"
+            android:layout_marginRight="2dip"
+            android:layout_marginTop="15dip" >
+
+            <AutoCompleteTextView
+                android:id="@+id/search_edt"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:background="@drawable/all_input"
+                android:completionThreshold="1"
+                android:dropDownHorizontalOffset="20dp"
+                android:ems="10"
+                android:focusable="true"
+                android:gravity="center_vertical"
+                android:hint="@string/input_book_isbn"
+                android:imeOptions="actionSearch"
+                android:paddingBottom="8dip"
+                android:paddingLeft="15dip"
+                android:paddingRight="60dip"
+                android:paddingTop="8dip"
+                android:singleLine="true" />
+
+            <ImageView
+                android:id="@+id/search_forward"
+                android:layout_width="wrap_content"
+                android:layout_height="32dip"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="5dip"
+                android:background="@drawable/isbn_search_selector"
+                android:contentDescription="serach"
+                android:paddingLeft="10dip"
+                android:paddingRight="8dip"
+                android:src="@drawable/isbn" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent" >
+
+            <com.czzz.view.RefreshListView
+                android:id="@+id/explore_user_list"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="#00000000"
+                android:cacheColorHint="#00000000"
+                android:descendantFocusability="afterDescendants"
+                android:fastScrollEnabled="true"
+                android:divider="@drawable/listview_divider"
+                android:listSelector="@drawable/abs__list_selector_holo_light" />
+
+            <com.czzz.view.LoadingView
+                android:id="@+id/loading_view_explore"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center"
+                android:paddingBottom="48dip" />
+            
+        </RelativeLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/bottom_menu"
+        android:layout_width="fill_parent"
+        android:layout_height="47dip"
+        android:layout_gravity="bottom"
+        android:background="@color/low_dark" >
+
+        <ImageView
+            android:id="@+id/bottom_menu_tab"
+            android:layout_width="52dip"
+            android:layout_height="fill_parent"
+            android:layout_centerVertical="true"
+            android:background="@drawable/bottom_menu_bg"
+            android:clickable="true"
+            android:gravity="center"
+            android:paddingLeft="5dip"
+            android:paddingRight="5dip"
+            android:src="@drawable/location_place"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/bottom_menu_section"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/bottom_menu_filter"
+            android:layout_toRightOf="@id/bottom_menu_tab"
+            android:background="@drawable/bottom_menu_bg"
+            android:gravity="center"
+            android:text="@string/nearby_books_label"
+            android:textColor="#fff"
+            android:textSize="14sp" />
+
+        <ImageView
+            android:id="@+id/bottom_menu_filter"
+            android:layout_width="52dip"
+            android:layout_height="fill_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/bottom_menu_bg"
+            android:paddingLeft="5dip"
+            android:paddingRight="5dip"
+            android:src="@drawable/abs__ic_menu_moreoverflow_normal_holo_dark" />
+
+        <View
+            android:layout_width="1.0px"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="13dip"
+            android:layout_marginTop="13dip"
+            android:layout_toLeftOf="@+id/bottom_menu_filter"
+            android:background="#bec3c3c3" />
+
+        <View
+            android:layout_width="1.0px"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="13dip"
+            android:layout_marginTop="13dip"
+            android:layout_toRightOf="@id/bottom_menu_tab"
+            android:background="#bec3c3c3" />
+    </RelativeLayout>
+
+</FrameLayout>

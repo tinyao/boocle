@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="dark_white">#d0d0d0</color>
+    <color name="translucent">#e0000000</color>
+    <color name="dark">#e0000000</color>
+    <color name="low_dark">#ef4c4c4c</color>
+    <color name="gray_bg">#ffefefef</color>
+    <color name="border_gray">#ffcccccc</color>
+    <color name="border_blue">#ff499fbc</color>
+    <color name="white">#fff</color>
+    <color name="blue">#33B5E5</color>
+    <color name="alpha_blue">#da33B5E5</color>
+    <color name="details_panel_separator">#aabebebe</color>
+    <color name="gray_dark">#d6d6d6</color>
+    <color name="alpha_gray_dark">#95222222</color>
+    <color name="alpha_gray_dark_2">#efefefef</color>
+    <color name="transparent">#00000000</color>
+    <color name="contents_text">#ff000000</color>
+    <color name="encode_view">#ffffffff</color>
+    <color name="help_button_view">#ffcccccc</color>
+    <color name="help_view">#ff404040</color>
+    <color name="possible_result_points">#c0ffff00</color>
+    <color name="result_image_border">#ffffffff</color>
+    <color name="result_minor_text">#ffc0c0c0</color>
+    <color name="result_points">#c000ff00</color>
+    <color name="result_text">#ffffffff</color>
+    <color name="result_view">#b0000000</color>
+    <color name="sbc_header_text">#ff808080</color>
+    <color name="sbc_header_view">#ffffffff</color>
+    <color name="sbc_list_item">#fffff0e0</color>
+    <color name="sbc_layout_view">#ffffffff</color>
+    <color name="sbc_page_number_text">#ff000000</color>
+    <color name="sbc_snippet_text">#ff4b4b4b</color>
+    <color name="share_text">#ff000000</color>
+    <color name="share_view">#ffffffff</color>
+    <color name="status_view">#50000000</color>
+    <color name="status_text">#ffffffff</color>
+    <color name="viewfinder_frame">#ff000000</color>
+    <color name="viewfinder_laser">#ffff0000</color>
+    <color name="viewfinder_mask">#60000000</color>
+    <color name="light_green">#ff66aa01</color>
+    <color name="normal_text_color_black">#ff333333</color>
+    <color name="ade_green">#ffe5eadd</color>
+    <color name="navpage">#ffe1e0de</color>
+    <color name="unread_bg">#FF8800</color>
+    <color name="avatar_border">#ff92a3aa</color>
+    <color name="general__shared__color_999999">#999999</color>
+    <color name="general__shared__color_555555">#ff555555</color>
+    <color name="list_item_title">#ff333333</color>
+    <color name="list_item_sub_title">#77787b</color>
+    
+    <color name="content_message_shadow_color">#68ffffff</color>
+
+    <!-- LIST BORDER COLOR -->
+	<color name="rounded_container_border">#ffb7babb</color>
+	
+	<!-- ITEM BACKGROUND COLOR - STATE - DEFAULT -->
+	<color name="base_start_color_default">#FFFFFF</color>
+    <color name="base_end_color_default">#FFFFFF</color>
+    	
+	<!-- ITEM BACKGROUND COLOR - STATE - PRESSED -->
+	<color name="base_start_color_pressed">#a033B5E5</color>
+    <color name="base_end_color_pressed">#a00099CC</color>
+    
+    <!-- ITEM TEXT COLORS - STATES - PRESSED AND DEFAULT -->
+    <color name="text_color_default">#000000</color>
+    <color name="text_color_pressed">#ffffff</color>
+    
+    <color name="pink">#F69</color>
+    <color name="sky_blue">#007FFF</color>
+    
+    <color name="welcome_catchphrase">#ffffffff</color>
+    <color name="welcome_catchphrase_shadow">#ff8c1f15</color>
+    
+    <!-- FLAT UI COLOR -->
+    <color name="green_turquoise">#1abc9c</color>
+    <color name="green_sea">#16A085</color>
+    <color name="green_emerald">#2ECC71</color>
+    <color name="green_nephritis">#27AE60</color>
+    <color name="blue_peter_river">#3498DB</color>
+    <color name="blue_belize_hole">#2980B9</color>
+    <color name="purple_amethyst">#9B59B6</color>
+    <color name="purple_wisteria">#8E44AD</color>
+    <color name="dark_wet_asphalt">#34495E</color>
+    <color name="dark_midnight_blue">#2C3E50</color>
+    <color name="yellow_sun_flower">#F1C40F</color>
+    <color name="yellow_orange">#F39C12</color>
+    <color name="orange_carrot">#E67E22</color>
+    <color name="orange_pumpkin">#D35400</color>
+    <color name="red_alizarin">#E74C3C</color>
+    <color name="red_pomegranate">#C0392B</color>
+    <color name="gray_clouds">#ECF0F1</color>
+    <color name="gray_clouds_alpha">#ccECF0F1</color>
+    <color name="gray_silver">#BDC3C7</color>
+    <color name="gray_concrete">#95A5A6</color>
+    <color name="gray_asbestos">#7F8C8D</color>
+    <color name="gray_asbestos_alpha">#aa7F8C8D</color>
+</resources>

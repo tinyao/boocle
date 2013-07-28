@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/welcome_wrapper"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/loading_splash"
+    android:gravity="center"
+    android:orientation="vertical" >
+
+<!--     <ImageView -->
+<!--         android:id="@+id/welcome_logo" -->
+<!--         android:layout_width="150.0dip" -->
+<!--         android:layout_height="60.0dip" -->
+<!--         android:src="@drawable/nux_splash_logo" /> -->
+
+<!--     <TextView -->
+<!--         android:id="@+id/welcome_catchphrase" -->
+<!--         style="@style/welcome_headline_text" -->
+<!--         android:layout_width="wrap_content" -->
+<!--         android:layout_height="wrap_content" -->
+<!--         android:layout_marginTop="8.0dip" -->
+<!--         android:gravity="center" -->
+<!--         android:text="读书之旅从身边开始" /> -->
+
+</LinearLayout>

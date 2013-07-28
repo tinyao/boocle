@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/abs__list_selector_holo_light"
+    android:orientation="vertical"
+    tools:context=".ConversationActivity" >
+
+    <TextView
+        android:id="@+id/msg_item_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dip"
+        android:background="@drawable/dialogue_times_bg"
+        android:paddingBottom="2dip"
+        android:paddingLeft="5dip"
+        android:paddingRight="5dip"
+        android:paddingTop="2dip"
+        android:singleLine="true"
+        android:textColor="#fff"
+        android:textSize="12sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dip"
+            android:layout_marginLeft="8dip"
+            android:layout_marginRight="5dip"
+            android:layout_marginTop="8dip"
+            android:background="@drawable/bg_fracking_avatar"
+            android:gravity="center" >
+
+            <com.czzz.view.RoundImageView
+                android:id="@+id/msg_item_avatar"
+                android:layout_width="40dip"
+                android:layout_height="40dip"
+                android:src="@drawable/avatar_default" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/msg_bubble_bg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dip"
+            android:layout_marginRight="80dip"
+            android:layout_marginTop="8dip"
+            android:background="@drawable/msg_recv_pop_bg"
+            android:clickable="true"
+            android:focusable="true"
+            android:paddingBottom="10dip"
+            android:paddingLeft="12dip"
+            android:paddingRight="8dip"
+            android:paddingTop="8dip" >
+
+            <com.czzz.view.ChatTextView
+                android:id="@+id/msg_item_body"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                style="@style/MessageBody"
+                android:gravity="left"
+                android:lineSpacingExtra="4dp"
+                android:minWidth="80dip"
+                android:autoLink="all"
+                android:text="把所有的温柔留在饭否，再去面对那个充满感冒病毒的世界。" />
+
+            <TextView
+                android:id="@+id/msg_item_time"
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignRight="@id/msg_item_body"
+                android:layout_below="@id/msg_item_body"
+                android:layout_marginLeft="10dip"
+                android:layout_marginTop="5dip"
+                android:singleLine="true"
+                android:textColor="@color/list_item_sub_title"
+                android:textSize="12sp" />
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>

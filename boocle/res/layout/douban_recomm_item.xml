@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="5dip"
+    android:orientation="horizontal" >
+
+    <ImageView
+        android:id="@+id/douban_recomm_cover"
+        android:layout_width="65dip"
+        android:layout_height="90dip"
+        android:layout_marginLeft="5dip"
+        android:layout_marginRight="7dip"
+        android:layout_marginTop="4dip"
+        android:scaleType="fitXY"
+        android:src="@drawable/default_bookcover0"
+        android:background="@drawable/general__book_cover_view__grid_shadow" />
+    
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dip"
+        android:layout_marginLeft="5dip"
+        android:layout_marginBottom="8dip" >
+
+        <TextView
+            android:id="@+id/douban_recomm_title"
+            style="@style/search_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dip"
+            android:layout_marginRight="40dip"
+            android:singleLine="true"
+            android:text="可爱的Python"
+            android:textSize="16sp" />
+        
+        <TextView
+            android:id="@+id/douban_recomm_rate_score"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignBottom="@id/douban_recomm_title"
+            android:layout_marginTop="5dip"
+            android:layout_marginLeft="10dip"
+            android:layout_marginRight="10dip"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="8.6‘"
+            android:textColor="@color/dark_wet_asphalt"
+            android:textSize="13sp" />
+
+        <LinearLayout
+            android:id="@+id/blabla"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/douban_recomm_title"
+            android:layout_marginTop="10dip"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/douban_recomm_author"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="50dip"
+                android:singleLine="true"
+                android:text="作者: 哲思社区"
+                android:textColor="@color/explore_sub_color_selector"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/douban_recomm_publisher"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="50dip"
+                android:singleLine="true"
+                android:text="出版: 电子工业出版社"
+                android:textColor="@color/explore_sub_color_selector"
+                android:textSize="13sp" />
+            
+            <TextView
+                android:id="@+id/douban_recomm_intro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dip"
+                android:layout_marginTop="10dip"
+                android:paddingLeft="8dip"
+                android:paddingTop="5dip"
+                android:paddingBottom="5dip"
+                android:paddingRight="5dip"
+                android:lineSpacingExtra="2sp"
+                android:maxLines="5"
+                android:textColor="@color/explore_sub_color_selector"
+                android:background="@drawable/douban_brief_round_bg"
+                android:textSize="13sp" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>
+

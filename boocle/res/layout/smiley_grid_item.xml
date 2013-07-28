@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/emotion_text"
+    android:layout_width="match_parent"
+    android:layout_height="40dip"
+    android:layout_centerHorizontal="true"
+    android:paddingTop="11dip"
+    android:paddingBottom="11dip"
+    android:paddingLeft="2dip"
+    android:paddingRight="2dip"
+    android:gravity="center"
+    android:singleLine="true"
+    android:background="@drawable/smiley_item_bg_xml"
+    android:text="=(^.^)="
+    android:textColor="#ff3aa4e3"
+    android:textSize="14sp" />

@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#fff3f3f3"
+    android:orientation="vertical"
+    android:scrollbars="none" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="10dip" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                style="@style/text_black_small"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12.0dip"
+                android:text="@string/setting_dm_update"
+                android:textColor="@color/light_green" />
+
+            <View
+                style="@style/title_divider"
+                android:layout_width="fill_parent" />
+
+            <RelativeLayout
+                android:id="@+id/setting_noti_detect"
+                android:layout_width="match_parent"
+                android:layout_height="45dip"
+                android:background="@drawable/abs__list_selector_holo_light"
+                android:clickable="true"
+                android:paddingLeft="15.0dip"
+                android:paddingRight="10.0dip" >
+
+                <TextView
+                    style="@style/settings_item"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/setting_dm_detect" />
+
+                <CheckBox
+                    android:id="@+id/setting_noti_detect_toggle"
+                    style="@style/setting_toggle_switch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:checked="true" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/divider" />
+
+            <RelativeLayout
+                android:id="@+id/setting_noti_interval"
+                android:layout_width="match_parent"
+                android:layout_height="45dip"
+                android:background="@drawable/abs__list_selector_holo_light"
+                android:clickable="true"
+                android:paddingLeft="15.0dip"
+                android:paddingRight="10.0dip" >
+
+                <TextView
+                    style="@style/settings_item"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/setting_dm_interval" />
+
+                <TextView
+                    android:id="@+id/setting_noti_interval_txt"
+                    style="@style/settings_item"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:text="10分钟"
+                    android:textSize="13sp" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/divider" />
+        </LinearLayout>
+
+        
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                style="@style/text_black_small"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12.0dip"
+                android:text="@string/setting_display"
+                android:textColor="@color/light_green" />
+
+            <View
+                style="@style/title_divider"
+                android:layout_width="fill_parent" />
+
+            <RelativeLayout
+                android:id="@+id/setting_display_tab"
+                android:layout_width="match_parent"
+                android:layout_height="45dip"
+                android:background="@drawable/abs__list_selector_holo_light"
+                android:clickable="true"
+                android:paddingLeft="15.0dip"
+                android:paddingRight="10.0dip" >
+
+                <TextView
+                    style="@style/settings_item"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/setting_display_tab" />
+
+                <CheckBox
+                    android:id="@+id/setting_display_tab_toggle"
+                    style="@style/setting_toggle_switch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:checked="false" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/divider" />
+        </LinearLayout>
+        
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                style="@style/text_black_small"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12.0dip"
+                android:text="@string/setting_search_"
+                android:textColor="@color/light_green" />
+
+            <View
+                style="@style/title_divider"
+                android:layout_width="fill_parent" />
+
+            <RelativeLayout
+                android:id="@+id/setting_search_cover"
+                android:layout_width="match_parent"
+                android:layout_height="45dip"
+                android:background="@drawable/abs__list_selector_holo_light"
+                android:clickable="true"
+                android:paddingLeft="15.0dip"
+                android:paddingRight="10.0dip" >
+
+                <TextView
+                    style="@style/settings_item"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/setting_search_cover_display" />
+
+                <CheckBox
+                    android:id="@+id/setting_search_cover_toggle"
+                    style="@style/setting_toggle_switch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:checked="true" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/divider" />
+
+            <TextView
+                android:id="@+id/setting_search_cache_delete"
+                style="@style/settings_item"
+                android:layout_width="fill_parent"
+                android:layout_height="45.0dip"
+                android:background="@drawable/abs__list_selector_holo_light"
+                android:clickable="true"
+                android:gravity="left|center"
+                android:paddingLeft="15.0dip"
+                android:paddingRight="10.0dip"
+                android:text="@string/setting_search_cache_delete" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/divider" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/settings_account_haslogin"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                style="@style/text_black_small"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12.0dip"
+                android:text="@string/setting_pic_"
+                android:textColor="@color/light_green" />
+
+            <View
+                style="@style/title_divider"
+                android:layout_width="fill_parent" />
+
+            <RelativeLayout
+                android:id="@+id/setting_pic_cover"
+                android:layout_width="match_parent"
+                android:layout_height="45dip"
+                android:background="@drawable/abs__list_selector_holo_light"
+                android:clickable="true"
+                android:paddingLeft="15.0dip"
+                android:paddingRight="10.0dip" >
+
+                <TextView
+                    style="@style/settings_item"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/setting_pic_high" />
+
+                <CheckBox
+                    android:id="@+id/setting_pic_cover_high_toggle"
+                    style="@style/setting_toggle_switch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:checked="false" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/divider" />
+
+            <TextView
+                android:id="@+id/setting_pic_cache_delete"
+                style="@style/settings_item"
+                android:layout_width="fill_parent"
+                android:layout_height="45.0dip"
+                android:background="@drawable/abs__list_selector_holo_light"
+                android:clickable="true"
+                android:gravity="left|center"
+                android:paddingLeft="15.0dip"
+                android:paddingRight="10.0dip"
+                android:text="@string/setting_pic_cache_delete" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/divider" />
+        </LinearLayout>
+        
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                style="@style/text_black_small"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12.0dip"
+                android:text="@string/setting_app_"
+                android:textColor="@color/light_green" />
+
+            <View
+                style="@style/title_divider"
+                android:layout_width="fill_parent" />
+
+            <TextView
+                android:id="@+id/setting_about_about"
+                style="@style/settings_item"
+                android:layout_width="fill_parent"
+                android:layout_height="45.0dip"
+                android:background="@drawable/abs__list_selector_holo_light"
+                android:clickable="true"
+                android:gravity="left|center"
+                android:paddingLeft="15.0dip"
+                android:paddingRight="10.0dip"
+                android:text="@string/setting_app_bc" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/divider" />
+
+            <RelativeLayout
+                android:id="@+id/setting_about_version_update"
+                android:layout_width="match_parent"
+                android:layout_height="45dip"
+                android:background="@drawable/abs__list_selector_holo_light"
+                android:clickable="true"
+                android:paddingLeft="15.0dip"
+                android:paddingRight="10.0dip" >
+                
+                <TextView
+                    style="@style/settings_item"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/setting_app_version" />
+
+                <TextView
+                    android:id="@+id/setting_about_version_now"
+                    style="@style/settings_item"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:text="10分钟"
+                    android:textSize="13sp" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/divider" />
+
+            <TextView
+                android:id="@+id/setting_about_feedback"
+                style="@style/settings_item"
+                android:layout_width="fill_parent"
+                android:layout_height="45.0dip"
+                android:background="@drawable/abs__list_selector_holo_light"
+                android:clickable="true"
+                android:gravity="left|center"
+                android:paddingLeft="15.0dip"
+                android:paddingRight="10.0dip"
+                android:text="@string/setting_app_feedback" />
+            
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/divider" />
+
+            <TextView
+                android:id="@+id/setting_about_donate"
+                style="@style/settings_item"
+                android:layout_width="fill_parent"
+                android:layout_height="45.0dip"
+                android:background="@drawable/abs__list_selector_holo_light"
+                android:clickable="true"
+                android:gravity="left|center"
+                android:paddingLeft="15.0dip"
+                android:paddingRight="10.0dip"
+                android:text="@string/setting_app_donate" />
+            
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/divider" />
+
+            <TextView
+                android:id="@+id/setting_about_suggest"
+                style="@style/settings_item"
+                android:layout_width="fill_parent"
+                android:layout_height="45.0dip"
+                android:background="@drawable/abs__list_selector_holo_light"
+                android:clickable="true"
+                android:gravity="left|center"
+                android:paddingLeft="15.0dip"
+                android:paddingRight="10.0dip"
+                android:text="@string/setting_app_recommand" />
+        </LinearLayout>
+    </LinearLayout>
+
+</ScrollView>

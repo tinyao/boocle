@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1.0dip"
+        android:background="#bec3c3c3" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <RadioGroup
+            android:id="@+id/_filter_user_sort"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="8dip"
+            android:paddingLeft="15dip"
+            android:paddingRight="25dip"
+            android:paddingTop="8dip" >
+
+            <RadioButton
+                android:id="@+id/_filter_user_most"
+                android:layout_width="wrap_content"
+                android:layout_height="45dip"
+                android:button="@drawable/checkbox"
+                android:paddingLeft="20dip"
+                android:text="@string/user_filter_most"
+                android:textColor="@color/dark" />
+            
+            <RadioButton
+                android:id="@+id/_filter_user_random"
+                android:layout_width="wrap_content"
+                android:layout_height="45dip"
+                android:button="@drawable/checkbox"
+                android:paddingLeft="20dip"
+                android:text="@string/user_filter_random"
+                android:textColor="@color/dark" />
+
+            <RadioButton
+                android:id="@+id/_filter_user_latest"
+                android:layout_width="wrap_content"
+                android:layout_height="45dip"
+                android:button="@drawable/checkbox"
+                android:paddingLeft="20dip"
+                android:text="@string/user_filter_new"
+                android:textColor="@color/dark" />
+        </RadioGroup>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1.0dip"
+        android:background="#bec3c3c3" />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <Button
+            android:id="@+id/_filter_books_ok"
+            android:layout_width="match_parent"
+            android:layout_height="40dip"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/isbn_button_selector"
+            android:text="@string/book_filter_label"
+            android:textSize="15sp" />
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="10dip"
+    android:paddingRight="10dip"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/review_item_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" 
+        android:layout_gravity="left"
+        android:layout_marginTop="10.0dip"
+        android:ellipsize="end"
+        android:lines="1"
+        android:textColor="@android:color/black"
+        android:textSize="16.0sp" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/review_item_pubdate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#ffa6a7a2"
+            android:textSize="11.0sp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/review_item_author"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#ffa6a7a2"
+            android:textSize="11.0sp" />
+
+        <RatingBar
+            android:id="@+id/review_item_ratingbar"
+            style="@style/doubanRatingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10.0dip"
+            android:layout_marginTop="2.0dip"
+            android:isIndicator="true"
+            android:numStars="5" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/review_item_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10.0dip"
+        android:layout_marginTop="10.0dip"
+        android:lineSpacingExtra="2.0dip"
+        android:maxLines="3"
+        android:textAppearance="?android:textAppearanceSmall" />
+
+</LinearLayout>

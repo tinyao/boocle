@@ -1,0 +1,8 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <item android:id="@+id/menu_post_book"
+        android:title="@string/add_books"
+        android:icon="@drawable/ic_action_send_go"
+        android:showAsAction="ifRoom|withText" />
+    
+</menu>

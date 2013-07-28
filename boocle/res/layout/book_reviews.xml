@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/review_list_pd_view"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxHeight="30dip"
+            android:maxWidth="30dip"
+            android:minHeight="30dip"
+            android:minWidth="30dip" />
+
+        <TextView
+            android:id="@+id/search_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/fetching_reviews_loading" />
+        
+    </LinearLayout>
+    
+    <ListView
+        android:id="@android:id/list"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:cacheColorHint="#00000000"
+        android:descendantFocusability="blocksDescendants"
+        android:listSelector="@drawable/abs__list_selector_holo_light"
+        android:state_selected="true" >
+    </ListView>
+
+</LinearLayout>

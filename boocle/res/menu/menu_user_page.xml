@@ -1,0 +1,17 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/menu_user_msg"
+        android:showAsAction="always"
+        android:icon="@drawable/ic_action_msg_send"
+        android:title="@string/direct_msg_ta"/>
+    
+    <item
+        android:id="@+id/menu__fragment_follow_star"
+        android:showAsAction="always"
+        android:title="@string/follow_ta"
+        android:visible="false"
+        android:icon="@drawable/ic_action_follow_star">
+    </item>
+    
+</menu>

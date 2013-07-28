@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <style name="Theme.Styled" parent="Theme.Sherlock.Light.DarkActionBar">
+        <item name="actionBarStyle">@style/My.Widget.Styled.ActionBar</item>
+        <item name="android:actionBarStyle">@style/My.Widget.Styled.ActionBar</item>
+        <item name="actionButtonStyle">@style/MyTheme.ActionButton</item>
+        <item name="android:actionButtonStyle">@style/MyTheme.ActionButton</item>
+        <item name="actionBarTabTextStyle">@style/My.TabText.Inverse</item>
+        <item name="android:actionBarTabTextStyle">@style/My.TabText.Inverse</item>
+        <item name="android:actionBarTabStyle">@style/ActionBarTabStyle</item>
+        <item name="actionBarTabStyle">@style/ActionBarTabStyle</item>
+        <item name="vpiTabPageIndicatorStyle">@style/Widget.TabPageIndicator</item>
+    </style>
+    
+    <style name="Theme.Styled.Transparent">
+	    <item name="android:windowIsTranslucent">true</item>
+	    <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+    
+    <style name="ActionBarTabStyle" parent="Widget.Sherlock.Light.ActionBar.TabView">
+	    <item name="android:minHeight">80dip</item>
+	    <item name="android:height">100dip</item>
+	</style>
+    
+    <style name="My.Widget.Styled.ActionBar" parent="Widget.Sherlock.Light.ActionBar.Solid.Inverse">
+        <item name="background">@drawable/actionbar_base</item>
+        <item name="android:alpha">0.95</item>
+        <item name="android:background">@drawable/actionbar_base</item>
+        <item name="backgroundStacked">@drawable/aa_tab_background</item>
+        <item name="android:backgroundStacked">@drawable/aa_tab_background</item>
+        <item name="icon">@drawable/actionbar_plogo</item>
+        <item name="android:icon">@drawable/actionbar_plogo</item>
+        <item name="displayOptions">useLogo|showHome|showCustom</item>
+        <item name="android:displayOptions">useLogo|showHome|showCustom</item>
+        <item name="titleTextStyle">@style/myTheme.ActionBar.Text</item>
+        <item name="android:titleTextStyle">@style/myTheme.ActionBar.Text</item>
+        
+    </style>
+    
+    <style name="My.TabText.Inverse" parent="Widget.Sherlock.Light.ActionBar.TabText.Inverse">
+        <item name="android:textColor">@color/tab_textcolor</item>
+        <item name="android:textSize">@dimen/text_size_normal</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:ellipsize">marquee</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+    
+    <style name="myTheme.ActionBar.Text" parent="TextAppearance.Sherlock.Widget.ActionBar.Title.Inverse">
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:shadowColor">#a0000000</item>
+        <item name="android:shadowDx">1.2</item>
+        <item name="android:shadowDy">1.2</item>
+        <item name="android:shadowRadius">1.0</item>
+    </style>
+    
+    <style name="MyTheme.ActionButton" parent="Widget.Sherlock.ActionButton">
+        <item name="background">@drawable/action_bar_button_selector</item>
+        <item name="android:background">@drawable/action_bar_button_selector</item>
+    </style>
+    
+</resources>

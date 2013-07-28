@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <!-- org.czzz.view.listview.BouncyListView -->
+
+	<com.czzz.view.ShelfListView
+        android:id="@+id/shelf_grid_list"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:cacheColorHint="#00000000"
+        android:descendantFocusability="blocksDescendants"
+        android:listSelector="@drawable/abs__list_selector_holo_light"
+        android:state_selected="true"
+        android:divider="#00000000" />
+
+    
+    <com.czzz.view.ShelfListView
+        android:visibility="gone"
+        android:id="@+id/shelf_list"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:cacheColorHint="#00000000"
+        android:descendantFocusability="blocksDescendants"
+        android:listSelector="@drawable/abs__list_selector_holo_light"
+        android:divider="#00000000" />
+    
+    <com.czzz.view.ShelfListView
+        android:visibility="gone"
+        android:id="@+id/shelf_following_list"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:cacheColorHint="#00000000"
+        android:descendantFocusability="blocksDescendants"
+        android:divider="#00000000"
+        android:listSelector="@drawable/abs__list_selector_holo_light" />
+    
+    <com.czzz.view.LoadingView
+        android:id="@+id/loading_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    
+</RelativeLayout>

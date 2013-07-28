@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/abs__list_selector_holo_light"
+    android:paddingBottom="10dip"
+    android:paddingTop="10dip"
+    tools:context=".ConversationActivity" >
+
+    <TextView
+        android:id="@+id/msg_item_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/dialogue_times_bg"
+        android:layout_centerHorizontal="true"
+        android:paddingBottom="2dip"
+        android:paddingLeft="8dip"
+        android:paddingRight="8dip"
+        android:paddingTop="2dip"
+        android:singleLine="true"
+        android:textColor="#fff"
+        android:layout_marginBottom="10dip"
+        android:textSize="12sp" />
+    
+    <ProgressBar
+        android:id="@+id/msg_item_send_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/msg_bubble_bg"
+        android:layout_alignTop="@+id/msg_bubble_bg"
+        android:layout_marginTop="10dip"
+        android:layout_marginRight="-70dip"
+        android:maxHeight="20dip"
+        android:maxWidth="20dip"
+        android:minHeight="20dip"
+        android:minWidth="20dip" />
+
+    <RelativeLayout
+        android:id="@+id/msg_bubble_bg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="80dip"
+        android:layout_toLeftOf="@+id/msg_item_avatar_wrapper"
+        android:layout_below="@id/msg_item_time"
+        android:background="@drawable/msg_send_pop_bg"
+        android:clickable="true"
+        android:focusable="true"
+        android:orientation="vertical"
+        android:paddingBottom="10dip"
+        android:paddingLeft="5dip"
+        android:paddingRight="14dip"
+        android:paddingTop="8dip" >
+
+        <com.czzz.view.ChatTextView
+            android:id="@+id/msg_item_body"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            style="@style/MessageBody"
+            android:gravity="left"
+            android:lineSpacingExtra="4dp"
+            android:minWidth="80dip"
+            android:autoLink="all"
+            android:text="dsadfsa" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/msg_item_avatar_wrapper"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignBottom="@+id/msg_bubble_bg"
+        android:layout_marginLeft="5dip"
+        android:layout_marginRight="8dip"
+        android:gravity="bottom"
+        android:background="@drawable/bg_fracking_avatar"
+         >
+
+        <com.czzz.view.RoundImageView
+            android:id="@+id/msg_item_avatar"
+            android:layout_width="40dip"
+            android:layout_height="40dip"
+            android:src="@drawable/avatar_default" />
+    </LinearLayout>
+    
+</RelativeLayout>

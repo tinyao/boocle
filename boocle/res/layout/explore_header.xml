@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/relay_search"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dip"
+        android:layout_marginLeft="2dip"
+        android:layout_marginRight="2dip"
+        android:layout_marginTop="15dip" >
+
+        <AutoCompleteTextView
+            android:id="@+id/search_edt"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:background="@drawable/searchbox_normal_bg"
+            android:completionThreshold="1"
+            android:dropDownHorizontalOffset="20dp"
+            android:ems="10"
+            android:focusable="true"
+            android:gravity="center_vertical"
+            android:hint="输入书名/关键词/ISBN"
+            android:paddingBottom="8dip"
+            android:paddingLeft="15dip"
+            android:paddingRight="60dip"
+            android:paddingTop="8dip"
+            android:imeOptions="actionSearch"
+            android:singleLine="true" />
+
+        <ImageView
+            android:id="@+id/search_forward"
+            android:layout_width="wrap_content"
+            android:layout_height="32dip"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dip"
+            android:contentDescription="serach"
+            android:paddingLeft="10dip"
+            android:paddingRight="8dip"
+            android:background="@drawable/isbn_search_selector"
+            android:src="@drawable/isbn" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <include layout="@layout/explore_books_category"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+</LinearLayout>

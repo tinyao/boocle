@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<inset android:insetLeft="1.0px" android:insetRight="1.0px" android:insetTop="1.0px" android:insetBottom="1.0px"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <selector>
+        <item>
+            <shape>
+                <gradient android:startColor="@color/abs__background_holo_light" android:endColor="@color/base_end_color_default" android:angle="270.0" />
+                <corners android:radius="2.0dip" android:topLeftRadius="0.0dip" android:topRightRadius="0.0dip" android:bottomLeftRadius="4.0dip" android:bottomRightRadius="4.0dip" />
+            </shape>
+        </item>
+    </selector>
+</inset>

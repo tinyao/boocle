@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <com.czzz.view.ChatListView
+        android:id="@+id/conversation_list"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:cacheColorHint="#00000000"
+        android:divider="@null"
+        android:listSelector="@drawable/abs__list_selector_holo_light"
+        android:scrollbars="none"
+        android:stackFromBottom="true"
+        android:state_selected="true" />
+
+    <RelativeLayout
+        android:id="@+id/send_view"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:background="@drawable/bg_input"
+        android:paddingBottom="5dip" >
+
+            <ImageButton
+                android:id="@+id/conversation_msg_send"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignBottom="@+id/conversation_msg_edt"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="5dip"
+                android:background="@drawable/abs__list_selector_holo_light"
+                android:paddingBottom="3dip"
+                android:paddingLeft="15dip"
+                android:paddingRight="15dip"
+                android:paddingTop="3dip"
+                android:ellipsize="end"
+                android:src="@drawable/holo_light_send" />
+
+            <EditText
+                android:id="@+id/conversation_msg_edt"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dip"
+                android:layout_toLeftOf="@id/conversation_msg_send"
+                android:layout_toRightOf="@+id/conversation_msg_emotion"
+                android:background="@drawable/all_input"
+                android:lineSpacingExtra="2dip"
+                android:maxLines="4"
+                android:paddingBottom="6dip"
+                android:paddingLeft="10dip"
+                android:paddingTop="6dip"
+                android:text=""
+                android:textSize="15sp" />
+
+            <CheckBox
+                android:id="@+id/conversation_msg_emotion"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignBottom="@+id/conversation_msg_edt"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="10dip"
+                android:layout_marginRight="5dip"
+                android:layout_marginTop="5dip"
+                android:button="@drawable/float_input_expression_btn_bg"
+                android:checked="false"
+                android:padding="5dip" />
+
+            <LinearLayout
+                android:id="@+id/smiley_grid_layout"
+                android:layout_width="fill_parent"
+                android:layout_height="207.0dip"
+                android:visibility="gone"
+                android:layout_below="@id/conversation_msg_edt"
+                android:orientation="vertical" >
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1.0dip"
+                    android:layout_marginTop="5dip"
+                    android:background="#ffded1cb" />
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent" >
+
+                    <GridView
+                        android:id="@+id/smiley_grid"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_gravity="center"
+                        android:background="@drawable/face_all_bg_01"
+                        android:fadingEdge="vertical"
+                        android:listSelector="@null"
+                        android:numColumns="4"
+                        android:scrollbars="vertical" />
+
+                    <ImageButton
+                        android:id="@+id/conversation_edt_del"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dip"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="3dip"
+                        android:background="@drawable/bg_input"
+                        android:src="@drawable/input_expression_delete_btn" />
+                </RelativeLayout>
+            </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

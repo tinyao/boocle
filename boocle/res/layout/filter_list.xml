@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ListView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/filter_listview"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:cacheColorHint="#00000000"
+    android:background="@color/transparent"
+    android:descendantFocusability="blocksDescendants"
+    android:listSelector="@drawable/bottom_menu_bg" >
+
+</ListView>

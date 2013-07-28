@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/welcome_wrapper"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        style="@style/list_container"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="19dip"
+        android:layout_marginRight="19dip"
+        android:layout_marginTop="15.0dip"
+        android:orientation="vertical" >
+
+        <com.czzz.view.BEditText
+            android:id="@+id/register_user_account"
+            style="@style/login_input_item_top"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="45dip"
+            android:drawableRight="@drawable/searchbox_empty_icon"
+            android:hint="@string/username"
+            android:imeOptions="actionNext" />
+
+        <com.czzz.view.BEditText
+            android:id="@+id/register_user_email"
+            style="@style/login_input_item_middle"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/email"
+            android:textColor="#000000"
+            android:minHeight="45dip"
+            android:drawableRight="@drawable/searchbox_empty_icon"
+            android:imeOptions="actionNext"
+            android:inputType="textEmailAddress" />
+
+        <com.czzz.view.BEditText
+            android:id="@+id/register_user_password"
+            style="@style/login_input_item_middle"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/password"
+            android:imeOptions="actionNext"
+            android:minHeight="45dip"
+            android:drawableRight="@drawable/searchbox_empty_icon"
+            android:password="true" />
+
+        <com.czzz.view.BEditText
+            android:id="@+id/register_user_password_confirm"
+            style="@style/login_input_item_bottom"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/password_again"
+            android:minHeight="45dip"
+            android:drawableRight="@drawable/searchbox_empty_icon"
+            android:imeOptions="actionGo"
+            android:password="true" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/register_btn"
+        style="@style/IgGreenButtonStyleLarge"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dip"
+        android:layout_marginRight="20dip"
+        android:layout_marginTop="15.0dip"
+        android:enabled="false"
+        android:text="注 册" />
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <TextView
+            android:id="@+id/regoster_result"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" />
+    </ScrollView>
+
+</LinearLayout>

@@ -1,0 +1,9 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/menu_user_msg"
+        android:showAsAction="always"
+        android:icon="@drawable/ic_action_send_msg"
+        android:title="@string/direct_msg_ta"/>
+    
+</menu>

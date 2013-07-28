@@ -1,0 +1,21 @@
+# build application filter
+*.apk
+*.ap_
+
+# files for dex VM
+*.dex
+
+# Java class files
+*.class
+
+# generated files
+bin/
+gen/
+
+# local configuration file (sdk path, etc)
+local.properties
+
+# Eclipse project files
+.classpath
+.project
+**project.properties

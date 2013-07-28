@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_bg"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/goto_profile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/collection_header" >
+    
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="45dip" >
+
+        <TextView
+            android:id="@+id/book_collection_owner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="75dip"
+            android:shadowColor="#ffffffff"
+            android:shadowDx="0"
+            android:shadowDy="1"
+            android:shadowRadius="1"
+            android:text="拉莱耶"
+            android:layout_centerVertical="true"
+            android:textSize="19sp"
+            android:textStyle="bold" />
+        
+        <ImageButton 
+            android:id="@+id/goto_profile_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/i_goto"
+            android:background="#00000000"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dip"/>
+        
+    </RelativeLayout>
+    
+    <com.czzz.view.RoundImageView
+            android:id="@+id/book_collection_owner_avatar"
+            android:layout_width="55dip"
+            android:layout_height="55dip"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dip"
+            android:layout_marginTop="5dip"
+            android:padding="2dip"
+            android:src="@drawable/avatar_default" />
+
+    </RelativeLayout>
+    
+    
+    <com.czzz.view.tablelist.widget.UITableView
+            android:id="@+id/book_collection_info"
+            style="@style/UITableView"
+            android:layout_marginTop="10dip" />
+    
+</LinearLayout>

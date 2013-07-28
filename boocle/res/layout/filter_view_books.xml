@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <RadioGroup
+            android:id="@+id/_filter_books_sale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="8dip"
+            android:paddingLeft="10dip"
+            android:paddingRight="25dip"
+            android:paddingTop="8dip" >
+
+            <RadioButton
+                android:id="@+id/_filter_books_all"
+                android:layout_width="match_parent"
+                android:layout_height="45dip"
+                android:button="@drawable/checkbox"
+                android:paddingLeft="20dip"
+                android:text="@string/book_status_all"
+                android:textColor="@color/dark" />
+
+            <RadioButton
+                android:id="@+id/_filter_books_on_sale"
+                android:layout_width="match_parent"
+                android:layout_height="45dip"
+                android:button="@drawable/checkbox"
+                android:paddingLeft="20dip"
+                android:text="@string/book_status_second"
+                android:textColor="@color/dark" />
+
+            <RadioButton
+                android:id="@+id/_filter_books_nonsale"
+                android:layout_width="wrap_content"
+                android:layout_height="45dip"
+                android:button="@drawable/checkbox"
+                android:paddingLeft="20dip"
+                android:text="@string/book_status_nonsecond"
+                android:textColor="@color/dark" />
+        </RadioGroup>
+
+        <View
+            android:layout_width="1.0dip"
+            android:layout_height="match_parent"
+            android:background="#bec3c3c3" />
+
+        <RadioGroup
+            android:id="@+id/_filter_books_sort"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="8dip"
+            android:paddingLeft="10dip"
+            android:paddingRight="20dip"
+            android:paddingTop="8dip" >
+
+            <RadioButton
+                android:id="@+id/_filter_books_latest"
+                android:layout_width="wrap_content"
+                android:layout_height="45dip"
+                android:button="@drawable/checkbox"
+                android:paddingLeft="20dip"
+                android:text="@string/book_filter_new"
+                android:textColor="@color/dark" />
+
+            <RadioButton
+                android:id="@+id/_filter_books_random"
+                android:layout_width="wrap_content"
+                android:layout_height="45dip"
+                android:button="@drawable/checkbox"
+                android:paddingLeft="20dip"
+                android:text="@string/book_filter_random"
+                android:textColor="@color/dark" />
+        </RadioGroup>
+    </LinearLayout>
+    
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="1.0dip"
+            android:background="#bec3c3c3" />
+    
+    <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+    
+    <Button
+        android:id="@+id/_filter_books_ok"
+        android:layout_width="match_parent"
+        android:layout_height="40dip"
+        android:background="@drawable/isbn_button_selector"
+        android:layout_alignParentRight="true"
+        android:textSize="15sp"
+        android:text="@string/book_filter_label" />
+    
+    </RelativeLayout>
+
+</LinearLayout>

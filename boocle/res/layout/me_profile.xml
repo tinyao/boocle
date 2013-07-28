@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:scrollbars="none" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:id="@+id/upload_avatar"
+            style="@style/list_item_single"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dip"
+            android:layout_marginRight="10dip"
+            android:layout_marginTop="15.0dip"
+            android:orientation="horizontal" >
+
+            <com.czzz.view.RoundImageView
+                android:id="@+id/profile_change_avatar"
+                android:layout_width="40dip"
+                android:layout_height="40dip"
+                android:layout_marginLeft="10dip"
+                android:src="@drawable/avatar_default" />
+
+            <TextView
+                android:id="@+id/profile_avatar_txt"
+                style="@style/content_page_large_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="25dip"
+                android:layout_toRightOf="@id/profile_change_avatar"
+                android:text="@string/change_avatar" />
+
+            <ImageView
+                android:id="@+id/chevron"
+                style="@style/list_item_chevron"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:duplicateParentState="true" />
+        </RelativeLayout>
+
+        <com.czzz.view.tablelist.widget.UITableView
+            android:id="@+id/education_info"
+            style="@style/UITableView"
+            android:layout_marginTop="10dip" />
+
+        <com.czzz.view.tablelist.widget.UITableView
+            android:id="@+id/contact_info"
+            style="@style/UITableView" />
+        
+        <RelativeLayout
+            android:id="@+id/profile_change_passwd"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="50dip"
+            android:layout_marginLeft="10dip"
+            android:layout_marginRight="10dip"
+            android:layout_marginTop="10.0dip"
+            android:paddingLeft="20dip"
+            android:paddingRight="10dip"
+            android:clickable="true"
+            android:background="@drawable/background_view_rounded_single"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/content_page_large_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/change_passwd" />
+
+            <ImageView
+                style="@style/list_item_chevron"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:duplicateParentState="true" />
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/pref_logout"
+            style="@style/IgGreenButtonStyleLarge"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dip"
+            android:layout_marginLeft="10dip"
+            android:layout_marginRight="10dip"
+            android:layout_marginTop="20.0dip"
+            android:text="@string/account_logout" />
+    </LinearLayout>
+
+</ScrollView>

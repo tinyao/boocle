@@ -1,0 +1,17 @@
+## ActionBarSherlock
+
+ActionBarSherlock is an standalone library designed to facilitate the use of the action bar design pattern across all versions of Android through a single API.
+
+The library will automatically use the native ActionBar implementation on Android 4.0 or later. For previous versions which do not include ActionBar, a custom action bar implementation based on the sources of Ice Cream Sandwich will automatically be wrapped around the layout. This allows you to easily develop an application with an action bar for every version of Android from 2.x and up.
+
+https://github.com/JakeWharton/ActionBarSherlock
+
+## android-wheel
+
+Android Picker widget, show like wheel in iOS
+
+http://code.google.com/p/android-wheel/
+
+## Android-HelpViewPager
+
+https://github.com/goodev/Android-HelpViewPager

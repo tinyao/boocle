@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="2dip"
+    android:paddingBottom="2dip"
+    android:background="@drawable/abs__list_selector_holo_light" >
+
+    <TextView
+        android:id="@+id/scan_add_fetching_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:text="@string/recognizing"
+        android:textColor="#fff"
+        android:layout_alignParentRight="true"
+        android:textSize="14sp" />
+    
+     <TextView
+        android:id="@+id/scan_add_title"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:layout_alignParentLeft="true"
+        android:layout_toLeftOf="@id/scan_add_fetching_status"
+        android:layout_marginRight="25dip"
+        android:textColor="#ffffff"
+        android:textSize="14sp" />
+
+</RelativeLayout>
