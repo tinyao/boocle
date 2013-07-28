@@ -331,4 +331,63 @@
         <item name="vpiTabPageIndicatorStyle">@style/Widget.TabPageIndicator</item>
     </style>
     
+    <style name="Widget.ActionBar" parent="@style/Widget.Sherlock.Light.ActionBar.Solid.Inverse">
+    </style>
+	
+	<style name="Widget.Light" />
+	
+    <style name="Widget.Light.ActionBar" parent="@style/Widget.Sherlock.Light.ActionBar.Solid">
+    </style>
+
+    <style name="Widget.ActionBar.Transparent">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="background">@android:color/transparent</item>
+    </style>
+
+    <style name="Widget.Light.ActionBar.Transparent">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="background">@android:color/transparent</item>
+    </style>
+    
+    <style name="bookRatingBar" parent="@android:style/Widget.RatingBar">
+        <item name="android:maxHeight">15.0dip</item>
+        <item name="android:progressDrawable">@drawable/book_rating_bar</item>
+        <item name="android:minHeight">15.0dip</item>
+    </style>
+    
+    <style name="MenuDrawer" />
+
+    <style name="MenuDrawer.Widget" />
+
+    <style name="MooSpinnerItem" parent="@android:style/Widget.TextView.SpinnerItem">
+        <item name="android:textColor">#FFF</item>
+        <item name="android:button">@null</item>
+    </style>
+    
+    <style name="MooSpinnerItem.DropDownItem" parent="@android:style/Widget.DropDownItem.Spinner">
+        <item name="android:textColor">#FFF</item>
+        <item name="android:gravity">center</item>
+        <item name="android:checkMark">@null</item>
+    </style>
+
+    <style name="MooTextAppearanceSpinnerItem" parent="android:TextAppearance.Widget.TextView.SpinnerItem">
+        <item name="android:textColor">#FFF</item>
+    </style>
+    
+    <style name="slide_menu">
+        <item name="android:paddingLeft">15.0dip</item>
+        <item name="android:paddingRight">8.0dip</item>
+        <item name="android:minHeight">55.0dip</item>
+    </style>
+    
+    <style name="icon_user">
+        <item name="android:layout_width">40.0dip</item>
+        <item name="android:layout_height">40.0dip</item>
+        <item name="android:layout_marginRight">7.0dip</item>
+        <item name="android:layout_marginBottom">5.0dip</item>
+        <item name="android:scaleType">fitCenter</item>
+        <item name="android:layout_alignParentLeft">true</item>
+        <item name="android:layout_alignParentTop">true</item>
+    </style>
+    
 </resources>

@@ -6,6 +6,7 @@
     <color name="dark">#e0000000</color>
     <color name="low_dark">#ef4c4c4c</color>
     <color name="gray_bg">#ffefefef</color>
+    <color name="gray">#ddd</color>
     <color name="border_gray">#ffcccccc</color>
     <color name="border_blue">#ff499fbc</color>
     <color name="white">#fff</color>
@@ -49,6 +50,8 @@
     <color name="general__shared__color_555555">#ff555555</color>
     <color name="list_item_title">#ff333333</color>
     <color name="list_item_sub_title">#77787b</color>
+    
+    <color name="menu_bg">#ff363636</color>
     
     <color name="content_message_shadow_color">#68ffffff</color>
 

@@ -35,7 +35,7 @@ public class SplashActivity extends Activity {
      		if(sp.contains("name")) {
      			// 已经登录，从pref里初始化用户对象
      			User.getInstance().init(SplashActivity.this);
-     			Intent mainIntent = new Intent(SplashActivity.this, MainActivity.class); 
+     			Intent mainIntent = new Intent(SplashActivity.this, HomeActivity.class); 
                 SplashActivity.this.startActivity(mainIntent); 
                 SplashActivity.this.finish(); 
      		}else{

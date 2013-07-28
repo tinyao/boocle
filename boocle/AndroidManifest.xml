@@ -21,10 +21,11 @@
 
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.FLASHLIGHT" />
+
     <permission android:name="android.permission.ACCESS_DOWNLOAD_MANAGER" />
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.FLASHLIGHT" />  
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
 
     <application
         android:name="com.czzz.bookcircle.MyApplication"
@@ -47,7 +48,6 @@
             android:name="com.czzz.demo.SampleTabsDefault"
             android:label="@string/app_title"
             android:windowSoftInputMode="adjustPan" >
-            
         </activity>
         <activity
             android:name=".LoginActivity"
@@ -96,6 +96,14 @@
             <meta-data
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
+        </activity>
+        <activity
+            android:name="com.czzz.demo.HomeActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/app_title"
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme.TranslucentActionBar"
+            android:windowSoftInputMode="adjustNothing" >
         </activity>
         <activity
             android:name=".NotificationActivity"
@@ -200,11 +208,10 @@
         </activity>
         <activity android:name=".ProfileActivity" >
         </activity>
-        
-        <activity android:name=".PasswdChangeActivity"
+        <activity
+            android:name=".PasswdChangeActivity"
             android:label="@string/change_passwd" >
         </activity>
-        
         <activity
             android:name=".AddBookActivity"
             android:label="@string/add_book" >
@@ -218,12 +225,10 @@
             android:name=".MajorBooksActivity"
             android:label="@string/major_textbook" >
         </activity>
-        
-        <activity 
+        <activity
             android:name=".AboutDevUsActivity"
-            android:label="@string/app_about_dev_label">
+            android:label="@string/app_about_dev_label" >
         </activity>
-        
         <activity
             android:name=".DoubanImportActivity"
             android:label="@string/douban_import"

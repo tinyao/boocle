@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="abs__max_action_buttons">2</integer>
+    <integer name="activity_animation_duration">220</integer>
+    <integer name="activity_animation_startoffset">150</integer>
+    <integer name="list_loading_animation_duration">300</integer>
+</resources>

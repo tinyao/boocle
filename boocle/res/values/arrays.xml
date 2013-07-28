@@ -79,4 +79,12 @@
 		<item>Spain</item>
 	</string-array>
 	
+	<string-array name="action_spinner">
+        <item>同校</item>
+        <item>我关注的</item>
+        <item>随便看看</item>
+        <item>同区高校</item>
+        <item>　&#160;其他高校&#160;＞</item>
+    </string-array>
+	
 </resources>

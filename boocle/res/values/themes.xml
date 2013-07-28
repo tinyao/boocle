@@ -1,6 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <style name="AppTheme" parent="Theme.Sherlock.Light">
+        <item name="windowContentOverlay">@color/gray</item>
+        <item name="android:actionBarStyle">@style/Widget.ActionBar</item>
+        <item name="actionBarStyle">@style/Widget.ActionBar</item>
+        <item name="icon">@drawable/actionbar_plogo</item>
+        <item name="android:icon">@drawable/actionbar_plogo</item>
+        <item name="android:spinnerItemStyle">@style/MooSpinnerItem</item>
+        <item name="android:spinnerDropDownItemStyle">@style/MooSpinnerItem.DropDownItem</item>
+    </style>
+
+    <style name="AppTheme.TranslucentActionBar" parent="AppTheme">
+        <item name="android:actionBarStyle">@style/Widget.ActionBar.Transparent</item>
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="actionBarStyle">@style/Widget.ActionBar.Transparent</item>
+        <item name="windowActionBarOverlay">true</item>
+    </style>
+    
+    <style name="AppTheme.Light.TranslucentActionBar" parent="Theme.Sherlock.Light">
+        <item name="android:actionBarStyle">@style/Widget.Light.ActionBar.Transparent</item>
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="actionBarStyle">@style/Widget.Light.ActionBar.Transparent</item>
+        <item name="windowActionBarOverlay">true</item>
+    </style>
+    
     <style name="Theme.Styled" parent="Theme.Sherlock.Light.DarkActionBar">
         <item name="actionBarStyle">@style/My.Widget.Styled.ActionBar</item>
         <item name="android:actionBarStyle">@style/My.Widget.Styled.ActionBar</item>
