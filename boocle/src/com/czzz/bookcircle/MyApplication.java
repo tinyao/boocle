@@ -9,10 +9,12 @@ import com.czzz.data.MsgThreadHelper;
 import com.czzz.demo.ProfileActivity;
 
 import android.app.Application;
+import android.content.Context;
 import android.content.SharedPreferences;
 
 public class MyApplication extends Application{
 	
+	private static Context sContext;
 	private static MyApplication instance;
 	public static SharedPreferences accoutPref, configPref;
 	public static boolean displayCover;
@@ -22,6 +24,7 @@ public class MyApplication extends Application{
 	public void onCreate() {
 		super.onCreate();
 		instance = this;
+		sContext = getApplicationContext();
 		accoutPref = this.getSharedPreferences("account", 0);
 		configPref = this.getSharedPreferences("config", 0);
 		displayCover = configPref.getBoolean("display_search_cover", true);
@@ -30,8 +33,11 @@ public class MyApplication extends Application{
 		if(User.getInstance().uid == 0){
 			User.getInstance().init(this);
 		}
-		
 	}
+	
+	public static Context getContext() {
+        return sContext;
+    }
 
 	public static MyApplication getInstance() {
 		return instance;

@@ -22,6 +22,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.MeasureSpec;
@@ -297,30 +298,42 @@ public class FadingActionBarHelper {
         params.height = Utils.getDisplayHeight(listView.getContext());
         mListViewBackgroundView.setLayoutParams(params);
 
-        listView.setOnScrollListener(mOnScrollListener);
+//        listView.setOnScrollListener(mOnScrollListener);
         return mContentContainer;
     }
 
-    private OnScrollListener mOnScrollListener = new OnScrollListener() {
-        @Override
-        public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-            View topChild = view.getChildAt(0);
-            if (topChild == null) {
-                onNewScroll(0);
-            } else if (topChild != mMarginView) {
-                onNewScroll(mHeaderContainer.getHeight());
-            } else {
-                onNewScroll(-topChild.getTop());
-            }
+    
+//    private OnScrollListener mOnScrollListener = new OnScrollListener() {
+//        @Override
+//        public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+//        	onListSrcoll(view);
+//        }
+//
+//        @Override
+//        public void onScrollStateChanged(AbsListView view, int scrollState) {
+//        }
+//    };
+    
+    public void onListSrcoll(AbsListView view){
+    	View topChild = view.getChildAt(0);
+        if (topChild == null) {
+        	Log.d("DEBUG", "new Scroll: 0");
+            onNewScroll(0);
+        } else if (topChild != mMarginView) {
+        	Log.d("DEBUG", "new Scroll: != mMarginView" );
+            onNewScroll(mHeaderContainer.getHeight());
+        } else {
+        	Log.d("DEBUG", "new Scroll: == mMarginView" );
+            onNewScroll(-topChild.getTop());
         }
-
-        @Override
-        public void onScrollStateChanged(AbsListView view, int scrollState) {
-        }
-    };
+    }
+    
     private int mLastScrollPosition;
 
     private void onNewScroll(int scrollPosition) {
+    	
+    	Log.d("DEBUG", "scrollPosition: " + scrollPosition );
+    	
         if (mActionBar == null) {
             return;
         }
@@ -338,21 +351,36 @@ public class FadingActionBarHelper {
         addParallaxEffect(scrollPosition);
     }
 
+//    private void addParallaxEffect(int scrollPosition) {
+//        float damping = mUseParallax ? 0.5f : 1.0f;
+//        int dampedScroll = (int) (scrollPosition * damping);
+//        int offset = mLastDampedScroll - dampedScroll;
+//        mHeaderContainer.offsetTopAndBottom(offset);
+//
+//        if (mListViewBackgroundView != null) {
+//            offset = mLastScrollPosition - scrollPosition;
+//            mListViewBackgroundView.offsetTopAndBottom(offset);
+//        }
+//
+//        if (mFirstGlobalLayoutPerformed) {
+//            mLastScrollPosition = scrollPosition;
+//            mLastDampedScroll = dampedScroll;
+//        }
+//    }
+    
     private void addParallaxEffect(int scrollPosition) {
         float damping = mUseParallax ? 0.5f : 1.0f;
         int dampedScroll = (int) (scrollPosition * damping);
-        int offset = mLastDampedScroll - dampedScroll;
-        mHeaderContainer.offsetTopAndBottom(offset);
+        mHeaderContainer.setTop(-dampedScroll);
+        mHeaderContainer.setBottom(-dampedScroll + mLastHeaderHeight);
 
         if (mListViewBackgroundView != null) {
-            offset = mLastScrollPosition - scrollPosition;
-            mListViewBackgroundView.offsetTopAndBottom(offset);
+            int postion = mLastHeaderHeight - scrollPosition;
+            int height = mListViewBackgroundView.getHeight();
+            mListViewBackgroundView.setTop(postion);
+            mListViewBackgroundView.setBottom(postion + height);
         }
 
-        if (mFirstGlobalLayoutPerformed) {
-            mLastScrollPosition = scrollPosition;
-            mLastDampedScroll = dampedScroll;
-        }
     }
 
     private void updateHeaderHeight(int headerHeight) {

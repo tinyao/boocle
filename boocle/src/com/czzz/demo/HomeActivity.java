@@ -1,9 +1,5 @@
 package com.czzz.demo;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -12,19 +8,16 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.Loader;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ListView;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.czzz.base.DrawerBaseActivity;
@@ -34,8 +27,8 @@ import com.czzz.bookcircle.BookUtils;
 import com.czzz.bookcircle.task.AlarmTask;
 import com.czzz.data.UserBooksHelper;
 import com.czzz.demo.listadapter.NearbyBooksAdapter;
-import com.czzz.douban.DoubanBook;
 import com.czzz.utils.HttpListener;
+import com.czzz.view.LoadingFooter;
 import com.manuelpeinado.fadingactionbar.FadingActionBarHelper;
 
 import de.keyboardsurfer.android.widget.crouton.Crouton;
@@ -48,6 +41,7 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
 	private PullToRefreshAttacher mPullToRefreshAttacher;
 	private SharedPreferences sp;
 	private ListView listView;
+	private LoadingFooter mLoadingFooter;
 	
 	private ArrayList<BookCollection> nearbyBooks = new ArrayList<BookCollection>();
 	private NearbyBooksAdapter nearbyBooksAdapter;
@@ -88,8 +82,8 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
 	
 	/* 初始化fadingActionbar，设置自定义view */
 	private void initLayoutActionBar(){
-		FadingActionBarHelper helper = new FadingActionBarHelper()
-	        .actionBarBackground(R.drawable.actionbar_base)
+		final FadingActionBarHelper helper = new FadingActionBarHelper()
+	        .actionBarBackground(R.drawable.actionbar_base) 
 	        .headerLayout(R.layout.header)
 	        .headerPanelLayout(R.layout.search)
 	        .contentLayout(R.layout.activity_home);
@@ -108,6 +102,35 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
 	    
 	    // fill the listview
 	    listView = (ListView) findViewById(android.R.id.list);
+	    mLoadingFooter = new LoadingFooter(this);
+	    listView.addFooterView(mLoadingFooter.getView());
+	    
+	    listView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount,
+                    int totalItemCount) {
+            	
+            	helper.onListSrcoll(view);
+            	
+                if (mLoadingFooter.getState() == LoadingFooter.State.Loading
+                        || mLoadingFooter.getState() == LoadingFooter.State.TheEnd) {
+                    return;
+                }
+                if (firstVisibleItem + visibleItemCount >= totalItemCount
+                        && totalItemCount != 0
+                        && totalItemCount != listView.getHeaderViewsCount()
+                                + listView.getFooterViewsCount() && nearbyBooks.size() > 0) {
+                    
+                	Log.d("DEBUG", "load next page");
+                	loadNextPage();
+                }
+            }
+        });
+	    
 	}
 	
 	private void preCheck(){
@@ -186,6 +209,17 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
 		
 	}
 	
+	private void loadNextPage(){
+		int startCid = 0;
+		if(nearbyBooks != null && nearbyBooks.size() > 0){
+			startCid = nearbyBooks.get(nearbyBooks.size() - 1).cid;
+		}
+		
+		mLoadingFooter.setState(LoadingFooter.State.Loading);
+		loadMoreNearbyBooks(startCid, 
+				DEFAULT_NUM, school_id, statusId, sortId);
+	}
+	
 	private void fetchNeabyBooks(int start, int count, int school_id, int status, int sort) {
 		// TODO Auto-generated method stub
 		BookUtils.fetchNearby(school_id, start, count, status, sort, 
@@ -196,6 +230,13 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
 		// TODO Auto-generated method stub
 		BookUtils.fetchNearbyNewBooks(school_id, start, status, 
 				new HomeResponeHandler(this, HttpListener.FETCH_NEARBY_BOOKS_NEW));
+	}
+	
+	private void loadMoreNearbyBooks(int start, int count, 
+			int school_id, int status, int sort) {
+		// TODO Auto-generated method stub
+		BookUtils.fetchNearby(school_id, start, count, status, sort, 
+				new HomeResponeHandler(this, HttpListener.FETCH_NEARBY_BOOKS_MORE));
 	}
 	
 	/* update nearby books */
@@ -223,7 +264,7 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
 				}
 			} else {
 				nearbyBooks.addAll(books);
-				nearbyBooksAdapter = new NearbyBooksAdapter(this, nearbyBooks);
+//				nearbyBooksAdapter = new NearbyBooksAdapter(this, nearbyBooks);
 				nearbyBooksAdapter.notifyDataSetChanged();
 			}
 		}
@@ -294,6 +335,11 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
 				break;
 			case HttpListener.FETCH_NEARBY_BOOKS_NEW:
 				refreshNewNearbyBooks(response);
+				break;
+			case HttpListener.FETCH_NEARBY_BOOKS_MORE:
+				Log.d("DEBUG", "RESPONSE: " + response);
+				updateNearbyBooks(response);
+				mLoadingFooter.setState(LoadingFooter.State.Idle, 3000);
 				break;
 			}
 		}
