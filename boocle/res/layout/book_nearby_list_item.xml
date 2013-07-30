@@ -98,6 +98,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dip"
                 android:layout_marginTop="5dip"
+                android:layout_marginBottom="3dp"
                 android:lineSpacingExtra="2dip"
                 android:maxLength="140"
                 android:singleLine="false"

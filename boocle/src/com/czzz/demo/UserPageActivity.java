@@ -7,10 +7,19 @@ import java.util.Locale;
 import org.json.JSONException;
 
 import uk.co.senab.actionbarpulltorefresh.extras.actionbarsherlock.PullToRefreshAttacher;
+import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -29,11 +38,13 @@ import com.czzz.base.User;
 import com.czzz.bookcircle.BookCollection;
 import com.czzz.bookcircle.UserUtils;
 import com.czzz.data.UserBooksHelper;
+import com.czzz.demo.BookShelfFragment.RefreshReceiver;
 import com.czzz.demo.listadapter.NearbyUsersAdapter;
 import com.czzz.demo.listadapter.ShelfAdapter;
 import com.czzz.demo.listadapter.ShelfListAdapter;
 import com.czzz.douban.DoubanBookUtils;
 import com.czzz.utils.HttpListener;
+import com.czzz.utils.ImageUtils;
 import com.czzz.utils.ImagesDownloader;
 import com.czzz.utils.TextUtils;
 import com.czzz.view.LoadingFooter;
@@ -114,6 +125,8 @@ public class UserPageActivity extends AsyncTaskActivity implements PullToRefresh
 			}
 		}
 		
+		registerReceiver(); 
+		
 	}
 	
 	private void initProfileView() {
@@ -175,6 +188,9 @@ public class UserPageActivity extends AsyncTaskActivity implements PullToRefresh
 		loadingView = (LoadingView) findViewById(R.id.loading_view);
 		mLoadingFooter = new LoadingFooter(this);
 	    listView.addFooterView(mLoadingFooter.getView());
+	    
+	    userName.setOnClickListener(listener);
+	    userAvatar.setOnClickListener(listener);
 
 		shelfRadioSwitch
 				.setOnCheckedChangeListener(new OnCheckedChangeListener() {
@@ -271,6 +287,23 @@ public class UserPageActivity extends AsyncTaskActivity implements PullToRefresh
 			
 		});
 	}
+	
+	OnClickListener listener = new OnClickListener() {
+
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			switch (v.getId()) {
+			case R.id.avatar_img:
+			case R.id.user_profile_btn:
+				Intent detailIntent = new Intent(UserPageActivity.this,
+						ProfileActivity.class);
+				startActivityForResult(detailIntent, 0);
+				break;
+			}
+		}
+
+	};
 	
 	private void loadNextBookPage(){
 		mLoadingFooter.setState(LoadingFooter.State.Loading);
@@ -568,7 +601,7 @@ public class UserPageActivity extends AsyncTaskActivity implements PullToRefresh
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// TODO Auto-generated method stub
-		if (isMyself) {
+		if (curUser.uid != User.getInstance().uid) {
 			getSupportMenuInflater().inflate(R.menu.menu_user_page, menu);
 			followMenu = menu.findItem(R.id.menu__fragment_follow_star);
 		} else{
@@ -592,7 +625,8 @@ public class UserPageActivity extends AsyncTaskActivity implements PullToRefresh
 		case R.id.menu__fragment_follow_star:
 //			followUser();
 			break;
-		case R.id.menu_add_book:
+		case R.id.menu__fragment_add_book:
+			showBookAddDialog();
 			break;
 		}
 		return super.onOptionsItemSelected(item);
@@ -625,6 +659,156 @@ public class UserPageActivity extends AsyncTaskActivity implements PullToRefresh
 		} else {
 			updateUserInfo(curUser.uid);
 		}
+	}
+	
+	private void showBookAddDialog(){
+		LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view = inflater.inflate(R.layout.add_book_dialog, null);
+        final View scanV = (View) view.findViewById(R.id.add_book_to_scan);
+        final View searchV = (View) view.findViewById(R.id.add_book_to_search);
+        final AlertDialog chooseDialog = new AlertDialog.Builder(this)
+	    	.setTitle(R.string.add_books).setView(view)
+	    	.create();
+        scanV.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent i1 = new Intent("com.czzz.action.qrscan.addbook");
+				startActivityForResult(i1,0);
+				chooseDialog.dismiss();
+			}
+        	
+        });
+        searchV.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent i2 = new Intent(UserPageActivity.this, BookSearchListActivity.class);
+				i2.putExtra("add_book_search", true);
+				startActivity(i2);
+				chooseDialog.dismiss();
+			}
+        	
+        });
+    
+        chooseDialog.setCanceledOnTouchOutside(true);
+        chooseDialog.show();
+	}
+	
+	/**
+	 * 刷新书架UI, 加载新添加的书籍
+	 */
+	private void loadNewBooks(ArrayList<BookCollection> newcollections){
+		all.addAll(0, newcollections);
+//		resetListView();
+		notifyDataList();
+	}
+	
+	private Parcelable listState;
+	
+	@Override
+	public void onPause() {
+		// TODO Auto-generated method stub
+		listState = listView.onSaveInstanceState();
+		super.onPause();
+	}
+	
+	@Override
+	public void onDestroy() {
+		// TODO Auto-generated method stub
+		this.unregisterReceiver(receiver);
+		super.onDestroy();
+	}
+	
+	private static final String ACTION_UPDATE_BOOKS = "update_user_books";
+	private static final String ACTION_UPDATE_INFO = "update_user_info";
+	private static final String ACTION_UPDATE_ITEM = "update_user_book_item";
+	private static final String ACTION_DELETE_ITEM = "delete_user_book_item";
+	private RefreshReceiver receiver; 
+	private Bitmap avatarBitmap;
+	
+	private void registerReceiver(){
+		receiver = new RefreshReceiver();  
+        IntentFilter filter=new IntentFilter();  
+        filter.addAction(ACTION_UPDATE_BOOKS);
+        filter.addAction(ACTION_UPDATE_INFO);
+        filter.addAction(ACTION_UPDATE_ITEM);
+        filter.addAction(ACTION_DELETE_ITEM);
+
+        //动态注册BroadcastReceiver  
+        this.registerReceiver(receiver, filter); 
+	}
+	
+	/**
+	 * 接收来自其他地方的通知，更新UI（用户信息以及书架信息）
+	 * @author tinyao
+	 *
+	 */
+	class RefreshReceiver extends BroadcastReceiver{
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			// TODO Auto-generated method stub
+			
+			if(!isMyself) return; 
+			
+			if(intent.getAction().equals(ACTION_UPDATE_BOOKS)) {
+				bookTotal.setText("" + curUser.book_total);
+				favTotal.setText("" + curUser.fav_total);
+				ArrayList<BookCollection> newcollections 
+						= intent.getParcelableArrayListExtra("new_books");
+				if(newcollections != null){
+					loadNewBooks(newcollections);
+				}
+			}
+			
+			if(intent.getAction().equals(ACTION_UPDATE_INFO)){
+				
+				if(intent.getBooleanExtra("avatar_change", false)){
+					avatarBitmap = BitmapFactory.decodeFile(ImageUtils.avatarPath, null);
+					userAvatar.setImageBitmap(avatarBitmap);
+				}
+				if(intent.getBooleanExtra("desc_change", false)){
+					userDesc.setText(curUser.desc);
+				}
+				if(intent.getBooleanExtra("gender_change", false)){
+					genderView.setChecked(curUser.gender==1);
+					genderView.setVisibility(View.VISIBLE);
+				}
+			}
+			
+			if(intent.getAction().equals(ACTION_UPDATE_ITEM)){
+				int update_cid = intent.getIntExtra("cid", 0);
+				for(BookCollection eitem : all){
+					if(eitem.cid == update_cid){
+						eitem.note = intent.getStringExtra("note");
+						eitem.score = intent.getFloatExtra("score", 0);
+						eitem.status = intent.getIntExtra("status", 0);
+						notifyDataList();
+						listView.scrollTo(0, 0);
+						listView.onRestoreInstanceState(listState);
+						break;
+					}
+				}
+			}
+			
+			if(intent.getAction().equals(ACTION_DELETE_ITEM)){
+				int update_cid = intent.getIntExtra("cid", 0);
+				for(BookCollection eitem : all){
+					if(eitem.cid == update_cid){
+						all.remove(eitem);
+						notifyDataList();
+						bookTotal.setText("" + curUser.book_total);
+						listView.scrollTo(0, 0);
+						listView.onRestoreInstanceState(listState);
+						break;
+					}
+				}
+			}
+		}
+		
 	}
 	
 }
