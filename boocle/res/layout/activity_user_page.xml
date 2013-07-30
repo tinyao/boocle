@@ -13,7 +13,7 @@
         android:choiceMode="singleChoice"
         android:descendantFocusability="afterDescendants"
         android:divider="@android:color/transparent"
-        android:dividerHeight="4dip"
+        android:dividerHeight="3dip"
         android:drawSelectorOnTop="true"
         android:footerDividersEnabled="true"
         android:headerDividersEnabled="true"

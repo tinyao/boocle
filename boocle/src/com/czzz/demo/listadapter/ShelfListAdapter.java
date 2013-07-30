@@ -21,8 +21,6 @@ public class ShelfListAdapter extends BaseAdapter {
 
 	private LayoutInflater mInflater;
 	private ArrayList<BookCollection> userlist;
-	private Context con;
-	private ListView mListView;
 
 	public ShelfListAdapter(Context context,
 			ArrayList<BookCollection> list) {

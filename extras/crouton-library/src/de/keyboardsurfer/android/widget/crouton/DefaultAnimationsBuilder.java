@@ -26,6 +26,7 @@ import android.view.animation.TranslateAnimation;
 final class DefaultAnimationsBuilder {
   private static final long DURATION = 400;
   private static Animation slideInDownAnimation, slideOutUpAnimation;
+  private static Animation slideInDownOverlayAnimation, slideOutUpOverlayAnimation;
   private static int lastInAnimationHeight, lastOutAnimationHeight;
 
   private DefaultAnimationsBuilder() {
@@ -35,47 +36,96 @@ final class DefaultAnimationsBuilder {
   /**
    * @param croutonView
    *   The croutonView which gets animated.
+   * @param isOverlay 
    *
    * @return The default Animation for a showing {@link Crouton}.
    */
   static Animation buildDefaultSlideInDownAnimation(View croutonView) {
+	  
+    if (!areLastMeasuredInAnimationHeightAndCurrentEqual(croutonView) || (null == slideInDownOverlayAnimation)) {
+    	slideInDownOverlayAnimation = new TranslateAnimation(
+        0, 0,                               // X: from, to
+        -croutonView.getMeasuredHeight() , 0 // Y: from, to
+      );
+      
+    	slideInDownOverlayAnimation.setDuration(DURATION);
+    	setLastInAnimationHeight(croutonView.getMeasuredHeight());
+    }
+    return slideInDownOverlayAnimation;
+  }
+  
+  /**
+   * @param croutonView
+   *   The croutonView which gets animated.
+   * @param isOverlay 
+   *
+   * @return The default Animation for a showing {@link Crouton}.
+   */
+  static Animation buildDefaultSlideInDownOverlayAnimation(View croutonView) {
 	  
 	DisplayMetrics displayMetrics = 
 			croutonView.getContext().getResources().getDisplayMetrics();
 	  
 //	int fromY = (int)((-croutonView.getMeasuredHeight() * displayMetrics.density) + 0.5);
 	  
-    if (!areLastMeasuredInAnimationHeightAndCurrentEqual(croutonView) || (null == slideInDownAnimation)) {
-      slideInDownAnimation = new TranslateAnimation(
+    if (!areLastMeasuredInAnimationHeightAndCurrentEqual(croutonView) || (null == slideInDownOverlayAnimation)) {
+    	slideInDownOverlayAnimation = new TranslateAnimation(
         0, 0,                               // X: from, to
-        -croutonView.getMeasuredHeight() , 0 // Y: from, to
+        -croutonView.getMeasuredHeight() , displayMetrics.density * 48 // Y: from, to
       );
       
       // displayMetrics = context.getResources().getDisplayMetrics();
       // (int)((dp * displayMetrics.density) + 0.5);
       
-      slideInDownAnimation.setDuration(DURATION);
+    	slideInDownOverlayAnimation.setDuration(DURATION);
       setLastInAnimationHeight(croutonView.getMeasuredHeight());
     }
-    return slideInDownAnimation;
+    return slideInDownOverlayAnimation;
   }
 
   /**
    * @param croutonView
    *   The croutonView which gets animated.
+   * @param isOverlay 
    *
    * @return The default Animation for a hiding {@link Crouton}.
    */
   static Animation buildDefaultSlideOutUpAnimation(View croutonView) {
-    if (!areLastMeasuredOutAnimationHeightAndCurrentEqual(croutonView) || (null == slideOutUpAnimation)) {
-      slideOutUpAnimation = new TranslateAnimation(
+	  
+    if (!areLastMeasuredOutAnimationHeightAndCurrentEqual(croutonView) || (null == slideOutUpOverlayAnimation)) {
+    	slideOutUpOverlayAnimation = new TranslateAnimation(
         0, 0,                               // X: from, to
         0, -croutonView.getMeasuredHeight() // Y: from, to
       );
-      slideOutUpAnimation.setDuration(DURATION);
+      
+    	slideOutUpOverlayAnimation.setDuration(DURATION);
       setLastOutAnimationHeight(croutonView.getMeasuredHeight());
     }
-    return slideOutUpAnimation;
+    return slideOutUpOverlayAnimation;
+  }
+  
+  /**
+   * @param croutonView
+   *   The croutonView which gets animated.
+   * @param isOverlay 
+   *
+   * @return The default Animation for a hiding {@link Crouton}.
+   */
+  static Animation buildDefaultSlideOutUpOverlayAnimation(View croutonView) {
+	  
+	  DisplayMetrics displayMetrics = 
+				croutonView.getContext().getResources().getDisplayMetrics();
+	  
+    if (!areLastMeasuredOutAnimationHeightAndCurrentEqual(croutonView) || (null == slideOutUpOverlayAnimation)) {
+    	slideOutUpOverlayAnimation = new TranslateAnimation(
+        0, 0,                               // X: from, to
+        displayMetrics.density * 48, -croutonView.getMeasuredHeight() // Y: from, to
+      );
+      
+    	slideOutUpOverlayAnimation.setDuration(DURATION);
+      setLastOutAnimationHeight(croutonView.getMeasuredHeight());
+    }
+    return slideOutUpOverlayAnimation;
   }
 
   private static boolean areLastMeasuredInAnimationHeightAndCurrentEqual(View croutonView) {

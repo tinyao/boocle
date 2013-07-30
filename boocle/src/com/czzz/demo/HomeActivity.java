@@ -258,7 +258,8 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
 		ArrayList<BookCollection> books = BookUtils.parseNearybyBooks(respone);
 		
 		if(books == null){
-			Crouton.makeText(this, R.string.no_more, Style.CONFIRM).show();
+//			Crouton.makeText(this, R.string.no_more, Style.CONFIRM).show();
+			mLoadingFooter.setState(LoadingFooter.State.TheEnd, 10);
 			if(nearbyBooks.size() == 0){
 				nearbyBooksAdapter = new NearbyBooksAdapter(this, nearbyBooks);
 				listView.setAdapter(nearbyBooksAdapter);

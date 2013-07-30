@@ -36,6 +36,7 @@ import com.czzz.douban.DoubanBookUtils;
 import com.czzz.utils.HttpListener;
 import com.czzz.utils.ImagesDownloader;
 import com.czzz.utils.TextUtils;
+import com.czzz.view.LoadingFooter;
 import com.czzz.view.LoadingView;
 import com.manuelpeinado.fadingactionbar.FadingActionBarHelper;
 
@@ -48,6 +49,8 @@ public class UserPageActivity extends AsyncTaskActivity implements PullToRefresh
 	private final static int SECTION_BOOK_LIST = 1;
 	private final static int SECTION_USER_FOLLOW = 2;
 	
+	private static final int DEFAULT_NUM = 9;
+	
 	private PullToRefreshAttacher mPullToRefreshAttacher;
 	private TextView userName, userDesc, userAvatarTxt;
 	private ImageView userAvatar;
@@ -55,6 +58,7 @@ public class UserPageActivity extends AsyncTaskActivity implements PullToRefresh
 	private TextView bookTotal, favTotal;
 	private ListView listView;
 	private LoadingView loadingView;
+	private LoadingFooter mLoadingFooter;
 
 	private User curUser;
 	private ArrayList<BookCollection> all = new ArrayList<BookCollection>();
@@ -128,7 +132,7 @@ public class UserPageActivity extends AsyncTaskActivity implements PullToRefresh
 		setUserAvatar();
 		
 		// fetch the books
-		fetchUserBooks(User.getInstance().uid, 0, 9);
+		fetchUserBooks(User.getInstance().uid, 0, 12);
 	}
 	
 	private void setUserAvatar() {
@@ -169,6 +173,8 @@ public class UserPageActivity extends AsyncTaskActivity implements PullToRefresh
 
 		listView = (ListView) findViewById(android.R.id.list);
 		loadingView = (LoadingView) findViewById(R.id.loading_view);
+		mLoadingFooter = new LoadingFooter(this);
+	    listView.addFooterView(mLoadingFooter.getView());
 
 		shelfRadioSwitch
 				.setOnCheckedChangeListener(new OnCheckedChangeListener() {
@@ -176,14 +182,19 @@ public class UserPageActivity extends AsyncTaskActivity implements PullToRefresh
 					@Override
 					public void onCheckedChanged(RadioGroup arg0, int selectedId) {
 						// TODO Auto-generated method stub
+						
 						switch (selectedId) {
 						case R.id.shelf_switch_grid:
 							currentSection = SECTION_BOOK_GRID;
 							listView.setAdapter(gridAdapter);
+							mLoadingFooter.setState(
+									bookEnd ? LoadingFooter.State.TheEnd : LoadingFooter.State.Idle);
 							break;
 						case R.id.shelf_switch_list:
 							currentSection = SECTION_BOOK_LIST;
 							listView.setAdapter(listAdapter);
+							mLoadingFooter.setState(
+									bookEnd ? LoadingFooter.State.TheEnd : LoadingFooter.State.Idle);
 							break;
 						case R.id.shelf_switch_following:
 							// fetch the users following
@@ -197,6 +208,8 @@ public class UserPageActivity extends AsyncTaskActivity implements PullToRefresh
 							} else{
 								listView.setAdapter(followingAdapter);
 							}
+							mLoadingFooter.setState(
+									followEnd ? LoadingFooter.State.TheEnd : LoadingFooter.State.Idle);
 							break;
 						}
 					}
@@ -211,6 +224,24 @@ public class UserPageActivity extends AsyncTaskActivity implements PullToRefresh
 			public void onScroll(AbsListView view, int firstVisibleItem,
 					int visibleItemCount, int totalItemCount) {
 				helper.onListSrcoll(view);
+				
+				if (mLoadingFooter.getState() == LoadingFooter.State.Loading
+                        || mLoadingFooter.getState() == LoadingFooter.State.TheEnd) {
+                    return;
+                }
+                if (firstVisibleItem + visibleItemCount >= totalItemCount
+                        && totalItemCount != 0
+                        && totalItemCount != listView.getHeaderViewsCount()
+                                + listView.getFooterViewsCount() ) {
+                    
+                	if(currentSection != SECTION_USER_FOLLOW && all.size() > 0){	//书
+                		loadNextBookPage();
+                	}
+                	
+                	if(currentSection == SECTION_USER_FOLLOW && followings.size() >0){	//关注
+                		
+                	}
+                }
 			}
 		});
 		
@@ -240,6 +271,24 @@ public class UserPageActivity extends AsyncTaskActivity implements PullToRefresh
 			
 		});
 	}
+	
+	private void loadNextBookPage(){
+		mLoadingFooter.setState(LoadingFooter.State.Loading);
+		this.taskType = HttpListener.MORE_USER_BOOKS;
+		DoubanBookUtils.fetchUserCollection(this, this, taskType, curUser.uid, 
+				all.size(), 9 + (3 - all.size()%3) % 3);
+	}
+	
+//	private void loadNextFollowPage(){
+//		int startCid = 0;
+//		if(nearbyBooks != null && nearbyBooks.size() > 0){
+//			startCid = nearbyBooks.get(nearbyBooks.size() - 1).cid;
+//		}
+//		
+//		mLoadingFooter.setState(LoadingFooter.State.Loading);
+//		loadMoreNearbyBooks(startCid, 
+//				DEFAULT_NUM, school_id, statusId, sortId);
+//	}
 
 	private void initUserView(boolean hasFullInfo, boolean hasCollections) {
 		// TODO Auto-generated method stub
@@ -262,7 +311,7 @@ public class UserPageActivity extends AsyncTaskActivity implements PullToRefresh
 				// 检测是否已经缓存
 				fillBookShelf(curUser.collections);
 			} else {
-				fetchUserBooks(curUser.uid, 0, 9);
+				fetchUserBooks(curUser.uid, 0, 12);
 			}
 		} else {
 			// 无完整信息和书籍信息，先获取个人信息后获取书籍信息
@@ -271,24 +320,6 @@ public class UserPageActivity extends AsyncTaskActivity implements PullToRefresh
 		}
 
 		listView.setAdapter(gridAdapter);
-
-//		listView.setOnItemClickListener(new OnItemClickListener() {
-//
-//			@Override
-//			public void onItemClick(AdapterView<?> arg0, View arg1, int pos,
-//					long arg3) {
-//				// TODO Auto-generated method stub
-//				if (pos > listAdapter.getCount())
-//					return;
-//
-//				Intent bookIntent = new Intent(UserPageActivity.this,
-//						BookInfoActivity.class);
-//				bookIntent.putExtra("collection", (Serializable) all.get(pos));
-//				bookIntent.putExtra("full", true); // 图书信息完整
-//				UserPageActivity.this.startActivity(bookIntent);
-//			}
-//
-//		});
 	}
 	
 	/**
@@ -300,10 +331,12 @@ public class UserPageActivity extends AsyncTaskActivity implements PullToRefresh
 		if (cs == null) {
 			if (all.size() != 0)
 				Crouton.makeText(this, R.string.no_more, Style.CONFIRM).show();
-			else
+			else{
 				Crouton.makeText(this, 
 						isMyself ? R.string.you_have_no_books : R.string.ta_has_no_books, 
 								Style.CONFIRM).show();
+				loadingView.setViewGone();
+			}
 			return;
 		}
 
@@ -314,11 +347,7 @@ public class UserPageActivity extends AsyncTaskActivity implements PullToRefresh
 		all.addAll(cs);
 
 		if(mPullToRefreshAttacher.isRefreshing()){
-			if(currentSection == SECTION_BOOK_GRID){
-				gridAdapter.notifyDataSetChanged();
-			}else if(currentSection == SECTION_BOOK_LIST){
-				listAdapter.notifyDataSetChanged();
-			}
+			notifyDataList();
 		} else {
 			createAdapter(all);
 		}
@@ -336,11 +365,20 @@ public class UserPageActivity extends AsyncTaskActivity implements PullToRefresh
 //			listAdapter.notifyDataSetChanged();
 //			gridAdapter.notifyDataSetChanged();
 //		}
-		
 
 		loadingView.setViewGone();
 		if(mPullToRefreshAttacher.isRefreshing()) {
 			mPullToRefreshAttacher.setRefreshComplete();
+		}
+	}
+	
+	private void notifyDataList(){
+		if(currentSection == SECTION_BOOK_GRID){
+			gridAdapter.notifyDataSetChanged();
+		}else if(currentSection == SECTION_BOOK_LIST){
+			listAdapter.notifyDataSetChanged();
+		}else if(currentSection == SECTION_USER_FOLLOW){
+			followingAdapter.notifyDataSetChanged();
 		}
 	}
 	
@@ -412,6 +450,8 @@ public class UserPageActivity extends AsyncTaskActivity implements PullToRefresh
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			
+			mLoadingFooter.setState(LoadingFooter.State.Idle);
 			break;
 		case HttpListener.FETCH_CIRCLE_USER_INFO:
 			curUser = UserUtils.parseUser(recvData);
@@ -439,7 +479,7 @@ public class UserPageActivity extends AsyncTaskActivity implements PullToRefresh
 			
 			imagesLoader.download(curUser.avatar, userAvatar, -1);
 
-			fetchUserBooks(curUser.uid, 0, 9);
+			fetchUserBooks(curUser.uid, 0, 12);
 			break;
 		case HttpListener.FETCH_USER_FOLLOWING:
 			Log.d("DEBUG", "following: " + data);
@@ -460,6 +500,7 @@ public class UserPageActivity extends AsyncTaskActivity implements PullToRefresh
 			mPullToRefreshAttacher.setRefreshComplete();
 			loadingView.setViewGone();
 			
+			mLoadingFooter.setState(LoadingFooter.State.Idle);
 			break;
 		case HttpListener.REFRESH_USER_INFO:
 			if(isMyself) {
@@ -468,7 +509,7 @@ public class UserPageActivity extends AsyncTaskActivity implements PullToRefresh
 				UserUtils.parseUser(recvData);
 			}
 			
-			updateUserBooks(curUser.uid, 0, 9); 
+			updateUserBooks(curUser.uid, 0, 12); 
 			
 			userDesc.setText(curUser.desc);
 			bookTotal.setText("" + curUser.book_total);
@@ -486,9 +527,34 @@ public class UserPageActivity extends AsyncTaskActivity implements PullToRefresh
 				User.getInstance().save(this);
 			
 			break;
+		case HttpListener.MORE_USER_BOOKS:
+			try {
+				ArrayList<BookCollection> cs = DoubanBookUtils.parseUserBooks("" + data, curUser);
+				if(cs==null || cs.size()==0){
+					mLoadingFooter.setState(LoadingFooter.State.TheEnd, 0);
+					bookEnd = true;
+				} else {
+					all.addAll(cs);
+					notifyDataList();
+					if(cs.size()<9){
+						mLoadingFooter.setState(LoadingFooter.State.TheEnd);
+						bookEnd = true;
+					}else{
+						mLoadingFooter.setState(LoadingFooter.State.Idle);
+						bookEnd = false;
+					}
+				}
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			break;
 		}
 	}
 
+	private boolean bookEnd = false;
+	private boolean followEnd = false;
+	
 	@Override
 	public void onTaskFailed(String data) {
 		// TODO Auto-generated method stub
@@ -502,7 +568,7 @@ public class UserPageActivity extends AsyncTaskActivity implements PullToRefresh
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// TODO Auto-generated method stub
-		if (curUser.uid != User.getInstance().uid) {
+		if (isMyself) {
 			getSupportMenuInflater().inflate(R.menu.menu_user_page, menu);
 			followMenu = menu.findItem(R.id.menu__fragment_follow_star);
 		} else{
@@ -526,6 +592,8 @@ public class UserPageActivity extends AsyncTaskActivity implements PullToRefresh
 		case R.id.menu__fragment_follow_star:
 //			followUser();
 			break;
+		case R.id.menu_add_book:
+			break;
 		}
 		return super.onOptionsItemSelected(item);
 	}
@@ -548,9 +616,10 @@ public class UserPageActivity extends AsyncTaskActivity implements PullToRefresh
 	@Override
 	public void onRefreshStarted(View view) {
 		// TODO Auto-generated method stub
+//		mLoadingFooter.setState(LoadingFooter.State.Idle);
+		if(mLoadingFooter.getState() == LoadingFooter.State.TheEnd) return;
 		
 		if (currentSection == SECTION_USER_FOLLOW){
-			// refresh fos;
 			followings.clear();
 			fetchFollowingUsers(curUser.uid, 0);
 		} else {

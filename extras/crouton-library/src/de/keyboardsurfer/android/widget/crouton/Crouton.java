@@ -56,6 +56,8 @@ public final class Crouton {
   private final Style style;
   private Configuration configuration = null;
   private final View customView;
+  
+  private boolean isOverlay = false;
 
   private OnClickListener onClickListener;
 
@@ -88,6 +90,19 @@ public final class Crouton {
     this.style = style;
     this.customView = null;
   }
+  
+  private Crouton(Activity activity, CharSequence text, Style style, boolean isOverlay) {
+	    if ((activity == null) || (text == null) || (style == null)) {
+	      throw new IllegalArgumentException("Null parameters are not accepted");
+	    }
+
+	    this.activity = activity;
+	    this.viewGroup = null;
+	    this.text = text;
+	    this.style = style;
+	    this.customView = null;
+	    this.isOverlay = isOverlay;
+	  }
 
   /**
    * Creates the {@link Crouton}.
@@ -191,6 +206,10 @@ public final class Crouton {
   public static Crouton makeText(Activity activity, CharSequence text, Style style) {
     return new Crouton(activity, text, style);
   }
+  
+  public static Crouton makeText(Activity activity, CharSequence text, Style style, boolean overlay) {
+	    return new Crouton(activity, text, style, overlay);
+  }
 
   /**
    * Creates a {@link Crouton} with provided text and style for a given
@@ -248,6 +267,10 @@ public final class Crouton {
   public static Crouton makeText(Activity activity, int textResourceId, Style style) {
     return makeText(activity, activity.getString(textResourceId), style);
   }
+  
+  public static Crouton makeText(Activity activity, int textResourceId, Style style, boolean overlay) {
+	    return makeText(activity, activity.getString(textResourceId), style, overlay);
+	  }
 
   /**
    * Creates a {@link Crouton} with provided text-resource and style for a given
@@ -565,7 +588,7 @@ public final class Crouton {
    * the time, this {@link Crouton} will be displayed afterwards.
    */
   public void show() {
-    Manager.getInstance().add(this);
+	  Manager.getInstance().add(this);
   }
 
   public Animation getInAnimation() {
@@ -574,7 +597,10 @@ public final class Crouton {
         this.inAnimation = AnimationUtils.loadAnimation(getActivity(), getConfiguration().inAnimationResId);
       } else {
         measureCroutonView();
-        this.inAnimation = DefaultAnimationsBuilder.buildDefaultSlideInDownAnimation(getView());
+        if(isOverlay)
+        	this.inAnimation = DefaultAnimationsBuilder.buildDefaultSlideInDownOverlayAnimation(getView());
+        else
+        	this.inAnimation = DefaultAnimationsBuilder.buildDefaultSlideInDownAnimation(getView());
       }
     }
 
@@ -586,7 +612,12 @@ public final class Crouton {
       if (getConfiguration().outAnimationResId > 0) {
         this.outAnimation = AnimationUtils.loadAnimation(getActivity(), getConfiguration().outAnimationResId);
       } else {
-        this.outAnimation = DefaultAnimationsBuilder.buildDefaultSlideOutUpAnimation(getView());
+    	if(isOverlay){
+    		this.outAnimation = DefaultAnimationsBuilder.buildDefaultSlideOutUpOverlayAnimation(getView());
+    	}else{
+    		this.outAnimation = DefaultAnimationsBuilder.buildDefaultSlideOutUpAnimation(getView());
+    	}
+        
       }
     }
 
