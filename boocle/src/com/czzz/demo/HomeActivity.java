@@ -17,7 +17,9 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.czzz.base.DrawerBaseActivity;
@@ -153,7 +155,11 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
 		// TODO Auto-generated method stub
 		LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE); 
         View drawerView = inflater.inflate(R.layout.menu_drawer_layout, null);
-
+        
+        ImageView avatarImg = (ImageView) drawerView.findViewById(R.id.drawer_menu_user_avatar);
+        TextView nameTxt = (TextView) drawerView.findViewById(R.id.drawer_menu_user_name);
+        drawerView.findViewById(R.id.drawer_menu_user_lay).setOnClickListener(menuClickListener);
+        drawerView.findViewById(R.id.drawer_menu_message).setOnClickListener(menuClickListener);
         drawerView.findViewById(R.id.drawer_menu_book).setOnClickListener(menuClickListener);
         drawerView.findViewById(R.id.drawer_menu_user).setOnClickListener(menuClickListener);;
         drawerView.findViewById(R.id.drawer_menu_msg).setOnClickListener(menuClickListener);;
@@ -167,12 +173,18 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
 	protected void onMenuItemClicked(int resId) {
 		// TODO Auto-generated method stub
 		switch(resId){
+		case R.id.drawer_menu_user_lay:
+			Intent userIntent = new Intent(this, UserPageActivity.class);
+			startActivity(userIntent);
+			break;
+		case R.id.drawer_menu_message:
+			break;
 		case R.id.drawer_menu_book:
 			mMenuDrawer.closeMenu();
 			break;
 		case R.id.drawer_menu_user:
-			Intent userIntent = new Intent(this, UserPageActivity.class);
-			startActivity(userIntent);
+//			Intent userIntent = new Intent(this, UserPageActivity.class);
+//			startActivity(userIntent);
 			break;
 		case R.id.drawer_menu_msg:
 //			Intent msgIntent = new Intent(this, UserPageActivity.class);

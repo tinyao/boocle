@@ -152,7 +152,11 @@
             android:name=".BookCollectionDetailActivity"
             android:label="@string/book_collection_detail_lable" >
         </activity>
-        <activity android:name=".UserPageActivity" >
+        <activity android:name=".UserPageActivity" 
+            android:theme="@style/AppTheme.TranslucentActionBar">
+        </activity>
+        <activity android:name=".UserHomePageActivity" 
+            android:theme="@style/AppTheme.TranslucentActionBar">
         </activity>
         <activity
             android:name=".PlacesActivity"

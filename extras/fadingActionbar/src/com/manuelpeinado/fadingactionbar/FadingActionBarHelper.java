@@ -63,7 +63,7 @@ public class FadingActionBarHelper {
     private View mListViewBackgroundView;
 
     private int headerPanelResId;
-
+    
     public FadingActionBarHelper actionBarBackground(int drawableResId) {
         mActionBarBackgroundResId = drawableResId;
         return this;
@@ -107,6 +107,10 @@ public class FadingActionBarHelper {
     public FadingActionBarHelper parallax(boolean value) {
         mUseParallax = value;
         return this;
+    }
+    
+    public View getCustomHeader(){
+    	return mMarginView;
     }
 
     public View createView(Context context) {
@@ -317,13 +321,10 @@ public class FadingActionBarHelper {
     public void onListSrcoll(AbsListView view){
     	View topChild = view.getChildAt(0);
         if (topChild == null) {
-        	Log.d("DEBUG", "new Scroll: 0");
             onNewScroll(0);
         } else if (topChild != mMarginView) {
-        	Log.d("DEBUG", "new Scroll: != mMarginView" );
             onNewScroll(mHeaderContainer.getHeight());
         } else {
-        	Log.d("DEBUG", "new Scroll: == mMarginView" );
             onNewScroll(-topChild.getTop());
         }
     }
@@ -331,8 +332,6 @@ public class FadingActionBarHelper {
     private int mLastScrollPosition;
 
     private void onNewScroll(int scrollPosition) {
-    	
-    	Log.d("DEBUG", "scrollPosition: " + scrollPosition );
     	
         if (mActionBar == null) {
             return;

@@ -5,12 +5,20 @@ import com.czzz.demo.R;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.ViewConfiguration;
+import android.view.GestureDetector.SimpleOnGestureListener;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
 
 public class BaseActivity extends SherlockActivity{
 	
 	protected ActionBar mActionBar;
+	
+	private GestureDetector gestureDetector;
+	private View.OnTouchListener gestureListener;
     
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -25,8 +33,27 @@ public class BaseActivity extends SherlockActivity{
         
 	}
 	
-    
     @Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+    	super.onResume();
+	}
+    
+    public void setGestureBackOn(){
+    	View contentView = this.getWindow().getDecorView().findViewById(android.R.id.content);
+    	gestureDetector = new GestureDetector(this, new MyGestureDetector());
+		gestureListener = new View.OnTouchListener() {
+			
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				// TODO Auto-generated method stub
+				return gestureDetector.onTouchEvent(event);
+			}
+		};
+		contentView.setOnTouchListener(gestureListener);
+    }
+
+	@Override
 	public boolean onOptionsItemSelected(
 			com.actionbarsherlock.view.MenuItem item) {
 		// TODO Auto-generated method stub
@@ -67,7 +94,28 @@ public class BaseActivity extends SherlockActivity{
 		overridePendingTransition(R.anim.slide_right_in, R.anim.slide_left_out);
 	}
 	
-	
+	class MyGestureDetector extends SimpleOnGestureListener {
+
+		final ViewConfiguration vc = ViewConfiguration.get(getApplicationContext());
+		final int SWIPE_MIN_X = vc.getScaledPagingTouchSlop() * 10;
+		final int SWIPE_THRESHOLD_VELOCITY = vc.getScaledMinimumFlingVelocity() * 2;
+		final int SWIPE_MAX_OFFPATH = vc.getScaledTouchSlop();
+		
+		@Override
+		public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
+				float velocityY) {
+			// TODO Auto-generated method stub
+			
+			try{
+				if (e2.getX() - e1.getX() > SWIPE_MIN_X && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY){
+					finish(); //left
+				}
+			} catch (Exception e) {
+				
+			}
+			return false;
+		}
+	}
 }
 
 

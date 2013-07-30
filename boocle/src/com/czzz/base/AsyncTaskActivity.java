@@ -17,7 +17,6 @@ public abstract class AsyncTaskActivity extends BaseActivity implements HttpList
 		super.onCreate(savedInstanceState);
 		
 	}
-	
     
     @Override
 	public boolean onOptionsItemSelected(

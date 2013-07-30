@@ -427,7 +427,6 @@ public class BookShelfFragment extends BaseFragment implements HttpListener, She
 	
 	protected void moreUserBooks(int uid, int start, int count) {
 		// TODO Auto-generated method stub
-		
 		this.taskType = HttpListener.MORE_USER_BOOKS;
 		DoubanBookUtils.fetchUserCollection(this.getActivity(), this, taskType, uid, start, count);
 	}

@@ -6,13 +6,13 @@
     android:orientation="vertical" >
 
     <LinearLayout
-        android:id="@+id/rl_menu_login"
+        android:id="@+id/drawer_menu_user"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical" >
 
         <RelativeLayout
-            android:id="@+id/rl_menu_user_info"
+            android:id="@+id/drawer_menu_user_lay"
             style="@style/slide_menu"
             android:background="#ff222222"
             android:layout_width="fill_parent"
@@ -21,19 +21,19 @@
             android:paddingTop="10.0dip" >
 
             <ImageView
-                android:id="@+id/user_icon"
+                android:id="@+id/drawer_menu_user_avatar"
                 style="@style/icon_user"
                 android:layout_marginLeft="5.0dip"
                 android:layout_marginRight="5.0dip"
                 android:src="@drawable/ic_launcher" />
 
             <TextView
-                android:id="@+id/user_name"
+                android:id="@+id/drawer_menu_user_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10.0dip"
-                android:layout_toRightOf="@id/user_icon"
+                android:layout_toRightOf="@id/drawer_menu_user_avatar"
                 android:text="刘开成"
                 android:textColor="#ffffffff"
                 android:textSize="16.0sp" />
@@ -56,7 +56,7 @@
             android:src="#ff1c1c1c" />
 
         <RelativeLayout
-            android:id="@+id/drawer_menu_setting"
+            android:id="@+id/drawer_menu_message"
             style="@style/slide_menu"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
