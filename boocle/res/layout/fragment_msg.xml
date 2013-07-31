@@ -4,7 +4,7 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <com.czzz.view.RefreshListView
+    <ListView
         android:id="@+id/direct_msg_list"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"

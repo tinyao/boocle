@@ -205,6 +205,8 @@ public class UserExploreActivity extends BaseActivity implements PullToRefreshAt
 		public void onFinish() {
 			// TODO Auto-generated method stub
 			super.onFinish();
+			if(mPullToRefreshAttacher.isRefreshing())
+				mPullToRefreshAttacher.setRefreshComplete();
 		}
 
 		@Override

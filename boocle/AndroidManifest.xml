@@ -107,6 +107,8 @@
         </activity>
         <activity 
             android:name=".UserExploreActivity"></activity>
+        <activity 
+            android:name=".MessageActivity"></activity>
         <activity
             android:name=".NotificationActivity"
             android:label="@string/notification_title" >

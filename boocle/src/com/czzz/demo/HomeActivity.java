@@ -325,8 +325,8 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
 			startActivity(userExploreIntent);
 			break;
 		case R.id.drawer_menu_message:
-//			Intent msgIntent = new Intent(this, UserPageActivity.class);
-//			startActivity(userIntent);
+			Intent msgIntent = new Intent(this, MessageActivity.class);
+			startActivity(msgIntent);
 			break;
 		case R.id.drawer_menu_douban:
 //			Intent userIntent = new Intent(this, UserPageActivity.class);
@@ -496,15 +496,11 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
 		}
 		
 		@Override
-		public void onFailure(Throwable arg0, String arg1) {
-			// TODO Auto-generated method stub
-			super.onFailure(arg0, arg1);
-		}
-
-		@Override
 		public void onFinish() {
 			// TODO Auto-generated method stub
 			super.onFinish();
+			if(mPullToRefreshAttacher.isRefreshing())
+				mPullToRefreshAttacher.setRefreshComplete();
 		}
 
 		@Override

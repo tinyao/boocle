@@ -27,7 +27,7 @@ import android.widget.ImageView;
 public class Style {
 
   public static final int holoRedLight = 0xdd7f8c8d; //0xffff4444
-  public static final int holoGreenLight = 0xdd2ECC71; //0xff99cc00
+  public static final int holoGreenLight = 0xd22ECC71; //0xff99cc00
   public static final int holoBlueLight = 0xdd33b5e5;
 
   /** Default style for alerting the user. */
