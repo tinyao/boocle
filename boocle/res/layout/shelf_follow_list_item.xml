@@ -41,9 +41,9 @@
 
         <RelativeLayout
             android:layout_width="fill_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="10dip"
+            android:layout_height="wrap_content"
             android:layout_marginTop="5dip"
+            android:layout_marginBottom="5dp"
             android:orientation="vertical" >
 
             <TextView
@@ -58,13 +58,14 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true" >
+                android:layout_below="@id/explore_user_item_name"
+                android:paddingTop="20dp" >
 
                 <ImageView
                     android:id="@+id/explore_user_item_gender"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="-3dip"
+                    android:scaleType="fitStart"
                     android:alpha="0.7"
                     android:paddingBottom="2dip"
                     android:paddingTop="2dip"
@@ -77,8 +78,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dip"
                     android:layout_marginRight="10dip"
-                    android:singleLine="true"
-                    android:text="addresssssssssss" />
+                    android:maxLines="3"
+                    android:singleLine="false"
+                    android:text="address风俗的风俗锋NssffdsfsfdsfdsfdgdsgIHAOsssssss" />
             </LinearLayout>
 
             <TextView
