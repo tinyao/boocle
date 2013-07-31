@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 import uk.co.senab.actionbarpulltorefresh.extras.actionbarsherlock.PullToRefreshAttacher;
+import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshAttacher.Options;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -87,7 +88,7 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
         
         initLayoutActionBar();
         
-        mPullToRefreshAttacher = PullToRefreshAttacher.get(this);
+        mPullToRefreshAttacher = PullToRefreshAttacher.get(this, true);
 
         mPullToRefreshAttacher.addRefreshableView(listView, this);
         
@@ -320,8 +321,8 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
 			mMenuDrawer.closeMenu();
 			break;
 		case R.id.drawer_menu_users:
-//			Intent userIntent = new Intent(this, UserPageActivity.class);
-//			startActivity(userIntent);
+			Intent userExploreIntent = new Intent(this, UserExploreActivity.class);
+			startActivity(userExploreIntent);
 			break;
 		case R.id.drawer_menu_message:
 //			Intent msgIntent = new Intent(this, UserPageActivity.class);
@@ -528,7 +529,6 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
 	private static final String ACTION_UPDATE_BOOKS = "update_user_books";
 	private static final String ACTION_DELETE_ITEM = "delete_user_book_item";
 	private static final String ACTION_UPDATE_ITEM = "update_user_book_item";
-	private static final String ACTION_LOGOUT = "com.czzz.action.logout";
 	
 	private UpdateReceiver receiver; 
 	
@@ -538,7 +538,6 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
         filter.addAction(ACTION_DELETE_ITEM);
         filter.addAction(ACTION_UPDATE_ITEM);
         filter.addAction(ACTION_UPDATE_BOOKS);
-        filter.addAction(ACTION_LOGOUT);
 
         //动态注册BroadcastReceiver  
         this.registerReceiver(receiver, filter); 
@@ -583,15 +582,9 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
 						eitem.score = intent.getFloatExtra("score", 0);
 						eitem.status = intent.getIntExtra("status", 0);
 						nearbyBooksAdapter.notifyDataSetChanged();
-//						listView.scrollTo(0, 0);
-//						listView.onRestoreInstanceState(listState);
 						break;
 					}
 				}
-			}
-			
-			if(intent.getAction().equals(ACTION_LOGOUT)){
-				finish();
 			}
 			
 		}

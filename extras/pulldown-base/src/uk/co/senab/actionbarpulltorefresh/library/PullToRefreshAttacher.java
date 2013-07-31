@@ -49,6 +49,7 @@ public class PullToRefreshAttacher implements View.OnTouchListener {
 
     /* Default configuration values */
     private static final int DEFAULT_HEADER_LAYOUT = R.layout.default_header;
+    private static final int OVERLAY_HEADER_LAYOUT = R.layout.overlay_header;
     private static final int DEFAULT_ANIM_HEADER_IN = R.anim.fade_in;
     private static final int DEFAULT_ANIM_HEADER_OUT = R.anim.fade_out;
     private static final float DEFAULT_REFRESH_SCROLL_DISTANCE = 0.5f;
@@ -82,6 +83,7 @@ public class PullToRefreshAttacher implements View.OnTouchListener {
     private boolean mEnabled = true;
     private boolean mRefreshOnUp;
     private int mRefreshMinimizeDelay;
+    private int mHeaderLayout = DEFAULT_HEADER_LAYOUT;
 
     private final Handler mHandler = new Handler();
 
@@ -128,6 +130,7 @@ public class PullToRefreshAttacher implements View.OnTouchListener {
         mRefreshScrollDistance = options.refreshScrollDistance;
         mRefreshOnUp = options.refreshOnUp;
         mRefreshMinimizeDelay = options.refreshMinimizeDelay;
+        if(options.isOverlay) options.headerLayout = OVERLAY_HEADER_LAYOUT;
 
         // EnvironmentDelegate
         mEnvironmentDelegate = options.environmentDelegate != null
@@ -679,6 +682,8 @@ public class PullToRefreshAttacher implements View.OnTouchListener {
     }
 
     public static class Options {
+    	
+    	public boolean isOverlay = false;
         /**
          * EnvironmentDelegate instance which will be used. If null, we will create an instance of
          * the default class.

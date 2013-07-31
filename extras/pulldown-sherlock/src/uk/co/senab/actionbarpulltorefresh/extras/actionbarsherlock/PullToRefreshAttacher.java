@@ -31,6 +31,8 @@ import android.util.TypedValue;
 
 import java.util.WeakHashMap;
 
+import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshAttacher.Options;
+
 public class PullToRefreshAttacher extends
         uk.co.senab.actionbarpulltorefresh.library.PullToRefreshAttacher {
 
@@ -39,6 +41,12 @@ public class PullToRefreshAttacher extends
 
     public static PullToRefreshAttacher get(Activity activity) {
         return get(activity, new Options());
+    }
+    
+    public static PullToRefreshAttacher get(Activity activity, boolean isOverlay) {
+        Options option = new Options();
+        option.isOverlay = isOverlay;
+    	return get(activity, option);
     }
 
     public static PullToRefreshAttacher get(Activity activity, Options options) {

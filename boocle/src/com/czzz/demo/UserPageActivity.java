@@ -222,7 +222,7 @@ public class UserPageActivity extends AsyncTaskActivity implements PullToRefresh
 							if (followingAdapter == null) {
 								loadingView.setVisibility(View.VISIBLE);
 								followingAdapter = new NearbyUsersAdapter(UserPageActivity.this, 
-										followings, R.layout.shelf_follow_list_item);
+										followings);
 								listView.setAdapter(followingAdapter);
 								fetchFollowingUsers(curUser.uid, 0);
 							} else{

@@ -38,6 +38,8 @@
         <item name="android:actionBarTabStyle">@style/ActionBarTabStyle</item>
         <item name="actionBarTabStyle">@style/ActionBarTabStyle</item>
         <item name="vpiTabPageIndicatorStyle">@style/Widget.TabPageIndicator</item>
+        <item name="android:spinnerItemStyle">@style/MooSpinnerItem</item>
+        <item name="android:spinnerDropDownItemStyle">@style/MooSpinnerItem.DropDownItem</item>
     </style>
     
     <style name="Theme.Styled.Transparent">

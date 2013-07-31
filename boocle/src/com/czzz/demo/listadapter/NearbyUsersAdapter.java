@@ -22,22 +22,13 @@ public class NearbyUsersAdapter extends BaseAdapter {
 	private LayoutInflater mInflater;
 	private ArrayList<User> userlist;
 	private Context con;
-	private int layoutRes;
 
 	public NearbyUsersAdapter(Context context,
 			ArrayList<User> list) {
 		mInflater = LayoutInflater.from(context);
 		this.userlist = list;
-		layoutRes = R.layout.explore_user_list_item;
 	}
 	
-	public NearbyUsersAdapter(Context context,
-			ArrayList<User> list, int layoutRes) {
-		mInflater = LayoutInflater.from(context);
-		this.userlist = list;
-		this.layoutRes = layoutRes;
-	}
-
 	@Override
 	public int getCount() {
 		// TODO Auto-generated method stub
@@ -63,7 +54,7 @@ public class NearbyUsersAdapter extends BaseAdapter {
 		// TODO Auto-generated method stub
 		final ViewHolder holder;
 		if (convertView == null) {
-			convertView = mInflater.inflate(layoutRes, 
+			convertView = mInflater.inflate(R.layout.shelf_follow_list_item, 
 					parent, false);
 			holder = new ViewHolder();
 			holder.avatarTxt = (TextView) convertView.findViewById(R.id.explore_user_avatar_txt);

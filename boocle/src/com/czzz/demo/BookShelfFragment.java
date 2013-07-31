@@ -610,7 +610,7 @@ public class BookShelfFragment extends BaseFragment implements HttpListener, She
 			
 			if(followingAdapter == null) {
 				followings = fusers;
-				followingAdapter = new NearbyUsersAdapter(this.getActivity(), fusers, R.layout.shelf_follow_list_item);
+				followingAdapter = new NearbyUsersAdapter(this.getActivity(), fusers);
 				followingList.setAdapter(followingAdapter);
 				followingList.addFooterView(footerView);
 				loadingView.setViewGone();

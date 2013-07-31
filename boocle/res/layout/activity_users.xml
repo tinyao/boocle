@@ -18,8 +18,10 @@
         android:footerDividersEnabled="true"
         android:headerDividersEnabled="true"
         android:listSelector="@android:color/transparent"
+        android:paddingTop="7dp"
         android:paddingLeft="5dip"
         android:paddingRight="5dip"
+        android:paddingBottom="6dp"
         android:scrollbarStyle="outsideOverlay"
         android:scrollingCache="true"
         android:smoothScrollbar="true" />

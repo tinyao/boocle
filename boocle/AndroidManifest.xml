@@ -105,6 +105,8 @@
             android:theme="@style/AppTheme.TranslucentActionBar"
             android:windowSoftInputMode="adjustNothing" >
         </activity>
+        <activity 
+            android:name=".UserExploreActivity"></activity>
         <activity
             android:name=".NotificationActivity"
             android:label="@string/notification_title" >
