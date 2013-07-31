@@ -5,12 +5,13 @@
     android:orientation="vertical" >
     
      <EditText
-        android:id="@+id/edt"
+        android:id="@+id/search_edt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:ems="10"
-        android:editable="false"
+        android:singleLine="true"
+        android:imeOptions="actionSearch"
         android:focusable="true"
 		android:focusableInTouchMode="true"
         android:background="#ccffffff"

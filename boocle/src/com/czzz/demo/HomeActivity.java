@@ -10,19 +10,28 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.graphics.BitmapFactory;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.TextView.OnEditorActionListener;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.czzz.base.DrawerBaseActivity;
@@ -30,11 +39,11 @@ import com.czzz.base.User;
 import com.czzz.bookcircle.BookCollection;
 import com.czzz.bookcircle.BookUtils;
 import com.czzz.bookcircle.task.AlarmTask;
+import com.czzz.data.SearchDBHelper;
 import com.czzz.data.UserBooksHelper;
-import com.czzz.demo.ExploreFragment.UpdateReceiver;
 import com.czzz.demo.listadapter.NearbyBooksAdapter;
+import com.czzz.douban.DoubanBookUtils;
 import com.czzz.utils.HttpListener;
-import com.czzz.utils.ImageUtils;
 import com.czzz.view.LoadingFooter;
 import com.manuelpeinado.fadingactionbar.FadingActionBarHelper;
 
@@ -49,6 +58,8 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
 	private SharedPreferences sp;
 	private ListView listView;
 	private LoadingFooter mLoadingFooter;
+	private AutoCompleteTextView searchEdt;
+	private ImageView searchFor;
 	
 	private ArrayList<BookCollection> nearbyBooks = new ArrayList<BookCollection>();
 	private NearbyBooksAdapter nearbyBooksAdapter;
@@ -90,13 +101,13 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
 	
 	/* 初始化fadingActionbar，设置自定义view */
 	private void initLayoutActionBar(){
-		final FadingActionBarHelper helper = new FadingActionBarHelper()
+		final FadingActionBarHelper actionHelper = new FadingActionBarHelper()
 	        .actionBarBackground(R.drawable.actionbar_base) 
 	        .headerLayout(R.layout.header)
 	        .headerPanelLayout(R.layout.search)
 	        .contentLayout(R.layout.activity_home);
-	    setContentView(helper.createView(this));
-	    helper.initActionBar(this);
+	    setContentView(actionHelper.createView(this));
+	    actionHelper.initActionBar(this);
 	    
 	    ActionBar mActionBar = this.getSupportActionBar();
 	    mActionBar.setDisplayShowCustomEnabled(true);
@@ -113,6 +124,10 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
 	    mLoadingFooter = new LoadingFooter(this);
 	    listView.addFooterView(mLoadingFooter.getView());
 	    
+	    View headerLayout = actionHelper.getCustomHeader();
+	    searchEdt = (AutoCompleteTextView) headerLayout.findViewById(R.id.search_edt);
+	    searchFor = (ImageView) headerLayout.findViewById(R.id.search_forward);
+	    
 	    listView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
@@ -122,7 +137,7 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount,
                     int totalItemCount) {
             	
-            	helper.onListSrcoll(view);
+            	actionHelper.onListSrcoll(view);
             	
                 if (mLoadingFooter.getState() == LoadingFooter.State.Loading
                         || mLoadingFooter.getState() == LoadingFooter.State.TheEnd) {
@@ -139,6 +154,122 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
             }
         });
 	    
+	    searchEdt.setOnEditorActionListener(new OnEditorActionListener(){
+
+			@Override
+			public boolean onEditorAction(TextView v, int actionId,
+					KeyEvent event) {
+				// TODO Auto-generated method stub
+				
+				if(actionId == EditorInfo.IME_ACTION_SEARCH
+						|| event.getKeyCode() == KeyEvent.KEYCODE_ENTER){
+					String searchStr = searchEdt.getText().toString();
+					searchForISBN(searchStr);
+				}
+				return true;
+			}
+			
+		});
+	    
+	    searchEdt.addTextChangedListener(new TextWatcher(){
+
+			@Override
+			public void afterTextChanged(Editable arg0) {
+				// TODO Auto-generated method stub
+				if(searchEdt.getText().toString().equals("")){
+					searchFor.setImageResource(R.drawable.isbn);
+				}else{
+					searchFor.setImageResource(R.drawable.ic_search_inverse);
+				}
+			}
+
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+				// TODO Auto-generated method stub
+			}
+
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before,
+					int count) {
+				// TODO Auto-generated method stub
+			}
+			
+		});
+	    
+	    searchFor.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				String searchStr = searchEdt.getText().toString();
+				if(!searchStr.equals("")){
+					searchForISBN(searchStr);
+				}else{
+					Intent ii = new Intent("com.czzz.action.qrscan");
+					startActivityForResult(ii,0);
+				}
+			}
+	    	
+	    });
+	    
+	    initSearchEdtAdapter();
+	}
+	
+	private SearchDBHelper helper;
+	private ArrayList<String> arrayKeys;
+	private ArrayAdapter<String> searchAdapter;
+	
+	private void initSearchEdtAdapter() {
+		// TODO Auto-generated method stub
+    	
+    	helper = new SearchDBHelper(this);
+    	helper.openDataBase();
+    	
+    	Cursor cursor = helper.select();
+    	
+    	arrayKeys = new ArrayList<String>();
+    	while(cursor.moveToNext()){
+    		arrayKeys.add(cursor.getString(cursor.getColumnIndexOrThrow(SearchDBHelper.KEY_NAME)));
+    	}
+    	
+    	// 定义字符串数组作为提示的文本
+	    searchAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.select_dialog_item, arrayKeys);
+	    searchEdt.setAdapter(searchAdapter);
+	}
+	
+	protected void updateSearchHistory(String searchStr) {
+		// TODO Auto-generated method stub
+    	if(!arrayKeys.contains(searchStr)){
+    		helper.insert(searchStr, "0");
+    		arrayKeys.add(searchStr);
+    		searchAdapter = new ArrayAdapter<String>(this,
+                    android.R.layout.select_dialog_item, arrayKeys);
+        	searchEdt.setAdapter(searchAdapter);
+    	}
+	}
+	
+	private void searchForISBN(String seakey){
+		if(DoubanBookUtils.isISBNLike(seakey)){
+			if(!DoubanBookUtils.isISBN(seakey)){
+				Crouton.makeText(HomeActivity.this, R.string.isbn_not_match, Style.ALERT).show();
+			}else{
+				Intent i = new Intent(HomeActivity.this, BookInfoActivity.class);
+				i.putExtra("isbn", seakey);
+				startActivity(i);
+				overridePendingTransition(R.anim.shrink_from_bottom,R.anim.exit_fade_out);
+			}
+		}else{
+			updateSearchHistory(seakey);
+			Intent i = new Intent(HomeActivity.this, BookSearchListActivity.class);
+			i.putExtra("keyword", seakey);
+			startActivity(i);
+			overridePendingTransition(R.anim.shrink_from_bottom,R.anim.exit_fade_out);
+		}
+		InputMethodManager imm = (InputMethodManager)HomeActivity.this
+				.getSystemService(Context.INPUT_METHOD_SERVICE); 
+		imm.hideSoftInputFromWindow(searchEdt.getWindowToken(), 0);
 	}
 	
 	private void preCheck(){
@@ -386,6 +517,7 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
 	@Override
 	public void onDestroy() {
 		// TODO Auto-generated method stub
+		helper.getDB().close();
 		this.unregisterReceiver(receiver);
 		super.onDestroy();
 	}

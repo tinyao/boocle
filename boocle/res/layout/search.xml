@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="80dip"
+    android:paddingBottom="30dip"
+    android:paddingLeft="8dip"
+    android:paddingRight="8dip"
+    android:gravity="bottom" >
+
+    <AutoCompleteTextView
+        android:id="@+id/search_edt"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:background="#bbffffff"
+        android:completionThreshold="1"
+        android:dropDownHorizontalOffset="20dp"
+        android:ems="10"
+        android:focusable="true"
+        android:gravity="center_vertical"
+        android:hint="@string/input_book_isbn"
+        android:imeOptions="actionSearch"
+        android:paddingBottom="8dip"
+        android:paddingLeft="15dip"
+        android:paddingRight="60dip"
+        android:paddingTop="8dip"
+        android:singleLine="true" />
+    
+    <ImageView
+        android:id="@+id/search_forward"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@id/search_edt"
+        android:layout_alignBottom="@id/search_edt"
+        android:background="@drawable/isbn_search_selector"
+        android:contentDescription="serach"
+        android:paddingLeft="12dip"
+        android:paddingRight="12dip"
+        android:src="@drawable/isbn" />
+    
+    <View 
+        android:layout_width="1px"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/search_forward"
+        android:layout_alignTop="@id/search_edt"
+        android:layout_alignBottom="@id/search_edt"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="#aaa"/>
+
+</RelativeLayout>
