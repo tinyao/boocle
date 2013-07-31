@@ -101,7 +101,7 @@
             android:name="com.czzz.demo.HomeActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/app_title"
-            android:launchMode="singleTask"
+            android:launchMode="standard"
             android:theme="@style/AppTheme.TranslucentActionBar"
             android:windowSoftInputMode="adjustNothing" >
         </activity>

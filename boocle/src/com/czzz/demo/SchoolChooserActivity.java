@@ -240,7 +240,7 @@ public class SchoolChooserActivity extends AsyncTaskActivity{
 		SharedPreferences sp = this.getSharedPreferences("account", 0);
 		sp.edit().putInt("school_id", schoolId).putString("school_name", schoolName).commit();
 		
-		Intent guideIntent = new Intent(this, MainActivity.class);
+		Intent guideIntent = new Intent(this, HomeActivity.class);
 		guideIntent.putExtra("new_login", true);
 		MyApplication.configPref.edit().putBoolean("loged_in", true).commit();
 		startActivity(guideIntent);

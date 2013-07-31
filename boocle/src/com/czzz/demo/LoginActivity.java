@@ -57,7 +57,6 @@ public class LoginActivity extends BaseActivity implements HttpListener{
 	
 	EditText accountEdt, passEdt;
 	
-	
 	Weibo weibo;
 	int taskType;
 	
@@ -457,7 +456,7 @@ public class LoginActivity extends BaseActivity implements HttpListener{
 				}
 				MyApplication.configPref.edit().putBoolean("loged_in", true).commit();
 				
-				Intent loginIntent = new Intent(this, MainActivity.class);
+				Intent loginIntent = new Intent(this, HomeActivity.class);
 				loginIntent.putExtra("new_login", true);
 				startActivity(loginIntent);
 				overridePendingTransition(R.anim.right_enter,R.anim.exit_fade_out);

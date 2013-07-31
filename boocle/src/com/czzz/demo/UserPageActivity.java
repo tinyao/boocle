@@ -144,6 +144,10 @@ public class UserPageActivity extends AsyncTaskActivity implements PullToRefresh
 		}
 		setUserAvatar();
 		
+		gridAdapter = new ShelfAdapter(this, all);
+		listAdapter = new ShelfListAdapter(this, all);
+		listView.setAdapter(gridAdapter);
+		
 		// fetch the books
 		fetchUserBooks(User.getInstance().uid, 0, 12);
 	}
@@ -448,10 +452,13 @@ public class UserPageActivity extends AsyncTaskActivity implements PullToRefresh
 				bc = collectionsHelper.getCachedCollections();
 			}
 			if(bc != null){
-				fillBookShelf(bc);
+				fillBookShelf(bc);	// 有缓存直接显示
+			} else{		// 无缓存，网络获取
+				this.taskType = HttpListener.FETCH_USER_BOOKS;
+				DoubanBookUtils.fetchUserCollection(this, (HttpListener) this,
+						taskType, uid, start, count);
 			}
 		} else {
-			loadingView.setMessage(getResources().getString(R.string.loading_ta_books));
 			if (all.size() == 0)
 				loadingView.setVisibility(View.VISIBLE);
 

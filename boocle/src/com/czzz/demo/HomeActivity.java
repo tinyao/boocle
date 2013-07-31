@@ -72,10 +72,21 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
-        preCheck();	// checnk for logout and msg-alarm
+        boolean finish = getIntent().getBooleanExtra("finish", false);
+        if (finish) {
+            startActivity(new Intent(this, LoginActivity.class));
+            finish();
+            return;
+        }
+        
+        sp = this.getSharedPreferences("config", 0);
+		if(!sp.getBoolean("alarm_set", false)) {
+			AlarmTask.setMsgAlarm(this);
+		    sp.edit().putBoolean("alarm_set", true).commit();
+		}
         
         initLayoutActionBar();
-	    
+        
         mPullToRefreshAttacher = PullToRefreshAttacher.get(this);
 
         mPullToRefreshAttacher.addRefreshableView(listView, this);
@@ -99,6 +110,8 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
         registerReceiver();
         
         obtainNearbyBooks();
+        
+        User.getInstance().init(this);
 	}
 	
 	/* 初始化fadingActionbar，设置自定义view */
@@ -272,21 +285,6 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
 		InputMethodManager imm = (InputMethodManager)HomeActivity.this
 				.getSystemService(Context.INPUT_METHOD_SERVICE); 
 		imm.hideSoftInputFromWindow(searchEdt.getWindowToken(), 0);
-	}
-	
-	private void preCheck(){
-		boolean finish = getIntent().getBooleanExtra("finish", false);
-        if (finish) {
-            startActivity(new Intent(this, LoginActivity.class));
-            finish();
-            return;
-        }
-        
-        sp = this.getSharedPreferences("config", 0);
-		if(!sp.getBoolean("alarm_set", false)) {
-			AlarmTask.setMsgAlarm(this);
-		    sp.edit().putBoolean("alarm_set", true).commit();
-		}
 	}
 	
 	@Override
@@ -519,14 +517,18 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
 	@Override
 	public void onDestroy() {
 		// TODO Auto-generated method stub
-		helper.getDB().close();
-		this.unregisterReceiver(receiver);
+		if(helper != null){
+			helper.getDB().close();
+			User.clearTaList();
+			this.unregisterReceiver(receiver);
+		}
 		super.onDestroy();
 	}
 	
 	private static final String ACTION_UPDATE_BOOKS = "update_user_books";
 	private static final String ACTION_DELETE_ITEM = "delete_user_book_item";
 	private static final String ACTION_UPDATE_ITEM = "update_user_book_item";
+	private static final String ACTION_LOGOUT = "com.czzz.action.logout";
 	
 	private UpdateReceiver receiver; 
 	
@@ -536,6 +538,7 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
         filter.addAction(ACTION_DELETE_ITEM);
         filter.addAction(ACTION_UPDATE_ITEM);
         filter.addAction(ACTION_UPDATE_BOOKS);
+        filter.addAction(ACTION_LOGOUT);
 
         //动态注册BroadcastReceiver  
         this.registerReceiver(receiver, filter); 
@@ -585,6 +588,10 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
 						break;
 					}
 				}
+			}
+			
+			if(intent.getAction().equals(ACTION_LOGOUT)){
+				finish();
 			}
 			
 		}
