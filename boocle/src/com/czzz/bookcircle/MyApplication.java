@@ -7,6 +7,7 @@ import com.czzz.bookcircle.task.AlarmTask;
 import com.czzz.data.MsgHelper;
 import com.czzz.data.MsgThreadHelper;
 import com.czzz.demo.ProfileActivity;
+import com.czzz.utils.ImagesDownloader;
 
 import android.app.Application;
 import android.content.Context;
@@ -19,6 +20,7 @@ public class MyApplication extends Application{
 	public static SharedPreferences accoutPref, configPref;
 	public static boolean displayCover;
 	public static boolean highCover, hideTabs;
+	public static ImagesDownloader imagesLoader;
 	
 	@Override
 	public void onCreate() {
@@ -30,6 +32,7 @@ public class MyApplication extends Application{
 		displayCover = configPref.getBoolean("display_search_cover", true);
 		highCover = configPref.getBoolean("setting_high_cover", false);
 		hideTabs = configPref.getBoolean("hide_tabs", false);
+		imagesLoader = ImagesDownloader.getInstance();
 		if(User.getInstance().uid == 0){
 			User.getInstance().init(this);
 		}

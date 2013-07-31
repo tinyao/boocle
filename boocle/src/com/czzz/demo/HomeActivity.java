@@ -38,12 +38,14 @@ import com.czzz.base.DrawerBaseActivity;
 import com.czzz.base.User;
 import com.czzz.bookcircle.BookCollection;
 import com.czzz.bookcircle.BookUtils;
+import com.czzz.bookcircle.MyApplication;
 import com.czzz.bookcircle.task.AlarmTask;
 import com.czzz.data.SearchDBHelper;
 import com.czzz.data.UserBooksHelper;
 import com.czzz.demo.listadapter.NearbyBooksAdapter;
 import com.czzz.douban.DoubanBookUtils;
 import com.czzz.utils.HttpListener;
+import com.czzz.utils.ImagesDownloader;
 import com.czzz.view.LoadingFooter;
 import com.manuelpeinado.fadingactionbar.FadingActionBarHelper;
 
@@ -298,11 +300,13 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
         drawerView.findViewById(R.id.drawer_menu_user_lay).setOnClickListener(menuClickListener);
         drawerView.findViewById(R.id.drawer_menu_message).setOnClickListener(menuClickListener);
         drawerView.findViewById(R.id.drawer_menu_book).setOnClickListener(menuClickListener);
-        drawerView.findViewById(R.id.drawer_menu_user).setOnClickListener(menuClickListener);;
-        drawerView.findViewById(R.id.drawer_menu_msg).setOnClickListener(menuClickListener);;
+        drawerView.findViewById(R.id.drawer_menu_users).setOnClickListener(menuClickListener);;
+        drawerView.findViewById(R.id.drawer_menu_message).setOnClickListener(menuClickListener);;
         drawerView.findViewById(R.id.drawer_menu_douban).setOnClickListener(menuClickListener);;
         drawerView.findViewById(R.id.drawer_menu_setting).setOnClickListener(menuClickListener);;
         
+        nameTxt.setText(User.getInstance().name);
+        MyApplication.imagesLoader.download(User.getInstance().avatar, avatarImg);
         return drawerView;
 	}
 
@@ -314,16 +318,14 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
 			Intent userIntent = new Intent(this, UserPageActivity.class);
 			startActivity(userIntent);
 			break;
-		case R.id.drawer_menu_message:
-			break;
 		case R.id.drawer_menu_book:
 			mMenuDrawer.closeMenu();
 			break;
-		case R.id.drawer_menu_user:
+		case R.id.drawer_menu_users:
 //			Intent userIntent = new Intent(this, UserPageActivity.class);
 //			startActivity(userIntent);
 			break;
-		case R.id.drawer_menu_msg:
+		case R.id.drawer_menu_message:
 //			Intent msgIntent = new Intent(this, UserPageActivity.class);
 //			startActivity(userIntent);
 			break;

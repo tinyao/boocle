@@ -6,7 +6,7 @@
     android:orientation="vertical" >
 
     <LinearLayout
-        android:id="@+id/drawer_menu_user"
+        android:id="@+id/drawer_menu_user_wrapper"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical" >
@@ -14,13 +14,13 @@
         <RelativeLayout
             android:id="@+id/drawer_menu_user_lay"
             style="@style/slide_menu"
-            android:background="#ff222222"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:background="#ff222222"
             android:paddingBottom="10.0dip"
             android:paddingTop="10.0dip" >
 
-            <ImageView
+            <com.czzz.view.RoundImageView
                 android:id="@+id/drawer_menu_user_avatar"
                 style="@style/icon_user"
                 android:layout_marginLeft="5.0dip"
@@ -37,7 +37,7 @@
                 android:text="刘开成"
                 android:textColor="#ffffffff"
                 android:textSize="16.0sp" />
-            
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -45,66 +45,14 @@
                 android:layout_centerVertical="true"
                 android:layout_marginRight="5.0dip"
                 android:src="@drawable/arrow_r" />
-            
         </RelativeLayout>
-        
+
         <ImageView
             android:id="@+id/img_divider_usrinfo"
             android:layout_width="fill_parent"
-            android:layout_height="1.0dip"
-            android:scaleType="fitXY"
-            android:src="#ff1c1c1c" />
-
-        <RelativeLayout
-            android:id="@+id/drawer_menu_message"
-            style="@style/slide_menu"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/slide_menu_selector" >
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="5.0dip"
-                android:src="@drawable/message" />
-
-            <TextView
-                android:id="@+id/drawer_menu_msg_txt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:focusable="false"
-                android:text="私        信"
-                android:textColor="#ffffffff"
-                android:textSize="16.0sp" />
-            
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignTop="@id/drawer_menu_msg_txt"
-                android:layout_alignBottom="@id/drawer_menu_msg_txt"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:layout_marginRight="10dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:focusable="false"
-                android:text="2"
-                android:gravity="center"
-                android:background="@color/orange_carrot"
-                android:textColor="#ffffffff"
-                android:textSize="13.0sp" />
-        </RelativeLayout>
-        
-        <ImageView
-            android:layout_width="fill_parent"
             android:layout_height="2.0dip"
             android:scaleType="fitXY"
-            android:src="@drawable/divider_line_night" />
-        
+            android:src="#ff1c1c1c" />
     </LinearLayout>
 
     <LinearLayout
@@ -140,7 +88,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:focusable="false"
-                android:text="藏  书  阁"
+                android:text="首        页"
                 android:textColor="#ffffffff"
                 android:textSize="16.0sp" />
         </RelativeLayout>
@@ -152,7 +100,7 @@
             android:src="@drawable/divider_line_night" />
 
         <RelativeLayout
-            android:id="@+id/drawer_menu_user"
+            android:id="@+id/drawer_menu_users"
             style="@style/slide_menu"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -172,7 +120,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:focusable="false"
-                android:text="书  友  圈"
+                android:text="书        友"
                 android:textColor="#ffffffff"
                 android:textSize="16.0sp" />
         </RelativeLayout>
@@ -181,59 +129,13 @@
             android:layout_width="fill_parent"
             android:layout_height="2.0dip"
             android:scaleType="fitXY"
-            android:src="@drawable/divider_line_night"
-            android:visibility="gone" />
-
-        <RelativeLayout
-            android:id="@+id/drawer_menu_msg"
-            style="@style/slide_menu"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/slide_menu_selector"
-            android:visibility="gone" >
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="5.0dip"
-                android:src="@drawable/logo" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:focusable="false"
-                android:text="私        信"
-                android:textColor="#ffffffff"
-                android:textSize="16.0sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="10.0dip"
-                android:focusable="false"
-                android:paddingBottom="5.0dip"
-                android:paddingLeft="10.0dip"
-                android:paddingRight="10.0dip"
-                android:paddingTop="5.0dip"
-                android:textColor="#ffffffff"
-                android:textSize="16.0sp" />
-        </RelativeLayout>
-
-        <ImageView
-            android:layout_width="fill_parent"
-            android:layout_height="2.0dip"
-            android:scaleType="fitXY"
+            android:visibility="gone"
             android:src="@drawable/divider_line_night" />
 
         <RelativeLayout
             android:id="@+id/drawer_menu_douban"
             style="@style/slide_menu"
+            android:visibility="gone"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/slide_menu_selector" >
@@ -255,6 +157,56 @@
                 android:text="豆瓣推荐"
                 android:textColor="#fff"
                 android:textSize="16.0sp" />
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="2.0dip"
+            android:scaleType="fitXY"
+            android:src="@drawable/divider_line_night" />
+
+        <RelativeLayout
+            android:id="@+id/drawer_menu_message"
+            style="@style/slide_menu"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/slide_menu_selector" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5.0dip"
+                android:src="@drawable/message" />
+
+            <TextView
+                android:id="@+id/drawer_menu_msg_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:focusable="false"
+                android:text="私        信"
+                android:textColor="#ffffffff"
+                android:textSize="16.0sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/drawer_menu_msg_txt"
+                android:layout_alignParentRight="true"
+                android:layout_alignTop="@id/drawer_menu_msg_txt"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:background="@color/orange_carrot"
+                android:focusable="false"
+                android:gravity="center"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:text="2"
+                android:textColor="#ffffffff"
+                android:textSize="13.0sp" />
         </RelativeLayout>
 
         <ImageView
