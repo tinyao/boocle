@@ -5,9 +5,12 @@ import java.util.ArrayList;
 
 import uk.co.senab.actionbarpulltorefresh.extras.actionbarsherlock.PullToRefreshAttacher;
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -28,8 +31,10 @@ import com.czzz.bookcircle.BookCollection;
 import com.czzz.bookcircle.BookUtils;
 import com.czzz.bookcircle.task.AlarmTask;
 import com.czzz.data.UserBooksHelper;
+import com.czzz.demo.ExploreFragment.UpdateReceiver;
 import com.czzz.demo.listadapter.NearbyBooksAdapter;
 import com.czzz.utils.HttpListener;
+import com.czzz.utils.ImageUtils;
 import com.czzz.view.LoadingFooter;
 import com.manuelpeinado.fadingactionbar.FadingActionBarHelper;
 
@@ -48,7 +53,6 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
 	private ArrayList<BookCollection> nearbyBooks = new ArrayList<BookCollection>();
 	private NearbyBooksAdapter nearbyBooksAdapter;
 	private int statusId = 2, sortId = 0;
-    private int usortId = 2;
     private int school_id = User.getInstance().school_id; // initial school id
 	
 	@Override
@@ -78,6 +82,8 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
 			}
 			
         });
+        
+        registerReceiver();
         
         obtainNearbyBooks();
 	}
@@ -373,6 +379,80 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
 		public void onStart() {
 			// TODO Auto-generated method stub
 			super.onStart();
+		}
+		
+	}
+	
+	@Override
+	public void onDestroy() {
+		// TODO Auto-generated method stub
+		this.unregisterReceiver(receiver);
+		super.onDestroy();
+	}
+	
+	private static final String ACTION_UPDATE_BOOKS = "update_user_books";
+	private static final String ACTION_DELETE_ITEM = "delete_user_book_item";
+	private static final String ACTION_UPDATE_ITEM = "update_user_book_item";
+	
+	private UpdateReceiver receiver; 
+	
+	private void registerReceiver(){
+		receiver = new UpdateReceiver();
+        IntentFilter filter=new IntentFilter();  
+        filter.addAction(ACTION_DELETE_ITEM);
+        filter.addAction(ACTION_UPDATE_ITEM);
+        filter.addAction(ACTION_UPDATE_BOOKS);
+
+        //动态注册BroadcastReceiver  
+        this.registerReceiver(receiver, filter); 
+	}
+	
+	/**
+	 * 接收来自其他地方的通知，更新UI（用户信息以及书架信息）
+	 * @author tinyao
+	 *
+	 */
+	class UpdateReceiver extends BroadcastReceiver{
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			// TODO Auto-generated method stub
+			
+			if(intent.getAction().equals(ACTION_DELETE_ITEM)){
+				int update_cid = intent.getIntExtra("cid", 0);
+				for(BookCollection eitem : nearbyBooks){
+					if(eitem.cid == update_cid){
+						nearbyBooks.remove(eitem);
+						nearbyBooksAdapter.notifyDataSetChanged();
+						break;
+					}
+				}
+			}
+			
+			if(intent.getAction().equals(ACTION_UPDATE_BOOKS)) {	// new books added
+				ArrayList<BookCollection> newcollections 
+						= intent.getParcelableArrayListExtra("new_books");
+				if(newcollections != null){
+					nearbyBooks.addAll(0, newcollections);
+					nearbyBooksAdapter.notifyDataSetChanged();
+				}
+			}
+			
+			if(intent.getAction().equals(ACTION_UPDATE_ITEM)){
+				int update_cid = intent.getIntExtra("cid", 0);
+				for(BookCollection eitem : nearbyBooks){
+					if(eitem.cid == update_cid){
+						eitem.note = intent.getStringExtra("note");
+						eitem.score = intent.getFloatExtra("score", 0);
+						eitem.status = intent.getIntExtra("status", 0);
+						nearbyBooksAdapter.notifyDataSetChanged();
+//						listView.scrollTo(0, 0);
+//						listView.onRestoreInstanceState(listState);
+						break;
+					}
+				}
+			}
+			
 		}
 		
 	}
