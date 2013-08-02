@@ -175,6 +175,11 @@ public class TaskReceiver extends BroadcastReceiver implements HttpListener{
 //					notifyNewMsgs(msgs);
 					MsgUtils.notifyNewMsgs(context, msgs);
 				}
+				
+				Intent updateMsgUnreadIntent = new Intent("bookcircle.task.new_msg_update_home");
+				updateMsgUnreadIntent.putParcelableArrayListExtra("new_msgs", msgs);
+				context.sendOrderedBroadcast(updateMsgUnreadIntent, null);
+				
 			}
 			
 		});

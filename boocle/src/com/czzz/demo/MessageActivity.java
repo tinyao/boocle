@@ -73,7 +73,7 @@ public class MessageActivity extends BaseActivity implements PullToRefreshAttach
 				Log.d("DEBUG", "ITEM: " + pos);
 				if(pos >= adapter.getCount()) return;
 				MsgThread th = (MsgThread)adapter.getItem(pos);
-//				clickPosition = pos;
+				clickPosition = pos;
 				Intent i = new Intent(MessageActivity.this, ConversationActivity.class);
 				i.putExtra("thread", th);
 				startActivity(i);
@@ -154,6 +154,11 @@ public class MessageActivity extends BaseActivity implements PullToRefreshAttach
 			return;
 		}
 		
+		/* 通知首页抽屉更新 */
+		Intent updateMsgUnreadIntent = new Intent("bookcircle.task.new_msg_update_home");
+		updateMsgUnreadIntent.putParcelableArrayListExtra("new_msgs", msgs);
+		sendOrderedBroadcast(updateMsgUnreadIntent, null);
+		
 		new Thread(){
 			public void run(){
 				parsingMessages(msgs);
@@ -166,6 +171,10 @@ public class MessageActivity extends BaseActivity implements PullToRefreshAttach
 		
 	}
 	
+	/**
+	 * 解析新私信，建立thread
+	 * @param msgs
+	 */
 	private void parsingMessages(ArrayList<DirectMsg> msgs){
 		
 		// 存储到数据库中, 同时建立thread表
@@ -256,7 +265,10 @@ public class MessageActivity extends BaseActivity implements PullToRefreshAttach
 				fetchDirectMsg(2);
 			}else if(intent.getAction().equals(ACTION_THREAD_CLEAR_UNREAD)){
 				Log.d("DEBUG", "clear unread num");
-				clearItemUnRead(clickPosition);
+				MsgThread th = threads.get(clickPosition);
+				th.unread_count = 0;
+				adapter.notifyDataSetChanged();
+//				clearItemUnRead(clickPosition);
 			}else if(intent.getAction().equals("bookcircle.task.load_msglist_new")){
 				
 				Log.d("DEBUG", "fragment reveiver...");

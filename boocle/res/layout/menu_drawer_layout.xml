@@ -192,6 +192,7 @@
                 android:textSize="16.0sp" />
 
             <TextView
+                android:id="@+id/drawer_menu_msg_unread_txt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@id/drawer_menu_msg_txt"
@@ -204,7 +205,6 @@
                 android:gravity="center"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
-                android:text="2"
                 android:textColor="#ffffffff"
                 android:textSize="13.0sp" />
         </RelativeLayout>

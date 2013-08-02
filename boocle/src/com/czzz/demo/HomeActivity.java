@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 import uk.co.senab.actionbarpulltorefresh.extras.actionbarsherlock.PullToRefreshAttacher;
-import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshAttacher.Options;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -13,6 +12,8 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -39,14 +40,16 @@ import com.czzz.base.DrawerBaseActivity;
 import com.czzz.base.User;
 import com.czzz.bookcircle.BookCollection;
 import com.czzz.bookcircle.BookUtils;
+import com.czzz.bookcircle.DirectMsg;
+import com.czzz.bookcircle.MsgThread;
 import com.czzz.bookcircle.MyApplication;
 import com.czzz.bookcircle.task.AlarmTask;
+import com.czzz.data.MsgThreadHelper;
 import com.czzz.data.SearchDBHelper;
 import com.czzz.data.UserBooksHelper;
 import com.czzz.demo.listadapter.NearbyBooksAdapter;
 import com.czzz.douban.DoubanBookUtils;
 import com.czzz.utils.HttpListener;
-import com.czzz.utils.ImagesDownloader;
 import com.czzz.view.LoadingFooter;
 import com.manuelpeinado.fadingactionbar.FadingActionBarHelper;
 
@@ -63,6 +66,7 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
 	private LoadingFooter mLoadingFooter;
 	private AutoCompleteTextView searchEdt;
 	private ImageView searchFor;
+	private TextView unreadTxt;
 	
 	private ArrayList<BookCollection> nearbyBooks = new ArrayList<BookCollection>();
 	private NearbyBooksAdapter nearbyBooksAdapter;
@@ -303,11 +307,48 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
         drawerView.findViewById(R.id.drawer_menu_message).setOnClickListener(menuClickListener);;
         drawerView.findViewById(R.id.drawer_menu_douban).setOnClickListener(menuClickListener);;
         drawerView.findViewById(R.id.drawer_menu_setting).setOnClickListener(menuClickListener);;
+        unreadTxt = (TextView)drawerView.findViewById(R.id.drawer_menu_msg_unread_txt);
         
         nameTxt.setText(User.getInstance().name);
         MyApplication.imagesLoader.download(User.getInstance().avatar, avatarImg);
+        
+        new Thread(){
+
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				super.run();
+				ArrayList<MsgThread> threads = MsgThreadHelper
+						.getInstance(HomeActivity.this).getCachedThread();
+				for(MsgThread th : threads){
+					unreadCount += th.unread_count;
+				}
+				mHandler.sendEmptyMessage(0);
+			}
+        	
+        }.start();
+        
         return drawerView;
 	}
+	
+	private int unreadCount = 0;
+	
+	Handler mHandler = new Handler(){
+
+		@Override
+		public void handleMessage(Message msg) {
+			// TODO Auto-generated method stub
+			super.handleMessage(msg);
+			if(msg.what!=0) return;
+			if(unreadCount != 0){
+				unreadTxt.setText("" + unreadCount);
+				unreadTxt.setVisibility(View.VISIBLE);
+			}else{
+				unreadTxt.setVisibility(View.GONE);
+			}
+		}
+		
+	};
 
 	@Override
 	protected void onMenuItemClicked(int resId) {
@@ -525,6 +566,8 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
 	private static final String ACTION_UPDATE_BOOKS = "update_user_books";
 	private static final String ACTION_DELETE_ITEM = "delete_user_book_item";
 	private static final String ACTION_UPDATE_ITEM = "update_user_book_item";
+	public static final String ACTION_LOAD_MSG_NEW = "bookcircle.task.new_msg_update_home";
+	public static final String ACTION_THREAD_CLEAR_UNREAD = "action_clear_unread";
 	
 	private UpdateReceiver receiver; 
 	
@@ -534,6 +577,8 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
         filter.addAction(ACTION_DELETE_ITEM);
         filter.addAction(ACTION_UPDATE_ITEM);
         filter.addAction(ACTION_UPDATE_BOOKS);
+        filter.addAction(ACTION_LOAD_MSG_NEW);
+        filter.addAction(ACTION_THREAD_CLEAR_UNREAD);
 
         //动态注册BroadcastReceiver  
         this.registerReceiver(receiver, filter); 
@@ -581,6 +626,28 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
 						break;
 					}
 				}
+			}
+			
+			if(intent.getAction().equals(ACTION_LOAD_MSG_NEW)){
+				ArrayList<DirectMsg> new_msgs 
+						= intent.getParcelableArrayListExtra("new_msgs");
+				unreadCount += new_msgs.size();
+				if(unreadCount!=0){
+					unreadTxt.setText("" + unreadCount);
+					unreadTxt.setVisibility(View.VISIBLE);
+				}else{
+					unreadTxt.setVisibility(View.GONE);
+				}
+			}
+			
+			if(intent.getAction().equals(ACTION_THREAD_CLEAR_UNREAD)){
+				unreadCount = 0;
+				ArrayList<MsgThread> threads = MsgThreadHelper
+						.getInstance(HomeActivity.this).getCachedThread();
+				for(MsgThread th : threads){
+					unreadCount += th.unread_count;
+				}
+				mHandler.sendEmptyMessage(0);
 			}
 			
 		}

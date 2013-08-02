@@ -343,19 +343,25 @@ public class ConversationActivity extends AsyncTaskActivity{
 
 	private void setMsgRead(ArrayList<DirectMsg> msgs2) {
 		// TODO Auto-generated method stub
+		int unread = 0;
+		
 		for(DirectMsg item : msgs2){
 			if(item.is_recv && item.is_unread){
 				// update msg read local
 				MsgHelper.getInstance(this).setMsgRead(item);
 				// update msg read remote
 				UserUtils.setRemoteMsgRead(this, item.msg_id, this);
+				unread++;
 			}
 		}
+		
+		if(unread == 0) return;
 		
 		// update thread unread_count to 0  
 		MsgThreadHelper.getInstance(this).update_unreadCount(thread.thread_uid, 0);
 		
 		Intent updateThreadBroadcast = new Intent(MessageFragment.ACTION_THREAD_CLEAR_UNREAD);
+		updateThreadBroadcast.putExtra("unread_clear",  unread);
 		this.sendBroadcast(updateThreadBroadcast);
 		Log.d("DEBUG", "send clear unread...");
 	}
