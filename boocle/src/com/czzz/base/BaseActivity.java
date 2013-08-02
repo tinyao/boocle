@@ -75,7 +75,9 @@ public class BaseActivity extends SherlockActivity{
 	public void finish() {
 		// TODO Auto-generated method stub
 		super.finish();
-		overridePendingTransition(R.anim.slide_left_in, R.anim.slide_right_out);
+//		overridePendingTransition(R.anim.slide_left_in, R.anim.slide_right_out);
+		this.overridePendingTransition(R.anim.fade_in_enter,
+				R.anim.activity_scroll_to_right);
 	}
 
 

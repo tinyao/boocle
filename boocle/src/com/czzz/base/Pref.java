@@ -68,6 +68,8 @@ public class Pref {
 	
 	public static final String USER_ISFOLLOW_URL = BASE_URL + "Follow/isfo";
 	
+	public static final String BOOK_FOLLOW_USER_URL = BASE_URL + "Follow/content";
+	
 	public static final String USER_CHANGE_PASSWD = BASE_URL + "User/changepw";
 	
 	/* Sharedpreference name */

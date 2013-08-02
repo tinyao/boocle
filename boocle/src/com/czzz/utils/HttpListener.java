@@ -78,6 +78,8 @@ public interface HttpListener {
 	
 	public static final int USER_UNFOLLOW_TA = 42;
 	
+	public static final int BOOKS_FOLLOW_USER = 43;
+	
 	public void onTaskCompleted(Object data);
 	
 	public void onTaskFailed(String data);

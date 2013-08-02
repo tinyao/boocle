@@ -14,6 +14,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.Parcelable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -28,10 +29,12 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
@@ -51,6 +54,7 @@ import com.czzz.demo.listadapter.NearbyBooksAdapter;
 import com.czzz.douban.DoubanBookUtils;
 import com.czzz.utils.HttpListener;
 import com.czzz.view.LoadingFooter;
+import com.czzz.view.PositionAwareListView;
 import com.manuelpeinado.fadingactionbar.FadingActionBarHelper;
 
 import de.keyboardsurfer.android.widget.crouton.Crouton;
@@ -62,14 +66,16 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
 	
 	private PullToRefreshAttacher mPullToRefreshAttacher;
 	private SharedPreferences sp;
-	private ListView listView;
+	private PositionAwareListView listView;
 	private LoadingFooter mLoadingFooter;
 	private AutoCompleteTextView searchEdt;
 	private ImageView searchFor;
 	private TextView unreadTxt;
+	private Spinner actionSpinner;
 	
 	private ArrayList<BookCollection> nearbyBooks = new ArrayList<BookCollection>();
-	private NearbyBooksAdapter nearbyBooksAdapter;
+	private ArrayList<BookCollection> followBooks;
+	private NearbyBooksAdapter nearbyBooksAdapter, followBooksAdapter;
 	private int statusId = 2, sortId = 0;
     private int school_id = User.getInstance().school_id; // initial school id
 	
@@ -114,6 +120,8 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
         
         registerReceiver();
         
+        nearbyBooksAdapter = new NearbyBooksAdapter(this, nearbyBooks);
+        listView.setAdapter(nearbyBooksAdapter);
         obtainNearbyBooks();
         
         User.getInstance().init(this);
@@ -134,13 +142,14 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
 	    mActionBar.setDisplayShowTitleEnabled(true);
 	    
 	    LayoutInflater inflater = LayoutInflater.from(this);
-	    View actionSpinner = inflater.inflate(R.layout.action_spinner, null, false);
+	    View actionSpinnerLay = inflater.inflate(R.layout.action_spinner, null, false);
 	    ActionBar.LayoutParams layoutParams = new ActionBar.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT);
 	    layoutParams.gravity = Gravity.RIGHT | Gravity.CENTER_VERTICAL;
-	    mActionBar.setCustomView(actionSpinner, layoutParams);
+	    mActionBar.setCustomView(actionSpinnerLay, layoutParams);
+	    actionSpinner = (Spinner) actionSpinnerLay.findViewById(R.id.action_spinner_btn);
 	    
 	    // fill the listview
-	    listView = (ListView) findViewById(android.R.id.list);
+	    listView = (PositionAwareListView) findViewById(android.R.id.list);
 	    mLoadingFooter = new LoadingFooter(this);
 	    listView.addFooterView(mLoadingFooter.getView());
 	    
@@ -233,7 +242,50 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
 	    	
 	    });
 	    
+	    actionSpinner.setOnItemSelectedListener(new OnItemSelectedListener(){
+
+			@Override
+			public void onItemSelected(AdapterView<?> arg0, View arg1,
+					int pos, long arg3) {
+				// TODO Auto-generated method stub
+				
+				listView.setSelectionAfterHeaderView();
+				
+				switch(pos){
+				case SectionID.SECTION_SAME_SCHOOL:
+					listView.setAdapter(nearbyBooksAdapter, true);
+					break;
+				case SectionID.SECTION_FOLLOW:
+					if (followBooks == null){ // 没有获取：第一次切换
+						followBooks = new ArrayList<BookCollection>();
+						BookUtils.fetchFollowUserBooks(0, 
+								new HomeResponeHandler(HomeActivity.this, HttpListener.BOOKS_FOLLOW_USER));
+					} else{
+						listView.setAdapter(followBooksAdapter, true);
+					}
+					break;
+				}
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+	    	
+	    });
+	    
 	    initSearchEdtAdapter();
+	}
+	
+	private int currentSection = SectionID.SECTION_SAME_SCHOOL;
+	
+	private static class SectionID {
+		private static final int SECTION_SAME_SCHOOL = 0;
+		private static final int SECTION_FOLLOW = 1;
+		private static final int SECTION_SAME_CITY = 2;
+		private static final int SECTION_OTHER_SCHOOL = 3;
+		private static final int SECTION_RANDOM = 4;
 	}
 	
 	private SearchDBHelper helper;
@@ -431,33 +483,21 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
 	}
 	
 	/* update nearby books */
-	protected void updateNearbyBooks(String respone) {
+	protected void updateNearbyBooks(ArrayList<BookCollection> books) {
 		// TODO Auto-generated method stub
-		// 网络返回
-		ArrayList<BookCollection> books = BookUtils.parseNearybyBooks(respone);
 		
 		if(books == null){
 //			Crouton.makeText(this, R.string.no_more, Style.CONFIRM).show();
 			mLoadingFooter.setState(LoadingFooter.State.TheEnd, 10);
-			if(nearbyBooks.size() == 0){
-				nearbyBooksAdapter = new NearbyBooksAdapter(this, nearbyBooks);
-				listView.setAdapter(nearbyBooksAdapter);
-			}
 		}else{
-			if(nearbyBooksAdapter == null || nearbyBooks.size() == 0){
-				nearbyBooks.addAll(books);
-				nearbyBooksAdapter = new NearbyBooksAdapter(this, nearbyBooks);
-				listView.setAdapter(nearbyBooksAdapter);
+			
+			nearbyBooks.addAll(books);
+			nearbyBooksAdapter.notifyDataSetChanged();
 				
-				// 只缓存“status=全部”的书籍
-				if(school_id == User.getInstance().school_id && statusId == 2){
-					UserBooksHelper cachehelper = UserBooksHelper.getInstance(this);
-					cachehelper.cacheNearbyCollections(books);
-				}
-			} else {
-				nearbyBooks.addAll(books);
-//				nearbyBooksAdapter = new NearbyBooksAdapter(this, nearbyBooks);
-				nearbyBooksAdapter.notifyDataSetChanged();
+			// 只缓存“status=全部 && 本校”的书籍
+			if(nearbyBooks.size()<=DEFAULT_NUM && school_id == User.getInstance().school_id && statusId == 2){
+				UserBooksHelper cachehelper = UserBooksHelper.getInstance(this);
+				cachehelper.cacheNearbyCollections(books);
 			}
 		}
 		
@@ -523,15 +563,28 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
 			switch(taskId){
 			case HttpListener.FETCH_NEARBY_BOOKS:
 				nearbyBooks.clear();
-				updateNearbyBooks(response);
+				ArrayList<BookCollection> books = BookUtils.parseNearybyBooks(response);
+				updateNearbyBooks(books);
 				break;
 			case HttpListener.FETCH_NEARBY_BOOKS_NEW:
 				refreshNewNearbyBooks(response);
 				break;
 			case HttpListener.FETCH_NEARBY_BOOKS_MORE:
 				Log.d("DEBUG", "RESPONSE: " + response);
-				updateNearbyBooks(response);
+				ArrayList<BookCollection> booksMore = BookUtils.parseNearybyBooks(response);
+				updateNearbyBooks(booksMore);
 				mLoadingFooter.setState(LoadingFooter.State.Idle, 3000);
+				break;
+			case HttpListener.BOOKS_FOLLOW_USER:
+				Log.d("DEBUG", "Response: " + response);
+				ArrayList<BookCollection> fBooks = BookUtils.parseNearybyBooks(response);
+				if(followBooks==null && fBooks == null){
+					Crouton.makeText(HomeActivity.this, "您还没有关注其他书友", Style.ALERT).show();
+				}else{
+					followBooks.addAll(fBooks);
+					followBooksAdapter = new NearbyBooksAdapter(HomeActivity.this, followBooks);
+					listView.setAdapter(followBooksAdapter, true);
+				}
 				break;
 			}
 		}
@@ -551,6 +604,21 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
 		}
 		
 	}
+	
+//	private class Offset{
+//		int pos, top;
+//		public Offset(int pos, int top){
+//			this.pos = pos;
+//			this.top = top;
+//		}
+//	}
+//	
+//	private Offset getListOffset(){
+//		int savedPosition = listView.getFirstVisiblePosition();
+//		View firstVisibleView = listView.getChildAt(0);
+//		int savedTop = (firstVisibleView == null) ? 0 : firstVisibleView.getTop();
+//		return new Offset(savedPosition, savedTop);
+//	}
 	
 	@Override
 	public void onDestroy() {

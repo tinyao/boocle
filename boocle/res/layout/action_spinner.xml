@@ -2,7 +2,7 @@
 <Spinner xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
-    android:id="@+id/spinner_btn"
+    android:id="@+id/action_spinner_btn"
     android:text="同校"
     android:background="@drawable/timeline_tab_btn_selector"
     android:popupBackground="@drawable/timeline_tab_popup_bg"

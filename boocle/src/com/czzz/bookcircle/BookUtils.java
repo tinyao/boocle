@@ -18,6 +18,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.czzz.base.Pref;
+import com.czzz.base.User;
 import com.czzz.data.SearchResultDBHelper;
 import com.czzz.demo.DoubanRecomActivity;
 import com.czzz.douban.DoubanBook;
@@ -89,6 +90,21 @@ public class BookUtils {
 //		Log.d("DEBUG", "url: " + url);
 //		
 //		new HttpDownloadAsyncTask(con, listener).execute(url);
+	}
+	
+	public static void fetchFollowUserBooks(int start, 
+			AsyncHttpResponseHandler responseHandler){
+		String url = Pref.BOOK_FOLLOW_USER_URL;
+		
+		RequestParams params = new RequestParams();
+		params.put("uid", "" + User.getInstance().uid);
+		params.put("start", "" + start);
+		params.put("passwd", User.getInstance().pass);
+		
+		
+//		params.put("type", "" + status);
+		
+		NetHttpClient.post(url, params, responseHandler);
 	}
 	
 	public static ArrayList<BookCollection> parseNearybyBooks(String jsonStr){
