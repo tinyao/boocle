@@ -104,6 +104,9 @@
             android:launchMode="standard"
             android:theme="@style/AppTheme.TranslucentActionBar"
             android:windowSoftInputMode="adjustNothing" >
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
         </activity>
         <activity 
             android:name=".UserExploreActivity"></activity>

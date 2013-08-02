@@ -90,7 +90,7 @@ public class UserPageActivity extends AsyncTaskActivity implements PullToRefresh
 
 		initLayoutActionBar();
 		
-		mPullToRefreshAttacher = PullToRefreshAttacher.get(this);
+		mPullToRefreshAttacher = PullToRefreshAttacher.get(this, true);
 
         mPullToRefreshAttacher.addRefreshableView(listView, this);
         

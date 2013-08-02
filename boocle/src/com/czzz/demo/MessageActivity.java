@@ -3,23 +3,31 @@ package com.czzz.demo;
 import java.util.ArrayList;
 
 import uk.co.senab.actionbarpulltorefresh.extras.actionbarsherlock.PullToRefreshAttacher;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.czzz.base.BaseActivity;
 import com.czzz.bookcircle.DirectMsg;
 import com.czzz.bookcircle.MsgThread;
+import com.czzz.bookcircle.MsgUtils;
+import com.czzz.bookcircle.MyApplication;
 import com.czzz.bookcircle.UserUtils;
 import com.czzz.data.MsgHelper;
 import com.czzz.data.MsgThreadHelper;
-import com.czzz.demo.MessageFragment.MessageResponeHandler;
+import com.czzz.demo.MessageFragment.RefreshThreadReceiver;
 import com.czzz.demo.listadapter.MsgThreadAdapter;
 import com.czzz.utils.TextUtils;
 import com.czzz.view.LoadingView;
@@ -49,11 +57,46 @@ public class MessageActivity extends BaseActivity implements PullToRefreshAttach
 		mPullToRefreshAttacher = PullToRefreshAttacher.get(this);
         mPullToRefreshAttacher.addRefreshableView(msgList, this);
         
+        registerReceiver();
 		fetchDirectMsg(2);
 		
 		if(threads != null){
 			checkNewMsg();
 		}
+		
+		msgList.setOnItemClickListener(new OnItemClickListener(){
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int pos,
+					long arg3) {
+				// TODO Auto-generated method stub
+				Log.d("DEBUG", "ITEM: " + pos);
+				if(pos >= adapter.getCount()) return;
+				MsgThread th = (MsgThread)adapter.getItem(pos);
+//				clickPosition = pos;
+				Intent i = new Intent(MessageActivity.this, ConversationActivity.class);
+				i.putExtra("thread", th);
+				startActivity(i);
+			}
+			
+		});
+	}
+	
+	@Override
+	public void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+//		isPaused = false;
+		Log.d("DEBUG", "onResume...");
+		MyApplication.MsgFragmentResumed();
+	}
+	
+	@Override
+	public void onDestroy() {
+		// TODO Auto-generated method stub
+		unregisterReceiver(receiver);
+		MyApplication.MsgFragmentPaused();
+		super.onDestroy();
 	}
 	
 	/**
@@ -154,6 +197,83 @@ public class MessageActivity extends BaseActivity implements PullToRefreshAttach
 		}
 		
 	};
+	
+	private void clearItemUnRead(int position){
+		
+		Log.d("DEBUG", "clear unread num");
+		
+		threads.get(position).unread_count = 0;
+		
+		int firstPosition = msgList.getFirstVisiblePosition() - msgList.getHeaderViewsCount(); // This is the same as child #0
+		int wantedChild = 0 - firstPosition;
+		// Say, first visible position is 8, you want position 10, wantedChild will now be 2
+		// So that means your view is child #2 in the ViewGroup:
+		if (wantedChild < 0 || wantedChild >= msgList.getChildCount()) {
+		  Log.w("DEBUG", "Unable to get view for desired position, because it's not being displayed on screen.");
+		  return;
+		}
+		// Could also check if wantedPosition is between listView.getFirstVisiblePosition() and listView.getLastVisiblePosition() instead.
+		View wantedView = msgList.getChildAt(wantedChild);
+		
+	    if(wantedView == null){
+	    	return;
+	    }
+	    TextView countView = (TextView) wantedView.findViewById(R.id.thread_item_unread_count);
+	    countView.setVisibility(View.GONE);
+	}
+	
+	private int clickPosition = 0;
+	private RefreshThreadReceiver receiver;
+	public static final String ACTION_UPDATE_THREAD = "action_update_thread";
+	public static final String ACTION_THREAD_CLEAR_UNREAD = "action_clear_unread";
+	public static final String ACTION_LOAD_MSG_NEW = "bookcircle.task.load_msglist_new";
+	
+	private void performNotification(ArrayList<DirectMsg> msgs) {
+		// TODO Auto-generated method stub
+		MsgUtils.notifyNewMsgs(this, msgs);
+	}
+	
+	private void registerReceiver(){
+		receiver = new RefreshThreadReceiver();  
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(ACTION_UPDATE_THREAD);
+        filter.addAction(ACTION_THREAD_CLEAR_UNREAD);
+        filter.addAction(ACTION_LOAD_MSG_NEW);
+        filter.setPriority(1000);
+        //动态注册BroadcastReceiver  
+        this.registerReceiver(receiver, filter); 
+	}
+	
+	class RefreshThreadReceiver extends BroadcastReceiver{
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			// TODO Auto-generated method stub
+			
+			Log.d("DEBUG", intent.getAction());
+			if(intent.getAction().equals(ACTION_UPDATE_THREAD)){
+				clearItemUnRead(clickPosition);
+				fetchDirectMsg(2);
+			}else if(intent.getAction().equals(ACTION_THREAD_CLEAR_UNREAD)){
+				Log.d("DEBUG", "clear unread num");
+				clearItemUnRead(clickPosition);
+			}else if(intent.getAction().equals("bookcircle.task.load_msglist_new")){
+				
+				Log.d("DEBUG", "fragment reveiver...");
+				ArrayList<DirectMsg> new_msgs 
+					= intent.getParcelableArrayListExtra("new_msgs");
+				Log.d("DEBUG", "msgs: " + new_msgs);
+				
+				parsingMessages(new_msgs);
+				msgList.setAdapter(adapter);
+				
+				// notify the conversation view
+				performNotification(new_msgs);
+			}
+			
+		}
+	
+	}
 	
 	class MessageResponeHandler extends CustomAsyncHttpResponseHandler{
 
