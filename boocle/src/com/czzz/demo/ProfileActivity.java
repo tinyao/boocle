@@ -67,12 +67,8 @@ public class ProfileActivity extends AsyncTaskActivity {
 		super.onCreate(savedInstanceState);
 
 		Intent intent = getIntent();
-		if(intent.hasExtra("user")){
-			mUser = (User) intent.getSerializableExtra("user");
-			isMyself = false;
-		}else{
-			mUser = User.getInstance();
-		}
+		mUser = (User) intent.getSerializableExtra("user");
+		if(mUser.uid != User.getInstance().uid) isMyself = false;
 		
 		mActionBar.setTitle(mUser.name);
 

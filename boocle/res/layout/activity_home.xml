@@ -23,5 +23,18 @@
         android:scrollbarStyle="outsideOverlay"
         android:scrollingCache="true"
         android:smoothScrollbar="true" />
+    
+    <CheckBox
+        android:id="@+id/filter_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:gravity="center"
+        android:padding="20dp"
+        android:button="@null"
+        android:alpha="0.9"
+        android:visibility="gone"
+        android:background="@drawable/book_filter_checker"/>
 
 </RelativeLayout>

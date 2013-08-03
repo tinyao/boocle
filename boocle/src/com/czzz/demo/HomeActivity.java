@@ -34,6 +34,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -59,6 +60,7 @@ import com.czzz.view.LoadingFooter;
 import com.czzz.view.LoadingFooter.State;
 import com.czzz.view.PositionAwareListView;
 import com.czzz.view.SchoolPopupDialog;
+import com.czzz.view.SpinnerPopupDialog;
 import com.manuelpeinado.fadingactionbar.FadingActionBarHelper;
 
 import de.keyboardsurfer.android.widget.crouton.Crouton;
@@ -76,6 +78,7 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
 	private ImageView searchFor;
 	private TextView unreadTxt;
 	private Spinner actionSpinner;
+	private CheckBox filterBtn;
 	
 	private ArrayList<BookCollection> nearbyBooks = new ArrayList<BookCollection>();
 	private ArrayList<BookCollection> followBooks;
@@ -158,6 +161,7 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
 	    
 	    // fill the listview
 	    listView = (PositionAwareListView) findViewById(android.R.id.list);
+	    filterBtn = (CheckBox) findViewById(R.id.filter_btn);
 	    mLoadingFooter = new LoadingFooter(this);
 	    listView.addFooterView(mLoadingFooter.getView());
 	    
@@ -323,6 +327,17 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
 	    	
 	    });
 	    
+	    filterBtn.setVisibility(View.VISIBLE);
+	    filterBtn.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				ShowFilterDialog();
+			}
+	    	
+	    });
+	    
 	    initSearchEdtAdapter();
 	}
 	
@@ -421,6 +436,7 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
 				super.run();
 				ArrayList<MsgThread> threads = MsgThreadHelper
 						.getInstance(HomeActivity.this).getCachedThread();
+				if(threads == null) return;
 				for(MsgThread th : threads){
 					unreadCount += th.unread_count;
 				}
@@ -469,26 +485,67 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
 				if(schoolDialog.changed){
 					school_id = sid;
 					preSchool_id = sid;
-//					if(school_id == User.getInstance().school_id){
-//						schoolBtn.setText("我的学校");
-//					}else{
-//						schoolBtn.setText(school);
-//					}
 					schoolDialog.changed = false;
 					mPullToRefreshAttacher.setRefreshing(true);
 					
-//					if(currentSection == 0){
-						fetchNeabyBooks(0, DEFAULT_NUM, school_id, statusId, sortId);
-//					}else if(currentSection == 1){
-//						nearbyUsers.clear();
-//						fetchNeabyUsers(0, DEFAULT_NUM, school_id, 2);
-//					}
+					fetchNeabyBooks(0, DEFAULT_NUM, school_id, statusId, sortId);
 				}
 				school_id = sid;
 			}
 			
 		});
 		schoolDialog.show();
+	}
+	
+	private SpinnerPopupDialog dialogFilterBooks;
+	
+	private void ShowFilterDialog(){
+		
+		if(dialogFilterBooks == null){
+			int height = filterBtn.getHeight();
+			dialogFilterBooks = new SpinnerPopupDialog(this, 
+					R.style.spinner_popup_right_style, height, 0, 0);
+		}
+		
+		dialogFilterBooks.setOnDismissListener(new OnDismissListener(){
+
+			@Override
+			public void onDismiss(DialogInterface arg0) {
+				// TODO Auto-generated method stub
+				if(dialogFilterBooks.filterChanged){
+					statusId = dialogFilterBooks.status;
+					sortId = dialogFilterBooks.sort;
+					mPullToRefreshAttacher.setRefreshing(true);
+					
+					switch(currentSection){
+					case SectionID.SECTION_SAME_SCHOOL:
+						nearbyBooks.clear();
+						fetchNeabyBooks(0, DEFAULT_NUM, school_id, statusId, sortId);
+						break;
+					case SectionID.SECTION_OTHER_SCHOOL:
+						otherSchoolBooks.clear();
+						fetchNeabyBooks(0, DEFAULT_NUM, school_id, statusId, sortId);
+						break;
+					case SectionID.SECTION_FOLLOW:
+						followBooks.clear();
+						BookUtils.fetchFollowUserBooks(0, 0,
+								new HomeResponeHandler(HomeActivity.this, HttpListener.BOOKS_FOLLOW_USER));
+						break;
+					case SectionID.SECTION_RANDOM:
+						randomBooks.clear();
+						BookUtils.fetchNearby(0, 0, DEFAULT_NUM, statusId, 1, 
+								new HomeResponeHandler(HomeActivity.this, HttpListener.FETCH_NEARBY_BOOKS));
+						break;
+					}
+					
+					dialogFilterBooks.filterChanged = false;
+				}
+				filterBtn.setChecked(false);
+			}
+			
+		});
+		
+		dialogFilterBooks.show();
 	}
 	
 	
@@ -701,10 +758,10 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
 		// TODO Auto-generated method stub
 		switch(currentSection){
 		case SectionID.SECTION_SAME_SCHOOL:
-			fetchNeabyNewBooks(nearbyBooks.get(0).cid, statusId);
+			fetchNeabyNewBooks(nearbyBooks.size()==0 ? 0 : nearbyBooks.get(0).cid, statusId);
 			break;
 		case SectionID.SECTION_OTHER_SCHOOL:
-			fetchNeabyNewBooks(nearbyBooks.get(0).cid, statusId);
+			fetchNeabyNewBooks(nearbyBooks.size()==0 ? 0 : nearbyBooks.get(0).cid, statusId);
 			break;
 		case SectionID.SECTION_FOLLOW:
 			Log.d("DEBUG", "follow CID: " + followBooks.get(0).cid);
@@ -735,7 +792,7 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
 		public void onSuccess(int httpResultCode, String response) {
 			// TODO Auto-generated method stub
 			super.onSuccess(httpResultCode, response);
-			
+			if(response == null) return;
 			switch(taskId){
 			case HttpListener.FETCH_NEARBY_BOOKS:
 //				nearbyBooks.clear();

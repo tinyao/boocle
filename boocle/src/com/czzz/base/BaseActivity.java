@@ -85,7 +85,7 @@ public class BaseActivity extends SherlockActivity{
 	public void startActivity(Intent intent) {
 		// TODO Auto-generated method stub
 		super.startActivity(intent);
-		overridePendingTransition(R.anim.slide_right_in, R.anim.slide_left_out);
+		overridePendingTransition(R.anim.activity_scroll_from_right, R.anim.fade_out_exit);
 	}
 
 
@@ -93,7 +93,7 @@ public class BaseActivity extends SherlockActivity{
 	public void startActivityForResult(Intent intent, int requestCode) {
 		// TODO Auto-generated method stub
 		super.startActivityForResult(intent, requestCode);
-		overridePendingTransition(R.anim.slide_right_in, R.anim.slide_left_out);
+		overridePendingTransition(R.anim.activity_scroll_from_right, R.anim.fade_out_exit);
 	}
 	
 	class MyGestureDetector extends SimpleOnGestureListener {

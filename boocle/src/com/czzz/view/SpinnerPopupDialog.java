@@ -75,7 +75,7 @@ public class SpinnerPopupDialog extends Dialog{
         
         dialogWindow.setLayout(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         
-        dialogWindow.setGravity(Gravity.RIGHT | Gravity.BOTTOM);
+        dialogWindow.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM);
         
         dialogWindow.setAttributes(lp);
         this.setCanceledOnTouchOutside(true);
@@ -86,6 +86,26 @@ public class SpinnerPopupDialog extends Dialog{
 		
 		saleFilter.check(R.id._filter_books_all);
 		sortFilter.check(R.id._filter_books_latest);
+		
+//		saleFilter.setOnCheckedChangeListener(new OnCheckedChangeListener(){
+//
+//			@Override
+//			public void onCheckedChanged(RadioGroup arg0, int arg1) {
+//				// TODO Auto-generated method stub
+//				filterChanged = true;
+//			}
+//			
+//		});
+//		
+//		sortFilter.setOnCheckedChangeListener(new OnCheckedChangeListener(){
+//
+//			@Override
+//			public void onCheckedChanged(RadioGroup arg0, int arg1) {
+//				// TODO Auto-generated method stub
+//				filterChanged = true;
+//			}
+//			
+//		});
 		
 		okBtn.setOnClickListener(new View.OnClickListener(){
 

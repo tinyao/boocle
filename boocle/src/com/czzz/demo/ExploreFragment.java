@@ -610,7 +610,6 @@ public class ExploreFragment extends BaseFragment implements OnRefreshListener{
     		if(currentSection == 0){
     			
     			// filter for books
-    			
     			if(dialogFilterBooks == null)
     				dialogFilterBooks = new SpinnerPopupDialog(ExploreFragment.this.getActivity(), 
     					R.style.spinner_popup_right_style, 
