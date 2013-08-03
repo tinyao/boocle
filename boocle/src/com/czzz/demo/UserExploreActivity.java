@@ -321,6 +321,7 @@ public class UserExploreActivity extends BaseActivity implements PullToRefreshAt
 			switch(currentSection){
 			case SectionID.SECTION_SAME_SCHOOL:
 				nearbyUsers.addAll(users);
+				if(nearbyUsersAdapter==null) nearbyUsersAdapter = new NearbyUsersAdapter(this, nearbyUsers);
 				nearbyUsersAdapter.notifyDataSetChanged();
 				break;
 			case SectionID.SECTION_OTHER_SCHOOL:

@@ -27,7 +27,6 @@ import com.czzz.bookcircle.MyApplication;
 import com.czzz.bookcircle.UserUtils;
 import com.czzz.data.MsgHelper;
 import com.czzz.data.MsgThreadHelper;
-import com.czzz.demo.MessageFragment.RefreshThreadReceiver;
 import com.czzz.demo.listadapter.MsgThreadAdapter;
 import com.czzz.utils.TextUtils;
 import com.czzz.view.LoadingView;

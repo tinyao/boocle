@@ -38,7 +38,6 @@ import com.czzz.base.User;
 import com.czzz.bookcircle.BookCollection;
 import com.czzz.bookcircle.UserUtils;
 import com.czzz.data.UserBooksHelper;
-import com.czzz.demo.BookShelfFragment.RefreshReceiver;
 import com.czzz.demo.listadapter.NearbyUsersAdapter;
 import com.czzz.demo.listadapter.ShelfAdapter;
 import com.czzz.demo.listadapter.ShelfListAdapter;

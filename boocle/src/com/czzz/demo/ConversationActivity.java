@@ -360,7 +360,7 @@ public class ConversationActivity extends AsyncTaskActivity{
 		// update thread unread_count to 0  
 		MsgThreadHelper.getInstance(this).update_unreadCount(thread.thread_uid, 0);
 		
-		Intent updateThreadBroadcast = new Intent(MessageFragment.ACTION_THREAD_CLEAR_UNREAD);
+		Intent updateThreadBroadcast = new Intent(MessageActivity.ACTION_THREAD_CLEAR_UNREAD);
 		updateThreadBroadcast.putExtra("unread_clear",  unread);
 		this.sendBroadcast(updateThreadBroadcast);
 		Log.d("DEBUG", "send clear unread...");
@@ -449,7 +449,7 @@ public class ConversationActivity extends AsyncTaskActivity{
 				MsgHelper.getInstance(this).insert(item);
 				
 				// broadcast to update the msg-thread-fragment
-				Intent updateThreadBroadcast = new Intent(MessageFragment.ACTION_UPDATE_THREAD);
+				Intent updateThreadBroadcast = new Intent(MessageActivity.ACTION_UPDATE_THREAD);
 				this.sendBroadcast(updateThreadBroadcast);
 				
 			} catch (JSONException e) {

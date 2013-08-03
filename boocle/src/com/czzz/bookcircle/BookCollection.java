@@ -63,7 +63,7 @@ public class BookCollection implements Serializable, Parcelable{
 		
 		create_at = item.getString("create_at");
 		owner = item.getString("name");
-		owner_gender = Integer.valueOf(item.getString("gender"));
+		owner_gender = Integer.valueOf(item.getString("gender").equals("null") ? "1" : item.getString("gender"));
 		owner_id = Integer.valueOf(item.getString("uid"));
 		
 		if(item.has("book")){

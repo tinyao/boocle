@@ -287,7 +287,7 @@ public class SchoolChooserActivity extends AsyncTaskActivity{
 		
 		if(resultCode == 100){
 			// 跳过
-			Intent guideIntent = new Intent(this, MainActivity.class);
+			Intent guideIntent = new Intent(this, HomeActivity.class);
 			guideIntent.putExtra("new_login", true);
 			MyApplication.configPref.edit().putBoolean("loged_in", true).commit();
 			startActivity(guideIntent);

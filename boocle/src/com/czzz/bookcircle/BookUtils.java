@@ -115,6 +115,7 @@ public class BookUtils {
 				return null;
 			}
 			ArrayList<BookCollection> list = new ArrayList<BookCollection>();
+			
 			JSONArray array = json.getJSONArray("data");
 			
 			for(int i=0; i<array.length(); i++){
