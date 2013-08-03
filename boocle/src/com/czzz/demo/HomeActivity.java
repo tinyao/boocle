@@ -56,6 +56,7 @@ import com.czzz.demo.listadapter.NearbyBooksAdapter;
 import com.czzz.douban.DoubanBookUtils;
 import com.czzz.utils.HttpListener;
 import com.czzz.view.LoadingFooter;
+import com.czzz.view.LoadingFooter.State;
 import com.czzz.view.PositionAwareListView;
 import com.czzz.view.SchoolPopupDialog;
 import com.manuelpeinado.fadingactionbar.FadingActionBarHelper;
@@ -79,7 +80,8 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
 	private ArrayList<BookCollection> nearbyBooks = new ArrayList<BookCollection>();
 	private ArrayList<BookCollection> followBooks;
 	private ArrayList<BookCollection> otherSchoolBooks;
-	private NearbyBooksAdapter nearbyBooksAdapter, followBooksAdapter, otherSchoolBooksAdapter;
+	private ArrayList<BookCollection> randomBooks;
+	private NearbyBooksAdapter nearbyBooksAdapter, followBooksAdapter, otherSchoolBooksAdapter, randomAdapter;
 	private int statusId = 2, sortId = 0;
     private int school_id = User.getInstance().school_id; // initial school id
 	
@@ -262,6 +264,12 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
 					school_id = User.getInstance().school_id;
 				}
 				
+				if(currentSection == SectionID.SECTION_RANDOM){
+					mLoadingFooter.setState(State.TheEnd);
+				} else {
+					mLoadingFooter.setState(State.Idle, 1000);
+				}
+				
 				switch(pos){
 				case SectionID.SECTION_SAME_SCHOOL:
 					listView.setAdapter(nearbyBooksAdapter, true);
@@ -279,6 +287,7 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
 					}
 					break;
 				case SectionID.SECTION_OTHER_SCHOOL:
+					school_id = preSchool_id;
 					if(otherSchoolBooks == null){
 						otherSchoolBooks = new ArrayList<BookCollection>();
 						otherSchoolBooksAdapter = new NearbyBooksAdapter(HomeActivity.this, otherSchoolBooks);
@@ -289,7 +298,16 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
 					showSchoolDialog();
 					break;
 				case SectionID.SECTION_RANDOM:
-					
+					if(randomBooks == null){
+						randomBooks = new ArrayList<BookCollection>();
+						randomAdapter = new NearbyBooksAdapter(HomeActivity.this, randomBooks);
+						listView.setAdapter(randomAdapter, true);
+					} else {
+						listView.setAdapter(randomAdapter);
+					}
+					mPullToRefreshAttacher.setRefreshing(true);
+					BookUtils.fetchNearby(0, 0, DEFAULT_NUM, 2, 1, 
+							new HomeResponeHandler(HomeActivity.this, HttpListener.FETCH_NEARBY_BOOKS));
 					break;
 				}
 			}
@@ -309,6 +327,7 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
 	}
 	
 	private int currentSection = SectionID.SECTION_SAME_SCHOOL;
+	int preSchool_id = User.getInstance().school_id;
 	
 	private static class SectionID {
 		private static final int SECTION_SAME_SCHOOL = 0;
@@ -449,6 +468,7 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
 				int sid = schoolDialog.updateUnivId;
 				if(schoolDialog.changed){
 					school_id = sid;
+					preSchool_id = sid;
 //					if(school_id == User.getInstance().school_id){
 //						schoolBtn.setText("我的学校");
 //					}else{
@@ -464,6 +484,7 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
 //						fetchNeabyUsers(0, DEFAULT_NUM, school_id, 2);
 //					}
 				}
+				school_id = sid;
 			}
 			
 		});
@@ -545,6 +566,9 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
 			BookUtils.fetchFollowUserBooks(followBooks.size(), 0,
 					new HomeResponeHandler(HomeActivity.this, HttpListener.BOOKS_FOLLOW_USER));
 			break;
+		case SectionID.SECTION_RANDOM:
+			mLoadingFooter.setState(State.TheEnd);
+			break;
 		}
 		
 	}
@@ -594,6 +618,16 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
 					otherSchoolBooks.clear();
 					otherSchoolBooks.addAll(books);
 					listView.setAdapter(otherSchoolBooksAdapter, true);
+				}
+				break;
+			case SectionID.SECTION_RANDOM:
+				if(mLoadingFooter.getState() == LoadingFooter.State.Loading){	// 不是加载更多，而是切换学校
+					randomBooks.addAll(books);
+					randomAdapter.notifyDataSetChanged();
+				}else{
+					randomBooks.clear();
+					randomBooks.addAll(books);
+					listView.setAdapter(randomAdapter, true);
 				}
 				break;
 			}
@@ -676,6 +710,11 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
 			Log.d("DEBUG", "follow CID: " + followBooks.get(0).cid);
 			BookUtils.fetchFollowUserBooks(0, followBooks.get(0).cid,
 					new HomeResponeHandler(HomeActivity.this, HttpListener.FETCH_NEARBY_BOOKS_NEW));
+			break;
+		case SectionID.SECTION_RANDOM:
+			randomBooks.clear();
+			BookUtils.fetchNearby(0, 0, DEFAULT_NUM, 2, 1, 
+					new HomeResponeHandler(HomeActivity.this, HttpListener.FETCH_NEARBY_BOOKS));
 			break;
 		}
 	}

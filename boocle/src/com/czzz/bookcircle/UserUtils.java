@@ -71,6 +71,16 @@ public class UserUtils {
 		new HttpDownloadAsyncTask(con, listener).execute(url);
 	}
 	
+	public static void fetchFollowing(Context con, 
+			int uid, int start, AsyncHttpResponseHandler responseHandler){
+		
+		RequestParams params = new RequestParams();
+		params.put("uid", "" + User.getInstance().uid);
+		params.put("start", "" + start);
+		
+		NetHttpClient.post(Pref.USER_FOLLOWING_URL, params, responseHandler);
+	}
+	
 	public static void isFollowed(int fuid, AsyncHttpResponseHandler responseHandler) {
 		
 		RequestParams params = new RequestParams();

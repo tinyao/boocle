@@ -21,11 +21,19 @@ public class SchoolDBHelper {
 		searchDb = db;
 	}
 	
-
 	public Cursor select() {
 		Cursor cursor = searchDb.query(TABLE_NAME, null, null, null, null, null,
 				null);
 		return cursor;
+	}
+	
+	public String getSchoolName(int school_id){
+		String[] parms = { "" + school_id };
+		Cursor cursor = searchDb.query(TABLE_NAME, null, "school_id=?",
+				parms, null, null, "_id ASC");
+		if(cursor == null || cursor.getCount() == 0) return "";
+		cursor.moveToFirst();
+		return cursor.getString(cursor.getColumnIndexOrThrow(SCHOOL_NAME));
 	}
 
 	public SQLiteDatabase getDB(){
