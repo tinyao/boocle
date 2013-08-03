@@ -7,9 +7,11 @@ import uk.co.senab.actionbarpulltorefresh.extras.actionbarsherlock.PullToRefresh
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.DialogInterface.OnDismissListener;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
@@ -55,6 +57,7 @@ import com.czzz.douban.DoubanBookUtils;
 import com.czzz.utils.HttpListener;
 import com.czzz.view.LoadingFooter;
 import com.czzz.view.PositionAwareListView;
+import com.czzz.view.SchoolPopupDialog;
 import com.manuelpeinado.fadingactionbar.FadingActionBarHelper;
 
 import de.keyboardsurfer.android.widget.crouton.Crouton;
@@ -75,7 +78,8 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
 	
 	private ArrayList<BookCollection> nearbyBooks = new ArrayList<BookCollection>();
 	private ArrayList<BookCollection> followBooks;
-	private NearbyBooksAdapter nearbyBooksAdapter, followBooksAdapter;
+	private ArrayList<BookCollection> otherSchoolBooks;
+	private NearbyBooksAdapter nearbyBooksAdapter, followBooksAdapter, otherSchoolBooksAdapter;
 	private int statusId = 2, sortId = 0;
     private int school_id = User.getInstance().school_id; // initial school id
 	
@@ -108,7 +112,9 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
 			public void onItemClick(AdapterView<?> arg0, View arg1, int pos,
 					long id) {
 				// TODO Auto-generated method stub
-				BookCollection book = nearbyBooks.get(pos - 1);
+				BookCollection book = (BookCollection)arg0.getAdapter().getItem(pos);
+				
+//				BookCollection book = nearbyBooks.get(pos - 1);
 				Intent goIntent = new Intent(HomeActivity.this, BookInfoActivity.class);
 				goIntent.putExtra("collection", (Serializable)book);
 				goIntent.putExtra("from_explore", true);
@@ -249,7 +255,12 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
 					int pos, long arg3) {
 				// TODO Auto-generated method stub
 				
-				listView.setSelectionAfterHeaderView();
+				Log.d("DEBUG", "spinner selected");
+				
+				currentSection = pos;
+				if(currentSection != SectionID.SECTION_OTHER_SCHOOL){
+					school_id = User.getInstance().school_id;
+				}
 				
 				switch(pos){
 				case SectionID.SECTION_SAME_SCHOOL:
@@ -258,11 +269,27 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
 				case SectionID.SECTION_FOLLOW:
 					if (followBooks == null){ // 没有获取：第一次切换
 						followBooks = new ArrayList<BookCollection>();
-						BookUtils.fetchFollowUserBooks(0, 
+						followBooksAdapter = new NearbyBooksAdapter(HomeActivity.this, followBooks);
+						listView.setAdapter(followBooksAdapter);
+						mPullToRefreshAttacher.setRefreshing(true);
+						BookUtils.fetchFollowUserBooks(0, 0,
 								new HomeResponeHandler(HomeActivity.this, HttpListener.BOOKS_FOLLOW_USER));
 					} else{
 						listView.setAdapter(followBooksAdapter, true);
 					}
+					break;
+				case SectionID.SECTION_OTHER_SCHOOL:
+					if(otherSchoolBooks == null){
+						otherSchoolBooks = new ArrayList<BookCollection>();
+						otherSchoolBooksAdapter = new NearbyBooksAdapter(HomeActivity.this, otherSchoolBooks);
+						listView.setAdapter(otherSchoolBooksAdapter, true);
+					} else {
+						listView.setAdapter(otherSchoolBooksAdapter, true);
+					}
+					showSchoolDialog();
+					break;
+				case SectionID.SECTION_RANDOM:
+					
 					break;
 				}
 			}
@@ -270,7 +297,10 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
 			@Override
 			public void onNothingSelected(AdapterView<?> arg0) {
 				// TODO Auto-generated method stub
-				
+				Log.d("DEBUG", "nothing Selected: " + currentSection);
+				if(currentSection == SectionID.SECTION_OTHER_SCHOOL){
+					showSchoolDialog();
+				}
 			}
 	    	
 	    });
@@ -283,9 +313,9 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
 	private static class SectionID {
 		private static final int SECTION_SAME_SCHOOL = 0;
 		private static final int SECTION_FOLLOW = 1;
-		private static final int SECTION_SAME_CITY = 2;
-		private static final int SECTION_OTHER_SCHOOL = 3;
-		private static final int SECTION_RANDOM = 4;
+//		private static final int SECTION_SAME_CITY = 2;
+		private static final int SECTION_OTHER_SCHOOL = 2;
+		private static final int SECTION_RANDOM = 3;
 	}
 	
 	private SearchDBHelper helper;
@@ -401,7 +431,46 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
 		}
 		
 	};
+	
+	private SchoolPopupDialog schoolDialog;
 
+	private void showSchoolDialog(){
+		if(schoolDialog == null){
+			schoolDialog = new SchoolPopupDialog(
+					this, R.style.school_popup_style,
+					0);
+		}
+		schoolDialog.setOnDismissListener(new OnDismissListener(){
+
+			@Override
+			public void onDismiss(DialogInterface dialogInterface) {
+				// TODO Auto-generated method stub
+				String school = schoolDialog.updateUniversity;
+				int sid = schoolDialog.updateUnivId;
+				if(schoolDialog.changed){
+					school_id = sid;
+//					if(school_id == User.getInstance().school_id){
+//						schoolBtn.setText("我的学校");
+//					}else{
+//						schoolBtn.setText(school);
+//					}
+					schoolDialog.changed = false;
+					mPullToRefreshAttacher.setRefreshing(true);
+					
+//					if(currentSection == 0){
+						fetchNeabyBooks(0, DEFAULT_NUM, school_id, statusId, sortId);
+//					}else if(currentSection == 1){
+//						nearbyUsers.clear();
+//						fetchNeabyUsers(0, DEFAULT_NUM, school_id, 2);
+//					}
+				}
+			}
+			
+		});
+		schoolDialog.show();
+	}
+	
+	
 	@Override
 	protected void onMenuItemClicked(int resId) {
 		// TODO Auto-generated method stub
@@ -454,13 +523,30 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
 	
 	private void loadNextPage(){
 		int startCid = 0;
-		if(nearbyBooks != null && nearbyBooks.size() > 0){
-			startCid = nearbyBooks.get(nearbyBooks.size() - 1).cid;
+		mLoadingFooter.setState(LoadingFooter.State.Loading);
+		
+		switch(currentSection){
+		case SectionID.SECTION_SAME_SCHOOL:
+			if(nearbyBooks != null && nearbyBooks.size() > 0){
+				startCid = nearbyBooks.get(nearbyBooks.size() - 1).cid;
+			}
+			loadMoreNearbyBooks(startCid, 
+					DEFAULT_NUM, school_id, statusId, sortId);
+			break;
+		case SectionID.SECTION_OTHER_SCHOOL:
+			if(otherSchoolBooks != null && otherSchoolBooks.size() > 0){
+				startCid = otherSchoolBooks.get(otherSchoolBooks.size() - 1).cid;
+			}
+			
+			loadMoreNearbyBooks(startCid, 
+					DEFAULT_NUM, school_id, statusId, sortId);
+			break;
+		case SectionID.SECTION_FOLLOW:
+			BookUtils.fetchFollowUserBooks(followBooks.size(), 0,
+					new HomeResponeHandler(HomeActivity.this, HttpListener.BOOKS_FOLLOW_USER));
+			break;
 		}
 		
-		mLoadingFooter.setState(LoadingFooter.State.Loading);
-		loadMoreNearbyBooks(startCid, 
-				DEFAULT_NUM, school_id, statusId, sortId);
 	}
 	
 	private void fetchNeabyBooks(int start, int count, int school_id, int status, int sort) {
@@ -487,33 +573,66 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
 		// TODO Auto-generated method stub
 		
 		if(books == null){
-//			Crouton.makeText(this, R.string.no_more, Style.CONFIRM).show();
 			mLoadingFooter.setState(LoadingFooter.State.TheEnd, 10);
 		}else{
 			
-			nearbyBooks.addAll(books);
-			nearbyBooksAdapter.notifyDataSetChanged();
-				
-			// 只缓存“status=全部 && 本校”的书籍
-			if(nearbyBooks.size()<=DEFAULT_NUM && school_id == User.getInstance().school_id && statusId == 2){
-				UserBooksHelper cachehelper = UserBooksHelper.getInstance(this);
-				cachehelper.cacheNearbyCollections(books);
+			switch(currentSection){
+			case SectionID.SECTION_SAME_SCHOOL:
+				nearbyBooks.addAll(books);
+				nearbyBooksAdapter.notifyDataSetChanged();
+				// 只缓存“status=全部 && 本校”的书籍
+				if(nearbyBooks.size()<=DEFAULT_NUM && school_id == User.getInstance().school_id && statusId == 2){
+					UserBooksHelper cachehelper = UserBooksHelper.getInstance(this);
+					cachehelper.cacheNearbyCollections(books);
+				}
+				break;
+			case SectionID.SECTION_OTHER_SCHOOL:
+				if(mLoadingFooter.getState() == LoadingFooter.State.Loading){	// 不是加载更多，而是切换学校
+					otherSchoolBooks.addAll(books);
+					otherSchoolBooksAdapter.notifyDataSetChanged();
+				}else{
+					otherSchoolBooks.clear();
+					otherSchoolBooks.addAll(books);
+					listView.setAdapter(otherSchoolBooksAdapter, true);
+				}
+				break;
 			}
+				
 		}
 		
 	}
 	
-	private void refreshNewNearbyBooks(String respone){
-		Log.d("DEBUG", "" + respone);
-		ArrayList<BookCollection> newbooks = BookUtils.parseNearybyBooks(respone);
+	/* update nearby books */
+//	protected void updateOtherSchoolBooks(ArrayList<BookCollection> books) {
+//		// TODO Auto-generated method stub
+//		if(books == null){
+//			mLoadingFooter.setState(LoadingFooter.State.TheEnd, 10);
+//		}else{
+//			if(mLoadingFooter.getState() != LoadingFooter.State.Loading){
+//				otherSchoolBooks.clear();
+//			}
+//			otherSchoolBooks.addAll(books);
+//			otherSchoolBooksAdapter.notifyDataSetChanged();
+//		}
+//	}
+	
+	private void refreshNewNearbyBooks(ArrayList<BookCollection> newbooks){
 		
 		if(newbooks != null){
-			nearbyBooks.addAll(0, newbooks);
 			
-			if(nearbyBooksAdapter == null)
-				nearbyBooksAdapter = new NearbyBooksAdapter(this, nearbyBooks);
+			switch(currentSection){
+			case SectionID.SECTION_SAME_SCHOOL:
+				nearbyBooks.addAll(0, newbooks);
+				break;
+			case SectionID.SECTION_OTHER_SCHOOL:
+				otherSchoolBooks.addAll(0, newbooks);
+				break;
+			case SectionID.SECTION_FOLLOW:
+				followBooks.addAll(0, followBooks);
+				break;
+			}
 			
-			if(school_id == User.getInstance().school_id && statusId == 2){
+			if(school_id == User.getInstance().school_id && statusId == 2){		// 缓存
 				UserBooksHelper cachehelper = UserBooksHelper.getInstance(this);
 				cachehelper.cacheNearbyCollections(newbooks);
 			}
@@ -521,13 +640,20 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
 			if(mPullToRefreshAttacher.isRefreshing()){
 				if(newbooks.size() > 0) 
 					Crouton.makeText(this, "加载了" + newbooks.size() + "本新藏书", Style.CONFIRM).show();
-				nearbyBooksAdapter.notifyDataSetChanged();
-//				listView.invalidate();
-//				listView.setAdapter(nearbyBooksAdapter);
-			}else{
-				listView.setAdapter(nearbyBooksAdapter);
+				
+				switch(currentSection){
+				case SectionID.SECTION_SAME_SCHOOL:
+					nearbyBooksAdapter.notifyDataSetChanged();
+					break;
+				case SectionID.SECTION_OTHER_SCHOOL:
+					otherSchoolBooksAdapter.notifyDataSetChanged();
+					break;
+				case SectionID.SECTION_FOLLOW:
+					followBooksAdapter.notifyDataSetChanged();
+					break;
+				}
+				
 			}
-			
 		}
 		
 		if(mPullToRefreshAttacher.isRefreshing()){
@@ -536,11 +662,22 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
 	}
 	
 	
-	
 	@Override
 	public void onRefreshStarted(View view) {
 		// TODO Auto-generated method stub
-		fetchNeabyNewBooks(nearbyBooks.get(0).cid, statusId);
+		switch(currentSection){
+		case SectionID.SECTION_SAME_SCHOOL:
+			fetchNeabyNewBooks(nearbyBooks.get(0).cid, statusId);
+			break;
+		case SectionID.SECTION_OTHER_SCHOOL:
+			fetchNeabyNewBooks(nearbyBooks.get(0).cid, statusId);
+			break;
+		case SectionID.SECTION_FOLLOW:
+			Log.d("DEBUG", "follow CID: " + followBooks.get(0).cid);
+			BookUtils.fetchFollowUserBooks(0, followBooks.get(0).cid,
+					new HomeResponeHandler(HomeActivity.this, HttpListener.FETCH_NEARBY_BOOKS_NEW));
+			break;
+		}
 	}
 
 	/**
@@ -562,12 +699,13 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
 			
 			switch(taskId){
 			case HttpListener.FETCH_NEARBY_BOOKS:
-				nearbyBooks.clear();
+//				nearbyBooks.clear();
 				ArrayList<BookCollection> books = BookUtils.parseNearybyBooks(response);
 				updateNearbyBooks(books);
 				break;
 			case HttpListener.FETCH_NEARBY_BOOKS_NEW:
-				refreshNewNearbyBooks(response);
+				ArrayList<BookCollection> newbooks = BookUtils.parseNearybyBooks(response);
+				refreshNewNearbyBooks(newbooks);
 				break;
 			case HttpListener.FETCH_NEARBY_BOOKS_MORE:
 				Log.d("DEBUG", "RESPONSE: " + response);
@@ -578,12 +716,16 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
 			case HttpListener.BOOKS_FOLLOW_USER:
 				Log.d("DEBUG", "Response: " + response);
 				ArrayList<BookCollection> fBooks = BookUtils.parseNearybyBooks(response);
-				if(followBooks==null && fBooks == null){
+				if(followBooks.size()==0 && fBooks == null){
 					Crouton.makeText(HomeActivity.this, "您还没有关注其他书友", Style.ALERT).show();
 				}else{
 					followBooks.addAll(fBooks);
-					followBooksAdapter = new NearbyBooksAdapter(HomeActivity.this, followBooks);
-					listView.setAdapter(followBooksAdapter, true);
+//					followBooksAdapter = new NearbyBooksAdapter(HomeActivity.this, followBooks);
+//					listView.setAdapter(followBooksAdapter, true);
+					followBooksAdapter.notifyDataSetChanged();
+					if(mLoadingFooter.getState() == LoadingFooter.State.Loading){
+						mLoadingFooter.setState(LoadingFooter.State.Idle, 3000);
+					}
 				}
 				break;
 			}

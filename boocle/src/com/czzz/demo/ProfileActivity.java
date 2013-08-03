@@ -66,12 +66,6 @@ public class ProfileActivity extends AsyncTaskActivity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 
-//		mActionBar = getSupportActionBar();
-
-//		mActionBar.setDisplayHomeAsUpEnabled(true);
-//		mActionBar.setDisplayShowTitleEnabled(true);
-//		mActionBar.setDisplayUseLogoEnabled(false);
-		
 		Intent intent = getIntent();
 		if(intent.hasExtra("user")){
 			mUser = (User) intent.getSerializableExtra("user");

@@ -92,13 +92,14 @@ public class BookUtils {
 //		new HttpDownloadAsyncTask(con, listener).execute(url);
 	}
 	
-	public static void fetchFollowUserBooks(int start, 
+	public static void fetchFollowUserBooks(int start, int endCid,
 			AsyncHttpResponseHandler responseHandler){
 		String url = Pref.BOOK_FOLLOW_USER_URL;
 		
 		RequestParams params = new RequestParams();
 		params.put("uid", "" + User.getInstance().uid);
 		params.put("start", "" + start);
+		if(endCid!=0) params.put("end_id", "" + endCid);
 		params.put("passwd", User.getInstance().pass);
 		
 		

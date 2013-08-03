@@ -302,6 +302,7 @@ public class UserPageActivity extends AsyncTaskActivity implements PullToRefresh
 			case R.id.user_profile_btn:
 				Intent detailIntent = new Intent(UserPageActivity.this,
 						ProfileActivity.class);
+				detailIntent.putExtra("user", curUser);
 				startActivityForResult(detailIntent, 0);
 				break;
 			}
@@ -329,6 +330,7 @@ public class UserPageActivity extends AsyncTaskActivity implements PullToRefresh
 
 	private void initUserView(boolean hasFullInfo, boolean hasCollections) {
 		// TODO Auto-generated method stub
+		mActionBar.setTitle("个人主页");
 		userName.setText(curUser.name);
 
 		imagesLoader.download(curUser.avatar, userAvatar, -1);
