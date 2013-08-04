@@ -2,6 +2,7 @@ package com.czzz.demo;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import uk.co.senab.actionbarpulltorefresh.extras.actionbarsherlock.PullToRefreshAttacher;
 import android.app.Activity;
@@ -416,6 +417,7 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
         
         ImageView avatarImg = (ImageView) drawerView.findViewById(R.id.drawer_menu_user_avatar);
         TextView nameTxt = (TextView) drawerView.findViewById(R.id.drawer_menu_user_name);
+        TextView avatarTxt = (TextView) drawerView.findViewById(R.id.drawer_menu_user_avatar_txt);
         drawerView.findViewById(R.id.drawer_menu_user_lay).setOnClickListener(menuClickListener);
         drawerView.findViewById(R.id.drawer_menu_message).setOnClickListener(menuClickListener);
         drawerView.findViewById(R.id.drawer_menu_book).setOnClickListener(menuClickListener);
@@ -426,6 +428,9 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
         unreadTxt = (TextView)drawerView.findViewById(R.id.drawer_menu_msg_unread_txt);
         
         nameTxt.setText(User.getInstance().name);
+        if(User.getInstance().avatar.equals("")){
+        	avatarTxt.setText(User.getInstance().name.substring(0, 1).toUpperCase(Locale.CHINA));
+        }
         MyApplication.imagesLoader.download(User.getInstance().avatar, avatarImg);
         
         new Thread(){

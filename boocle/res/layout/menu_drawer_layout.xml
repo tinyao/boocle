@@ -20,12 +20,30 @@
             android:paddingBottom="10.0dip"
             android:paddingTop="10.0dip" >
 
-            <com.czzz.view.RoundImageView
-                android:id="@+id/drawer_menu_user_avatar"
-                style="@style/icon_user"
+            <RelativeLayout
+                android:id="@+id/drawer_menu_user_avatar_lay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="5.0dip"
-                android:layout_marginRight="5.0dip"
-                android:src="@drawable/ic_launcher" />
+                android:layout_marginRight="5.0dip" >
+
+                <com.czzz.view.RoundImageView
+                    android:id="@+id/drawer_menu_user_avatar"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_launcher" />
+
+                <TextView
+                    android:id="@+id/drawer_menu_user_avatar_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:text="U"
+                    android:textColor="#fff"
+                    android:textSize="30sp" />
+            </RelativeLayout>
 
             <TextView
                 android:id="@+id/drawer_menu_user_name"
@@ -33,7 +51,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10.0dip"
-                android:layout_toRightOf="@id/drawer_menu_user_avatar"
+                android:layout_toRightOf="@id/drawer_menu_user_avatar_lay"
                 android:text="刘开成"
                 android:textColor="#ffffffff"
                 android:textSize="16.0sp" />
@@ -129,16 +147,16 @@
             android:layout_width="fill_parent"
             android:layout_height="2.0dip"
             android:scaleType="fitXY"
-            android:visibility="gone"
-            android:src="@drawable/divider_line_night" />
+            android:src="@drawable/divider_line_night"
+            android:visibility="gone" />
 
         <RelativeLayout
             android:id="@+id/drawer_menu_douban"
             style="@style/slide_menu"
-            android:visibility="gone"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/slide_menu_selector" >
+            android:background="@drawable/slide_menu_selector"
+            android:visibility="gone" >
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -206,8 +224,8 @@
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
                 android:textColor="#ffffffff"
-                android:visibility="gone"
-                android:textSize="13.0sp" />
+                android:textSize="13.0sp"
+                android:visibility="gone" />
         </RelativeLayout>
 
         <ImageView

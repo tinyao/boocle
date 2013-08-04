@@ -103,8 +103,7 @@
                 android:layout_width="70dip"
                 android:layout_height="70dip"
                 android:layout_gravity="center_vertical"
-                android:scaleType="centerCrop"
-                android:src="@drawable/avatar_default" />
+                android:scaleType="centerCrop"/>
 
             <TextView
                 android:id="@+id/avatar_img_txt"

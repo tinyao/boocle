@@ -36,6 +36,7 @@ import com.actionbarsherlock.view.MenuItem;
 import com.czzz.base.AsyncTaskActivity;
 import com.czzz.base.User;
 import com.czzz.bookcircle.BookCollection;
+import com.czzz.bookcircle.MyApplication;
 import com.czzz.bookcircle.UserUtils;
 import com.czzz.data.UserBooksHelper;
 import com.czzz.demo.listadapter.NearbyUsersAdapter;
@@ -48,6 +49,7 @@ import com.czzz.utils.ImagesDownloader;
 import com.czzz.utils.TextUtils;
 import com.czzz.view.LoadingFooter;
 import com.czzz.view.LoadingView;
+import com.czzz.view.RoundImageView;
 import com.manuelpeinado.fadingactionbar.FadingActionBarHelper;
 
 import de.keyboardsurfer.android.widget.crouton.Crouton;
@@ -63,7 +65,7 @@ public class UserPageActivity extends AsyncTaskActivity implements PullToRefresh
 	
 	private PullToRefreshAttacher mPullToRefreshAttacher;
 	private TextView userName, userDesc, userAvatarTxt;
-	private ImageView userAvatar;
+	private RoundImageView userAvatar;
 	private CheckBox genderView;
 	private TextView bookTotal, favTotal;
 	private ListView listView;
@@ -138,9 +140,7 @@ public class UserPageActivity extends AsyncTaskActivity implements PullToRefresh
 		favTotal.setText("" + curUser.fav_total);
 		genderView.setChecked(curUser.gender==1);
 		genderView.setVisibility(View.VISIBLE);
-		if(curUser.avatar.equals("")) {
-			userAvatarTxt.setText(curUser.name.substring(0, 1).toUpperCase(Locale.CHINA));
-		}
+		
 		setUserAvatar();
 		
 		gridAdapter = new ShelfAdapter(this, all);
@@ -152,10 +152,9 @@ public class UserPageActivity extends AsyncTaskActivity implements PullToRefresh
 	}
 	
 	private void setUserAvatar() {
-		if (!curUser.avatar.equals("")){
-			new ImagesDownloader(ImagesDownloader.AVATAR_TASK).download(curUser.avatar, userAvatar);
-		} else {
-			// 如果头像未设置，使用默认头像
+		MyApplication.imagesLoader.download(curUser.avatar, userAvatar);
+		if(curUser.avatar.equals("")) {
+			userAvatarTxt.setText(curUser.name.substring(0, 1).toUpperCase(Locale.CHINA));
 		}
 	}
 
@@ -174,7 +173,7 @@ public class UserPageActivity extends AsyncTaskActivity implements PullToRefresh
 		mActionBar.setDisplayShowTitleEnabled(true);
 
 		View headerLayout = helper.getCustomHeader();
-		userAvatar = (ImageView) headerLayout.findViewById(R.id.avatar_img);
+		userAvatar = (RoundImageView) headerLayout.findViewById(R.id.avatar_img);
 		userAvatarTxt = (TextView) headerLayout
 				.findViewById(R.id.avatar_img_txt);
 		userName = (TextView) headerLayout.findViewById(R.id.user_profile_btn);
@@ -332,7 +331,7 @@ public class UserPageActivity extends AsyncTaskActivity implements PullToRefresh
 		mActionBar.setTitle("个人主页");
 		userName.setText(curUser.name);
 
-		imagesLoader.download(curUser.avatar, userAvatar, -1);
+		imagesLoader.download(curUser.avatar, userAvatar);
 
 		if (hasFullInfo) {
 			Log.d("DEBUG", "has full info...");
@@ -368,11 +367,11 @@ public class UserPageActivity extends AsyncTaskActivity implements PullToRefresh
 		
 		if (cs == null) {
 			if (all.size() != 0)
-				Crouton.makeText(this, R.string.no_more, Style.CONFIRM).show();
+				Crouton.makeText(this, R.string.no_more, Style.ALERT).show();
 			else{
 				Crouton.makeText(this, 
 						isMyself ? R.string.you_have_no_books : R.string.ta_has_no_books, 
-								Style.CONFIRM).show();
+								Style.ALERT).show();
 				loadingView.setViewGone();
 			}
 			
@@ -508,7 +507,7 @@ public class UserPageActivity extends AsyncTaskActivity implements PullToRefresh
 				userAvatarTxt.setText(curUser.name.substring(0, 1).toUpperCase(Locale.CHINA));
 			}
 			
-			imagesLoader.download(curUser.avatar, userAvatar, -1);
+			imagesLoader.download(curUser.avatar, userAvatar);
 
 			fetchUserBooks(curUser.uid, 0, 12);
 			
