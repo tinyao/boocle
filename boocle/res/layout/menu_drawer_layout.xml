@@ -80,7 +80,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="5.0dip"
-                android:src="@drawable/logo" />
+                android:src="@drawable/drawer_menu_home" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -89,7 +89,7 @@
                 android:layout_centerVertical="true"
                 android:focusable="false"
                 android:text="首        页"
-                android:textColor="#ffffffff"
+                android:textColor="#ddd"
                 android:textSize="16.0sp" />
         </RelativeLayout>
 
@@ -112,7 +112,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="5.0dip"
-                android:src="@drawable/setting" />
+                android:src="@drawable/drawer_menu_user" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -121,7 +121,7 @@
                 android:layout_centerVertical="true"
                 android:focusable="false"
                 android:text="书        友"
-                android:textColor="#ffffffff"
+                android:textColor="#ddd"
                 android:textSize="16.0sp" />
         </RelativeLayout>
 
@@ -146,7 +146,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="5.0dip"
-                android:src="@drawable/setting" />
+                android:src="@drawable/drawer_menu_setting" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -178,7 +178,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="5.0dip"
-                android:src="@drawable/message" />
+                android:src="@drawable/drawer_menu_msg" />
 
             <TextView
                 android:id="@+id/drawer_menu_msg_txt"
@@ -188,7 +188,7 @@
                 android:layout_centerVertical="true"
                 android:focusable="false"
                 android:text="私        信"
-                android:textColor="#ffffffff"
+                android:textColor="#ddd"
                 android:textSize="16.0sp" />
 
             <TextView
@@ -206,6 +206,7 @@
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
                 android:textColor="#ffffffff"
+                android:visibility="gone"
                 android:textSize="13.0sp" />
         </RelativeLayout>
 
@@ -228,7 +229,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="5.0dip"
-                android:src="@drawable/setting" />
+                android:src="@drawable/drawer_menu_setting" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -237,7 +238,7 @@
                 android:layout_centerVertical="true"
                 android:focusable="false"
                 android:text="设        置"
-                android:textColor="#ffffffff"
+                android:textColor="#ddd"
                 android:textSize="16.0sp" />
         </RelativeLayout>
 

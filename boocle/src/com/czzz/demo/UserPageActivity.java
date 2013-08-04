@@ -375,6 +375,7 @@ public class UserPageActivity extends AsyncTaskActivity implements PullToRefresh
 								Style.CONFIRM).show();
 				loadingView.setViewGone();
 			}
+			
 			return;
 		}
 
@@ -383,7 +384,6 @@ public class UserPageActivity extends AsyncTaskActivity implements PullToRefresh
 		}
 		
 		all.addAll(cs);
-
 		if(mPullToRefreshAttacher.isRefreshing()){
 			notifyDataList();
 		} else {
@@ -395,19 +395,7 @@ public class UserPageActivity extends AsyncTaskActivity implements PullToRefresh
 			collectionsHelper.cacheUserCollections(cs);
 		}
 		
-//		if (gridAdapter == null) {	// 第一次加载
-//			
-//		} else {
-//			listAdapter = new ShelfListAdapter(this, all);
-//			gridAdapter = new ShelfAdapter(this, all);
-//			listAdapter.notifyDataSetChanged();
-//			gridAdapter.notifyDataSetChanged();
-//		}
-
 		loadingView.setViewGone();
-		if(mPullToRefreshAttacher.isRefreshing()) {
-			mPullToRefreshAttacher.setRefreshComplete();
-		}
 	}
 	
 	private void notifyDataList(){
@@ -491,7 +479,9 @@ public class UserPageActivity extends AsyncTaskActivity implements PullToRefresh
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
+			if(mPullToRefreshAttacher.isRefreshing()) {
+				mPullToRefreshAttacher.setRefreshComplete();
+			}
 			mLoadingFooter.setState(LoadingFooter.State.Idle);
 			break;
 		case HttpListener.FETCH_CIRCLE_USER_INFO:
@@ -521,6 +511,10 @@ public class UserPageActivity extends AsyncTaskActivity implements PullToRefresh
 			imagesLoader.download(curUser.avatar, userAvatar, -1);
 
 			fetchUserBooks(curUser.uid, 0, 12);
+			
+			if(mPullToRefreshAttacher.isRefreshing())
+				mPullToRefreshAttacher.setRefreshComplete();
+			
 			break;
 		case HttpListener.FETCH_USER_FOLLOWING:
 			Log.d("DEBUG", "following: " + data);
@@ -538,7 +532,8 @@ public class UserPageActivity extends AsyncTaskActivity implements PullToRefresh
 			
 			followings.addAll(fusers);
 			followingAdapter.notifyDataSetChanged();
-			mPullToRefreshAttacher.setRefreshComplete();
+			if(mPullToRefreshAttacher.isRefreshing())
+				mPullToRefreshAttacher.setRefreshComplete();
 			loadingView.setViewGone();
 			
 			mLoadingFooter.setState(LoadingFooter.State.Idle);
@@ -591,6 +586,7 @@ public class UserPageActivity extends AsyncTaskActivity implements PullToRefresh
 			}
 			break;
 		}
+		
 	}
 
 	private boolean bookEnd = false;
@@ -659,7 +655,9 @@ public class UserPageActivity extends AsyncTaskActivity implements PullToRefresh
 	public void onRefreshStarted(View view) {
 		// TODO Auto-generated method stub
 //		mLoadingFooter.setState(LoadingFooter.State.Idle);
-		if(mLoadingFooter.getState() == LoadingFooter.State.TheEnd) return;
+		if(mLoadingFooter.getState() == LoadingFooter.State.TheEnd) {
+			if(!mPullToRefreshAttacher.isRefreshing()) return;
+		}
 		
 		if (currentSection == SECTION_USER_FOLLOW){
 			followings.clear();

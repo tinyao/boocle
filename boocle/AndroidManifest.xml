@@ -108,7 +108,8 @@
         <activity 
             android:name=".UserExploreActivity"></activity>
         <activity 
-            android:name=".MessageActivity"></activity>
+            android:name=".MessageActivity"
+            android:label="@string/tab_message"></activity>
         <activity
             android:name=".NotificationActivity"
             android:label="@string/notification_title" >
@@ -146,11 +147,11 @@
             android:name=".ConversationActivity"
             android:configChanges="orientation"
             android:launchMode="singleTask"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName=".MessageActivity"
             android:windowSoftInputMode="stateHidden|adjustResize" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value=".MessageActivity" />
         </activity>
         <activity
             android:name=".BookCollectionDetailActivity"
