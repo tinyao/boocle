@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import uk.co.senab.actionbarpulltorefresh.extras.actionbarsherlock.PullToRefreshAttacher;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -24,11 +26,11 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.CheckBox;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
@@ -67,10 +69,11 @@ public class UserPageActivity extends AsyncTaskActivity implements PullToRefresh
 	private TextView userName, userDesc, userAvatarTxt;
 	private RoundImageView userAvatar;
 	private CheckBox genderView;
-	private TextView bookTotal, favTotal;
+	private TextView bookTotal;
 	private ListView listView;
 	private LoadingView loadingView;
 	private LoadingFooter mLoadingFooter;
+	private ToggleButton followToggle;
 
 	private User curUser;
 	private ArrayList<BookCollection> all = new ArrayList<BookCollection>();
@@ -128,6 +131,24 @@ public class UserPageActivity extends AsyncTaskActivity implements PullToRefresh
 		
 		registerReceiver(); 
 		
+		if(isMyself) {
+			followToggle.setVisibility(View.GONE);
+		}else{ 
+			isFollowed(curUser.uid);
+		}
+		
+		followToggle.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				if(!followToggle.isChecked()){
+					unfollowTaa(curUser.uid);
+				}else{
+					followTaa(curUser.uid);
+				}
+			}
+		});
 	}
 	
 	private void initProfileView() {
@@ -137,7 +158,7 @@ public class UserPageActivity extends AsyncTaskActivity implements PullToRefresh
 		userName.setText(curUser.name);
 		userDesc.setText(curUser.desc);
 		bookTotal.setText("" + curUser.book_total);
-		favTotal.setText("" + curUser.fav_total);
+//		favTotal.setText("" + curUser.fav_total);
 		genderView.setChecked(curUser.gender==1);
 		genderView.setVisibility(View.VISIBLE);
 		
@@ -180,7 +201,7 @@ public class UserPageActivity extends AsyncTaskActivity implements PullToRefresh
 		userDesc = (TextView) headerLayout.findViewById(R.id.user_desc);
 		genderView = (CheckBox) headerLayout.findViewById(R.id.user_gender_img);
 		bookTotal = (TextView) headerLayout.findViewById(R.id.user_book_total);
-		favTotal = (TextView) headerLayout.findViewById(R.id.user_fav_total);
+		followToggle = (ToggleButton) headerLayout.findViewById(R.id.user_follow_ta);
 		// followTa = (ToggleButton)
 		// headerLayout.findViewById(R.id.user_follow_ta);
 		RadioGroup shelfRadioSwitch = (RadioGroup) headerLayout
@@ -285,9 +306,8 @@ public class UserPageActivity extends AsyncTaskActivity implements PullToRefresh
 				}
 				
 			}
-
-			
 		});
+		
 	}
 	
 	OnClickListener listener = new OnClickListener() {
@@ -315,6 +335,25 @@ public class UserPageActivity extends AsyncTaskActivity implements PullToRefresh
 				all.size(), 9 + (3 - all.size()%3) % 3);
 	}
 	
+	private void isFollowed(int fuid) {
+		// TODO Auto-generated method stub
+		Log.d("DEBUG", "isFollow");
+		UserUtils.isFollowed(curUser.uid, 
+				new UserPageResponseHandler(this, HttpListener.USER_IS_FOLLOWED));
+	}
+
+	private void followTaa(int fuid) {
+		// TODO Auto-generated method stub
+		UserUtils.followTa(curUser.uid, 
+				new UserPageResponseHandler(this, HttpListener.USER_FOLLOW_TA));
+	}
+
+	private void unfollowTaa(int fuid) {
+		// TODO Auto-generated method stub
+		UserUtils.unfollowTa(curUser.uid, 
+				new UserPageResponseHandler(this, HttpListener.USER_UNFOLLOW_TA));
+	}
+	
 //	private void loadNextFollowPage(){
 //		int startCid = 0;
 //		if(nearbyBooks != null && nearbyBooks.size() > 0){
@@ -340,7 +379,7 @@ public class UserPageActivity extends AsyncTaskActivity implements PullToRefresh
 				userAvatarTxt.setText(curUser.name.substring(0, 1).toUpperCase(Locale.CHINA));
 			}
 			bookTotal.setText("" + curUser.book_total);
-			favTotal.setText("" + curUser.fav_total);
+//			favTotal.setText("" + curUser.fav_total);
 			genderView.setChecked(curUser.gender == 1);
 			genderView.setVisibility(View.VISIBLE);
 			// 获取书籍信息
@@ -498,7 +537,7 @@ public class UserPageActivity extends AsyncTaskActivity implements PullToRefresh
 
 			userDesc.setText(curUser.desc);
 			bookTotal.setText("" + curUser.book_total);
-			favTotal.setText("" + curUser.fav_total);
+//			favTotal.setText("" + curUser.fav_total);
 			genderView.setChecked(curUser.gender == 1);
 			genderView.setVisibility(View.VISIBLE);
 			userName.setText(curUser.name);
@@ -548,7 +587,7 @@ public class UserPageActivity extends AsyncTaskActivity implements PullToRefresh
 			
 			userDesc.setText(curUser.desc);
 			bookTotal.setText("" + curUser.book_total);
-			favTotal.setText("" + curUser.fav_total);
+//			favTotal.setText("" + curUser.fav_total);
 			userName.setText(curUser.name);
 			genderView.setChecked(curUser.gender==1);
 			genderView.setVisibility(View.VISIBLE);
@@ -761,7 +800,7 @@ public class UserPageActivity extends AsyncTaskActivity implements PullToRefresh
 			
 			if(intent.getAction().equals(ACTION_UPDATE_BOOKS)) {
 				bookTotal.setText("" + curUser.book_total);
-				favTotal.setText("" + curUser.fav_total);
+//				favTotal.setText("" + curUser.fav_total);
 				ArrayList<BookCollection> newcollections 
 						= intent.getParcelableArrayListExtra("new_books");
 				if(newcollections != null){
@@ -774,6 +813,7 @@ public class UserPageActivity extends AsyncTaskActivity implements PullToRefresh
 				if(intent.getBooleanExtra("avatar_change", false)){
 					avatarBitmap = BitmapFactory.decodeFile(ImageUtils.avatarPath, null);
 					userAvatar.setImageBitmap(avatarBitmap);
+					userAvatarTxt.setVisibility(View.GONE);
 				}
 				if(intent.getBooleanExtra("desc_change", false)){
 					userDesc.setText(curUser.desc);
@@ -815,5 +855,76 @@ public class UserPageActivity extends AsyncTaskActivity implements PullToRefresh
 		}
 		
 	}
+	
+	/**
+	 * handle http response
+	 * @author tinyao
+	 *
+	 */
+	private class UserPageResponseHandler extends CustomAsyncHttpResponseHandler{
+
+		public UserPageResponseHandler(Activity activity, int taskId) {
+			super(activity, taskId);
+			// TODO Auto-generated constructor stub
+		}
+
+		@Override
+		public void onSuccess(int httpResultCode, String response) {
+			// TODO Auto-generated method stub
+			super.onSuccess(httpResultCode, response);
+
+			Log.d("DEBUG", "respone: " + response);
+
+			switch(taskId){
+			case HttpListener.USER_IS_FOLLOWED:
+
+				try {
+					JSONObject fjson = new JSONObject(response);
+					if (fjson.getInt("data") == 1) {
+						followToggle.setChecked(true);
+					} else {
+						followToggle.setChecked(false);
+					}
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+				break;
+			case HttpListener.USER_FOLLOW_TA:
+
+				try {
+					JSONObject fjson = new JSONObject(response);
+					if (fjson.getInt("status") == 1) {
+						Crouton.makeText(UserPageActivity.this, "关注成功", Style.CONFIRM).show();
+						followToggle.setText("已关注");
+					} else {
+						Crouton.makeText(UserPageActivity.this, "关注失败", Style.ALERT).show();
+						followToggle.setText("关注Ta");
+					}
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+				break;
+			case HttpListener.USER_UNFOLLOW_TA:
+				try {
+					JSONObject fjson = new JSONObject(response);
+					if (fjson.getInt("status") == 1) {
+						Crouton.makeText(UserPageActivity.this, "已取消关注", Style.CONFIRM).show();
+						followToggle.setText("关注Ta");
+					} else {
+						Crouton.makeText(UserPageActivity.this, "操作失败", Style.ALERT).show();
+						followToggle.setText("已关注");
+					}
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				break;
+			}
+		}
+	};
 	
 }

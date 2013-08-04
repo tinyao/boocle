@@ -52,6 +52,7 @@
     <color name="list_item_sub_title">#77787b</color>
     
     <color name="menu_bg">#ff363636</color>
+    <color name="menu_top_bg">#ff222222</color>
     
     <color name="content_message_shadow_color">#68ffffff</color>
 

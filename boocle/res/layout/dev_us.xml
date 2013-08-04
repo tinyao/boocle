@@ -109,7 +109,7 @@
                         android:layout_alignParentBottom="true"
                         android:layout_marginBottom="2dip"
                         android:maxLines="2"
-                        android:text="Web Coder, PM"
+                        android:text="Web Coder"
                         android:textColor="@color/explore_sub_color_selector"
                         android:textSize="14sp" />
                 </RelativeLayout>
@@ -160,6 +160,54 @@
                         android:textSize="14sp" />
                 </RelativeLayout>
             </LinearLayout>
+            
+            <LinearLayout
+                android:id="@+id/dev_kaicheng"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dip"
+                android:clickable="true"
+                android:background="@drawable/background_view_rounded_single"
+                android:layout_marginBottom="20dp"
+                android:padding="10dip" >
+
+                <com.czzz.view.RoundImageView
+                    android:id="@+id/dev_us_avatar"
+                    android:layout_width="60dip"
+                    android:layout_height="60dip"
+                    android:layout_marginLeft="1dip"
+                    android:layout_marginRight="10dip"
+                    android:src="@drawable/kaicheng" />
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:singleLine="true"
+                        android:text="\@文井戎"
+                        android:shadowColor="#55000000"
+                        android:shadowDx="0"
+                        android:shadowDy="1"
+                        android:shadowRadius="1"
+                        android:textColor="@color/blue_white_selector"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginBottom="2dip"
+                        android:maxLines="2"
+                        android:text="Operation, Promoter"
+                        android:textColor="@color/explore_sub_color_selector"
+                        android:textSize="14sp" />
+                </RelativeLayout>
+            </LinearLayout>
+            
         </LinearLayout>
     </ScrollView>
 

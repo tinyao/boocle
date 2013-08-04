@@ -6,6 +6,7 @@ import java.util.Locale;
 
 import uk.co.senab.actionbarpulltorefresh.extras.actionbarsherlock.PullToRefreshAttacher;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -92,7 +93,7 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
+
         boolean finish = getIntent().getBooleanExtra("finish", false);
         if (finish) {
             startActivity(new Intent(this, LoginActivity.class));
@@ -340,6 +341,29 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
 	    });
 	    
 	    initSearchEdtAdapter();
+	    
+        menuNameTxt.setText(User.getInstance().name);
+        	if(User.getInstance().avatar.equals("")){
+            menuAvatarTxt.setText(User.getInstance().name.substring(0, 1).toUpperCase(Locale.CHINA));
+        }
+        MyApplication.imagesLoader.download(User.getInstance().avatar, menuAvatarImg);
+	    
+	    new Thread(){
+
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				super.run();
+				ArrayList<MsgThread> threads = MsgThreadHelper
+						.getInstance(HomeActivity.this).getCachedThread();
+				if(threads == null) return;
+				for(MsgThread th : threads){
+					unreadCount += th.unread_count;
+				}
+				mHandler.sendEmptyMessage(0);
+			}
+        	
+        }.start();
 	}
 	
 	private int currentSection = SectionID.SECTION_SAME_SCHOOL;
@@ -409,15 +433,19 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
 		imm.hideSoftInputFromWindow(searchEdt.getWindowToken(), 0);
 	}
 	
+	private ImageView menuAvatarImg;
+	private TextView menuNameTxt, menuAvatarTxt;
+	
 	@Override
 	protected View initDrawerView() {
 		// TODO Auto-generated method stub
 		LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE); 
         View drawerView = inflater.inflate(R.layout.menu_drawer_layout, null);
         
-        ImageView avatarImg = (ImageView) drawerView.findViewById(R.id.drawer_menu_user_avatar);
-        TextView nameTxt = (TextView) drawerView.findViewById(R.id.drawer_menu_user_name);
-        TextView avatarTxt = (TextView) drawerView.findViewById(R.id.drawer_menu_user_avatar_txt);
+        menuAvatarImg = (ImageView) drawerView.findViewById(R.id.drawer_menu_user_avatar);
+        menuNameTxt = (TextView) drawerView.findViewById(R.id.drawer_menu_user_name);
+        menuAvatarTxt = (TextView) drawerView.findViewById(R.id.drawer_menu_user_avatar_txt);
+        drawerView.findViewById(R.id.drawer_menu_addbook).setOnClickListener(menuClickListener);
         drawerView.findViewById(R.id.drawer_menu_user_lay).setOnClickListener(menuClickListener);
         drawerView.findViewById(R.id.drawer_menu_message).setOnClickListener(menuClickListener);
         drawerView.findViewById(R.id.drawer_menu_book).setOnClickListener(menuClickListener);
@@ -426,29 +454,6 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
         drawerView.findViewById(R.id.drawer_menu_douban).setOnClickListener(menuClickListener);;
         drawerView.findViewById(R.id.drawer_menu_setting).setOnClickListener(menuClickListener);;
         unreadTxt = (TextView)drawerView.findViewById(R.id.drawer_menu_msg_unread_txt);
-        
-        nameTxt.setText(User.getInstance().name);
-        if(User.getInstance().avatar.equals("")){
-        	avatarTxt.setText(User.getInstance().name.substring(0, 1).toUpperCase(Locale.CHINA));
-        }
-        MyApplication.imagesLoader.download(User.getInstance().avatar, avatarImg);
-        
-        new Thread(){
-
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				super.run();
-				ArrayList<MsgThread> threads = MsgThreadHelper
-						.getInstance(HomeActivity.this).getCachedThread();
-				if(threads == null) return;
-				for(MsgThread th : threads){
-					unreadCount += th.unread_count;
-				}
-				mHandler.sendEmptyMessage(0);
-			}
-        	
-        }.start();
         
         return drawerView;
 	}
@@ -581,8 +586,49 @@ public class HomeActivity extends DrawerBaseActivity implements PullToRefreshAtt
 			Intent settingIntent = new Intent(this, SettingActivity.class);
 			startActivity(settingIntent);
 			break;
+		case R.id.drawer_menu_addbook:
+			showBookAddDialog();
+			break;
 		}
 	}
+	
+	private void showBookAddDialog(){
+		LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view = inflater.inflate(R.layout.add_book_dialog, null);
+        final View scanV = (View) view.findViewById(R.id.add_book_to_scan);
+        final View searchV = (View) view.findViewById(R.id.add_book_to_search);
+        final AlertDialog chooseDialog = new AlertDialog.Builder(this)
+	    	.setTitle(R.string.add_books).setView(view)
+	    	.create();
+        scanV.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent i1 = new Intent("com.czzz.action.qrscan.addbook");
+				startActivityForResult(i1,0);
+				chooseDialog.dismiss();
+			}
+        	
+        });
+        searchV.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent i2 = new Intent(HomeActivity.this, BookSearchListActivity.class);
+				i2.putExtra("add_book_search", true);
+				startActivity(i2);
+				overridePendingTransition(R.anim.grow_from_bottom, R.anim.fade_out_exit);
+				chooseDialog.dismiss();
+			}
+        	
+        });
+    
+        chooseDialog.setCanceledOnTouchOutside(true);
+        chooseDialog.show();
+	}
+	
 	
 	/**
 	 * fetch nearby Books

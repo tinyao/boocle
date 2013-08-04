@@ -173,25 +173,7 @@
                 android:textColor="#fff"
                 android:textOff="关注Ta"
                 android:textOn="已关注"
-                android:textSize="12sp"
-                android:visibility="gone" />
-
-            <CheckBox
-                android:id="@+id/user_follow_ta"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/user_profile_btn"
-                android:layout_alignParentRight="true"
-                android:layout_alignTop="@+id/user_profile_btn"
-                android:layout_marginRight="10dp"
-                android:alpha="0.9"
-                android:button="@null"
-                android:gravity="center"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:text=""
-                android:textColor="#fff"
-                android:textSize="12sp" />
+                android:textSize="12sp"/>
 
             <TextView
                 android:id="@+id/user_desc"
