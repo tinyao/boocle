@@ -328,7 +328,7 @@
     </style>
     
     <style name="Theme.PageIndicatorDefaults" parent="android:Theme">
-        <item name="vpiTabPageIndicatorStyle">@style/Widget.TabPageIndicator</item>
+<!--         <item name="vpiTabPageIndicatorStyle">@style/Widget.TabPageIndicator</item> -->
     </style>
     
     <style name="Widget.ActionBar" parent="@style/Widget.Sherlock.Light.ActionBar.Solid.Inverse">

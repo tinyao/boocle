@@ -37,7 +37,7 @@
         <item name="android:actionBarTabTextStyle">@style/My.TabText.Inverse</item>
         <item name="android:actionBarTabStyle">@style/ActionBarTabStyle</item>
         <item name="actionBarTabStyle">@style/ActionBarTabStyle</item>
-        <item name="vpiTabPageIndicatorStyle">@style/Widget.TabPageIndicator</item>
+<!--         <item name="vpiTabPageIndicatorStyle">@style/Widget.TabPageIndicator</item> -->
         <item name="android:spinnerItemStyle">@style/MooSpinnerItem</item>
         <item name="android:spinnerDropDownItemStyle">@style/MooSpinnerItem.DropDownItem</item>
     </style>

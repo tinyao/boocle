@@ -4,6 +4,8 @@ import org.goodev.helpviewpager.HelpFragmentPagerAdapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import com.czzz.demo.R;
+
 
 public class SlideFragmentAdapter extends HelpFragmentPagerAdapter {
 	protected static final int[] CONTENT 

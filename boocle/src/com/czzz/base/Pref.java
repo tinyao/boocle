@@ -4,13 +4,13 @@ public class Pref {
 	
 	/* server request url */
 	
-	public static final String _BASE_URL = "http://42.121.55.88/";
+	public static final String _BASE_URL = "http://book.ycz.im/";
 	
 	public static final String VERSION_JSON_URL = _BASE_URL + "package/version-info.json";
 	
-	public static final String AVATAR_BASE_URL = "http://42.121.55.88/images/avatar/";
+	public static final String AVATAR_BASE_URL = "http://book.ycz.im/images/avatar/";
 	
-	public static final String BASE_URL = "http://42.121.55.88/index.php/";
+	public static final String BASE_URL = "http://book.ycz.im/index.php/";
 	
 	public static final String REGISTER_URL = BASE_URL + "User/register";
 
