@@ -76,7 +76,7 @@
                 android:background="@drawable/divider" />
 
             <TextView
-                android:id="@+id/collects_deals"
+                android:id="@id/collects_deals"
                 style="@style/settings_item"
                 android:layout_width="fill_parent"
                 android:layout_height="45.0dip"
@@ -93,7 +93,7 @@
                 android:background="@drawable/divider" />
 
             <TextView
-                android:id="@+id/collects_deals"
+                android:id="@id/collects_deals"
                 style="@style/settings_item"
                 android:layout_width="fill_parent"
                 android:layout_height="45.0dip"

@@ -5,10 +5,6 @@
         android:title="@string/refresh"
         android:icon="@drawable/ic_action_msg_send"
         android:showAsAction="ifRoom" />
-    
-    <item android:id="@+id/menu_notification"
-        android:title="@string/notification"
-        android:icon="@drawable/ic_action_msg_send"
-        android:showAsAction="ifRoom" />
+   
     
 </menu>

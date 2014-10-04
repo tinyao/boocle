@@ -125,7 +125,7 @@
                 android:padding="10dip" >
 
                 <com.czzz.view.RoundImageView
-                    android:id="@+id/dev_us_avatar"
+                    android:id="@id/dev_us_avatar"
                     android:layout_width="60dip"
                     android:layout_height="60dip"
                     android:layout_marginLeft="1dip"
@@ -172,7 +172,7 @@
                 android:padding="10dip" >
 
                 <com.czzz.view.RoundImageView
-                    android:id="@+id/dev_us_avatar"
+                    android:id="@id/dev_us_avatar"
                     android:layout_width="60dip"
                     android:layout_height="60dip"
                     android:layout_marginLeft="1dip"

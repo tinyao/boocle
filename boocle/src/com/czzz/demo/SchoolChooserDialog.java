@@ -11,6 +11,7 @@ import kankan.wheel.widget.adapters.ArrayWheelAdapter;
 
 import org.apache.http.message.BasicNameValuePair;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -33,11 +34,23 @@ import com.czzz.utils.HttpPostTask;
 import de.keyboardsurfer.android.widget.crouton.Crouton;
 import de.keyboardsurfer.android.widget.crouton.Style;
 
+@SuppressLint("Instantiatable")
 public class SchoolChooserDialog extends Dialog implements HttpListener{
 
 	private Context context;
 	public String updateUniversity;
 	public int updateUnivId = -1;
+
+	protected SchoolChooserDialog(Context context, boolean cancelable,
+			OnCancelListener cancelListener) {
+		super(context, cancelable, cancelListener);
+		// TODO Auto-generated constructor stub
+	}
+
+	public SchoolChooserDialog(Context context) {
+		super(context);
+		// TODO Auto-generated constructor stub
+	}
 	
     public SchoolChooserDialog(Context context, int style) {
 		super(context, style);
