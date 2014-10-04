@@ -7,6 +7,7 @@ import android.view.View.OnClickListener;
 
 import com.czzz.base.BaseActivity;
 import com.czzz.base.User;
+import com.czzz.demo.R;
 
 public class AboutDevUsActivity extends BaseActivity{
 

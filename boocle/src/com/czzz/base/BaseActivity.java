@@ -1,6 +1,11 @@
 package com.czzz.base;
 
 
+import me.imid.swipebacklayout.lib.SwipeBackLayout;
+import me.imid.swipebacklayout.lib.Utils;
+import me.imid.swipebacklayout.lib.app.SwipeBackActivityBase;
+import me.imid.swipebacklayout.lib.app.SwipeBackActivityHelper;
+
 import com.czzz.demo.R;
 
 import android.content.Intent;
@@ -13,12 +18,12 @@ import android.view.GestureDetector.SimpleOnGestureListener;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
 
-public class BaseActivity extends SherlockActivity{
+public class BaseActivity extends SherlockActivity implements SwipeBackActivityBase {
 	
 	protected ActionBar mActionBar;
 	
-	private GestureDetector gestureDetector;
-	private View.OnTouchListener gestureListener;
+	private SwipeBackActivityHelper mHelper;
+
     
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +36,8 @@ public class BaseActivity extends SherlockActivity{
         mActionBar.setDisplayShowTitleEnabled(true);
         mActionBar.setDisplayUseLogoEnabled(false);
         
+        mHelper = new SwipeBackActivityHelper(this);
+        mHelper.onActivityCreate();
 	}
 	
     @Override
@@ -38,20 +45,6 @@ public class BaseActivity extends SherlockActivity{
 		// TODO Auto-generated method stub
     	super.onResume();
 	}
-    
-    public void setGestureBackOn(){
-    	View contentView = this.getWindow().getDecorView().findViewById(android.R.id.content);
-    	gestureDetector = new GestureDetector(this, new MyGestureDetector());
-		gestureListener = new View.OnTouchListener() {
-			
-			@Override
-			public boolean onTouch(View v, MotionEvent event) {
-				// TODO Auto-generated method stub
-				return gestureDetector.onTouchEvent(event);
-			}
-		};
-		contentView.setOnTouchListener(gestureListener);
-    }
 
 	@Override
 	public boolean onOptionsItemSelected(
@@ -95,29 +88,37 @@ public class BaseActivity extends SherlockActivity{
 		super.startActivityForResult(intent, requestCode);
 		overridePendingTransition(R.anim.activity_scroll_from_right, R.anim.fade_out_exit);
 	}
-	
-	class MyGestureDetector extends SimpleOnGestureListener {
 
-		final ViewConfiguration vc = ViewConfiguration.get(getApplicationContext());
-		final int SWIPE_MIN_X = vc.getScaledPagingTouchSlop() * 10;
-		final int SWIPE_THRESHOLD_VELOCITY = vc.getScaledMinimumFlingVelocity() * 2;
-		final int SWIPE_MAX_OFFPATH = vc.getScaledTouchSlop();
-		
-		@Override
-		public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
-				float velocityY) {
-			// TODO Auto-generated method stub
-			
-			try{
-				if (e2.getX() - e1.getX() > SWIPE_MIN_X && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY){
-					finish(); //left
-				}
-			} catch (Exception e) {
-				
-			}
-			return false;
-		}
-	}
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        mHelper.onPostCreate();
+    }
+
+    @Override
+    public View findViewById(int id) {
+        View v = super.findViewById(id);
+        if (v == null && mHelper != null)
+            return mHelper.findViewById(id);
+        return v;
+    }
+
+    @Override
+    public SwipeBackLayout getSwipeBackLayout() {
+        return mHelper.getSwipeBackLayout();
+    }
+
+    @Override
+    public void setSwipeBackEnable(boolean enable) {
+        getSwipeBackLayout().setEnableGesture(enable);
+    }
+
+    @Override
+    public void scrollToFinishActivity() {
+        Utils.convertActivityToTranslucent(this);
+        getSwipeBackLayout().scrollToFinishActivity();
+    }
 }
 
 
