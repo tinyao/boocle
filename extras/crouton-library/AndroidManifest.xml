@@ -21,6 +21,6 @@
     android:versionCode="1"
     android:versionName="1.8.1">
     
-    <uses-sdk android:minSdkVersion="4" />
+    <uses-sdk android:minSdkVersion="8" />
 
 </manifest>
