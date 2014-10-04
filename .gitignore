@@ -1,5 +1,4 @@
 # build application filter
-*.apk
 *.ap_
 
 # files for dex VM
